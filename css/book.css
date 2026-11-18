@@ -1,0 +1,241 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ANHAD '26 — 3D PHYSICAL BOOK SHELL & REALISTIC STPAGEFLIP STYLES
+   ═════════════════════════════════════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--desk-dark);
+  color: var(--ink-primary);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scholar's Mahogany Desk with Ambient Lamp Light */
+body {
+  background-image:
+    radial-gradient(ellipse 65% 55% at 50% 40%, rgba(240, 206, 122, 0.12) 0%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(255, 170, 50, 0.15) 0%, transparent 45%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 10px),
+    repeating-linear-gradient(0deg, var(--desk-dark) 0px, var(--desk-mid) 18px, var(--desk-dark) 36px);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Book Stage */
+.book-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem 4.5rem;
+  perspective: 2500px;
+  position: relative;
+  min-height: calc(100vh - 4rem);
+}
+
+/* Container holding the physical book */
+.book-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* StPageFlip Host Element */
+#flipbook {
+  margin: 0 auto;
+  box-shadow: 
+    0 35px 80px -15px rgba(0, 0, 0, 0.85),
+    0 15px 30px -10px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  background-color: var(--morocco-deep);
+  transition: transform 0.4s ease;
+}
+
+/* Each Page Leaf in StPageFlip */
+.page {
+  background-color: var(--paper-cream);
+  color: var(--ink-primary);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Page inner content container */
+.page-content {
+  width: 100%;
+  height: 100%;
+  padding: 2.2rem 2.2rem 2.8rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: var(--paper-cream);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 70%, rgba(184, 134, 30, 0.06) 100%),
+    repeating-linear-gradient(0deg, transparent 0px, transparent 29px, rgba(207, 156, 52, 0.04) 30px);
+}
+
+@media (max-width: 640px) {
+  .page-content {
+    padding: 1.5rem 1.25rem 2.2rem;
+  }
+}
+
+/* Left Page vs Right Page Spine Shadow Gradients */
+.page.-left .page-content {
+  box-shadow: inset -26px 0 35px -15px rgba(22, 14, 7, 0.28);
+  border-right: 1px solid var(--paper-edge);
+}
+
+.page.-right .page-content {
+  box-shadow: inset 26px 0 35px -15px rgba(22, 14, 7, 0.28);
+}
+
+/* ═══════════════════════════════════════════════════
+   HARDCOVER LEATHERS (FRONT & BACK COVERS)
+   ═══════════════════════════════════════════════════ */
+.page-cover {
+  background: radial-gradient(120% 85% at 50% 15%, var(--morocco-light) 0%, var(--morocco-teal) 55%, var(--morocco-deep) 100%) !important;
+  color: #f7e6c4;
+  box-shadow:
+    inset 0 0 0 7px var(--morocco-deep),
+    inset 0 0 0 9px var(--gold-bright),
+    inset 0 0 0 11px var(--morocco-teal),
+    inset 22px 0 30px -10px rgba(0, 0, 0, 0.85);
+  border-radius: 6px 14px 14px 6px;
+  position: relative;
+}
+
+.page-cover.-left {
+  border-radius: 14px 6px 6px 14px;
+}
+
+.cover-content {
+  width: 100%;
+  height: 100%;
+  padding: 2.2rem 1.8rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Geometric Indian Textile Weave Band */
+.band-border {
+  width: calc(100% - 20px);
+  height: 14px;
+  border-block: 2px solid var(--gold-bright);
+  background: repeating-conic-gradient(from 45deg, #8b1328 0 25%, #e8a33a 0 50%, #0a332d 0 75%, #1c1b4a 0 100%) 0 0 / 14px 14px;
+}
+
+/* Silk Bookmark Ribbon */
+.silk-ribbon {
+  position: absolute;
+  top: -6px;
+  right: 14%;
+  width: 28px;
+  height: 82px;
+  background: linear-gradient(180deg, #d41e69 0%, #850f38 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  z-index: 25;
+  cursor: pointer;
+  transition: height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.silk-ribbon:hover {
+  height: 96px;
+}
+.silk-ribbon::after {
+  content: "❦";
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--gold-bright);
+}
+
+/* Rotating Sacred Mandala Watermark */
+@keyframes slowSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.mandala-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  opacity: 0.08;
+  color: var(--gold-bright);
+  animation: slowSpin 90s linear infinite;
+}
+
+/* Marbled Endpapers for Inside Cover */
+.page-endpaper {
+  background:
+    radial-gradient(ellipse at 25% 45%, rgba(139, 19, 40, 0.12) 0, transparent 65%),
+    radial-gradient(ellipse at 75% 30%, rgba(207, 156, 52, 0.14) 0, transparent 55%),
+    radial-gradient(ellipse at 50% 80%, rgba(10, 51, 45, 0.12) 0, transparent 60%),
+    repeating-linear-gradient(45deg, transparent 0 8px, rgba(207, 156, 52, 0.05) 8px 9px),
+    repeating-linear-gradient(-45deg, transparent 0 10px, rgba(139, 19, 40, 0.04) 10px 11px),
+    var(--paper-vellum) !important;
+}
+
+/* Custom Scrollable Area inside Page */
+.page-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  padding-right: 0.35rem;
+  margin-right: -0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-antique) transparent;
+}
+.page-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.page-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page-scroll::-webkit-scrollbar-thumb {
+  background: var(--gold-antique);
+  border-radius: 999px;
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE DECK STACKING EDGES (Physical Book Thickness)
+   ═══════════════════════════════════════════════════ */
+.book-wrapper::before,
+.book-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  width: 10px;
+  z-index: -1;
+  background: repeating-linear-gradient(90deg, #f5ebd0 0px, #e4d3b0 2px, #caa87b 3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+.book-wrapper::before {
+  left: -9px;
+  border-radius: 6px 0 0 6px;
+}
+.book-wrapper::after {
+  right: -9px;
+  border-radius: 0 6px 6px 0;
+}

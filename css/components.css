@@ -1,0 +1,280 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ANHAD '26 — EDITORIAL COMPONENTS & REAL FESTIVAL EXHIBITS
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* ── 3-DAY SAGA CARDS (AARAMBH, SAMVAAD, NAAD) ── */
+.day-saga-card {
+  border: 1.5px solid var(--gold-antique);
+  border-radius: 12px;
+  background: var(--paper-vellum);
+  padding: 1rem 1.15rem;
+  margin-bottom: 0.75rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+.day-saga-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--head-crimson);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.day-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--head-crimson);
+  margin-bottom: 0.35rem;
+}
+
+.day-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--head-teal);
+  margin: 0.15rem 0 0.35rem 0;
+}
+
+.day-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+/* ── BHAGAT SINGH REVOLUTIONARY EXHIBIT ── */
+.revolutionary-box {
+  border: 2px solid var(--head-crimson);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(132, 18, 35, 0.05) 0%, rgba(207, 156, 52, 0.08) 100%), var(--paper-cream);
+  padding: 1.15rem;
+  margin: 0.85rem 0;
+  position: relative;
+}
+.revolutionary-box::before {
+  content: "★";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper-cream);
+  color: var(--head-crimson);
+  padding: 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* ── SUFI & DASTANGOI HIGHLIGHT ── */
+.sufi-verse-card {
+  background: radial-gradient(circle at 50% 30%, rgba(10, 51, 45, 0.07) 0%, transparent 70%), var(--paper-vellum);
+  border: 1.5px solid var(--head-teal);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  margin: 0.8rem 0;
+}
+
+/* ── NAVARASA INTERACTIVE WHEEL (SPREAD 1) ── */
+.rasa-pill {
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1.5px solid var(--gold-antique);
+  background: var(--paper-cream);
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.rasa-pill:hover {
+  border-color: var(--head-crimson);
+  background: var(--paper-vellum);
+}
+.rasa-pill.active {
+  background: var(--head-teal);
+  color: #ffffff;
+  border-color: var(--head-teal);
+  box-shadow: 0 2px 8px rgba(8, 59, 53, 0.35);
+}
+
+/* ── PERFORATED TICKET PASSES (SPREAD 4) ── */
+.ticket-pass {
+  position: relative;
+  padding: 1.25rem 1.4rem;
+  border: 2px dashed var(--gold-antique);
+  border-radius: 12px;
+  background: 
+    radial-gradient(circle at 0 50%, var(--paper-cream) 12px, transparent 13px),
+    radial-gradient(circle at 100% 50%, var(--paper-cream) 12px, transparent 13px),
+    var(--paper-vellum);
+  text-align: center;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ── BUTTONS (HIGH CONTRAST & ROYAL BRASS) ── */
+.btn-royal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--gold-leaf);
+  background: linear-gradient(180deg, #f7e096 0%, #cf9c34 100%);
+  color: #1e1305 !important;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.btn-royal:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 6px 18px rgba(184, 134, 30, 0.38);
+}
+.btn-royal:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--head-teal);
+  background: transparent;
+  color: var(--head-teal) !important;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-outline:hover {
+  background: var(--head-teal);
+  color: #ffffff !important;
+}
+
+/* ── WAX SEAL BADGE ── */
+.wax-seal {
+  display: inline-grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b81d45 0%, #6e0b24 85%);
+  color: #fff1f4;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1.5px dashed rgba(240, 206, 122, 0.7);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), inset 0 0 5px rgba(0,0,0,0.6);
+  flex-shrink: 0;
+}
+
+/* ── INK YOUR VERSE MARGINALIA FEED ── */
+.verse-entry {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--paper-edge);
+  background: var(--paper-cream);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ── TOC DOTTED LIST ── */
+.toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.toc-item:hover {
+  background: var(--paper-vellum);
+}
+.toc-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--head-crimson);
+  min-width: 2.2rem;
+}
+.toc-name {
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 2px dotted var(--gold-antique);
+  opacity: 0.45;
+  min-width: 1rem;
+}
+.toc-sub {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--head-crimson);
+  font-weight: 700;
+}
+
+/* ── CAMPUS CARTOGRAPHY SCHEMATIC ── */
+.map-container {
+  border: 2px solid var(--gold-antique);
+  border-radius: 12px;
+  background: var(--paper-vellum);
+  padding: 0.75rem;
+  margin: 0.6rem 0;
+}
+
+/* ── ACCORDION FAQ ── */
+details {
+  border-bottom: 1px solid var(--paper-edge);
+  padding: 0.6rem 0;
+}
+summary {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--head-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "▾";
+  color: var(--gold-antique);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+details[open] summary::after {
+  transform: rotate(180deg);
+}

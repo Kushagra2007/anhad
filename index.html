@@ -1,2629 +1,796 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ANHAD (अनहद) — Galgotias Literature Fest | GCET</title>
-<meta name="description" content="Anhad, the Galgotias Literature Fest at GCET, Greater Noida. An interactive royal book of poetry, stories, and unstruck sound. Coming soon.">
-<meta name="theme-color" content="#0a3732">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Tiro+Devanagari+Hindi&display=swap">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-:root {
-  --serif: 'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
-  --hi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', Mangal, serif;
-  --desk: #24170f;
-  --desk-grain: #1b100a;
-  --paper: #fbf3df;
-  --paper2: #f2e4c2;
-  --paper-edge: #dfd0ae;
-  --ink: #2b2218;
-  --muted: #6e5c44;
-  --line: #d9c597;
-  --head: #0f4f47;
-  --accent: #b5195a;
-  --gold: #c9972f;
-  --gold2: #ecc86f;
-  --deep: #0a3732;
-  --deep2: #06231f;
-  --spine-shadow: rgba(20, 12, 5, 0.28);
-  color-scheme: light;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ANHAD '26 (अनहद) — Galgotias Literature Fest | GCET</title>
+  <meta name="description" content="ANHAD '26 — The grand three-day literature festival at Galgotias College of Engineering & Technology (GCET), Greater Noida. 26-28 November 2026.">
+  <meta name="theme-color" content="#07211d">
 
-:root[data-theme="dark"] {
-  --desk: #070d0c;
-  --desk-grain: #040807;
-  --paper: #12211d;
-  --paper2: #182b26;
-  --paper-edge: #263d36;
-  --ink: #f2e6c9;
-  --muted: #b8a786;
-  --line: #2d443c;
-  --head: #ecc86f;
-  --accent: #f472b6;
-  --gold: #d4a338;
-  --gold2: #f5d782;
-  --deep: #072622;
-  --deep2: #041715;
-  --spine-shadow: rgba(0, 0, 0, 0.65);
-  color-scheme: dark;
-}
+  <!-- Favicon / Touch Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: var(--serif);
-  color: var(--ink);
-  background-color: var(--desk);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Rich Antique Wooden Scholar's Desk Background */
-body {
-  background-image:
-    radial-gradient(circle at 50% 35%, rgba(236, 200, 111, 0.10) 0%, transparent 65%),
-    radial-gradient(circle at 88% 18%, var(--diya-glow, rgba(255, 165, 50, 0.14)) 0%, transparent 35%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 9px),
-    repeating-linear-gradient(0deg, var(--desk) 0px, var(--desk-grain) 18px, var(--desk) 36px);
-  transition: background-color 0.5s ease, color 0.4s ease;
-}
-
-.hi {
-  font-family: var(--hi);
-  font-weight: 400;
-}
-
-/* Custom Scrollbar inside Book Pages */
-.page-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-.page-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.page-scroll::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 999px;
-}
-.page-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
-
-/* Top Floating Royal Brass Navigation Bar */
-.brass-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 60;
-  background: linear-gradient(180deg, rgba(10, 55, 50, 0.97) 0%, rgba(7, 38, 34, 0.94) 100%);
-  border-bottom: 2px solid var(--gold);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(10px);
-}
-
-/* 3D Stage & Perspective */
-.book-stage {
-  perspective: 2400px;
-  transform-style: preserve-3d;
-}
-
-/* Hardcover Closed Book (Front & Back Covers) */
-.granth-cover {
-  position: relative;
-  width: 100%;
-  max-width: 32rem;
-  margin: 0 auto;
-  color: #f5e6bc;
-  background:
-    radial-gradient(120% 80% at 50% 10%, #17695d 0%, var(--deep) 68%, var(--deep2) 100%);
-  border-radius: 8px 20px 20px 8px;
-  box-shadow:
-    inset 0 0 0 8px var(--deep),
-    inset 0 0 0 10px var(--gold2),
-    inset 22px 0 28px -12px rgba(0, 0, 0, 0.85),
-    -10px 0 0 #062420,
-    0 32px 60px -15px rgba(0, 0, 0, 0.85);
-  transform-origin: left center;
-  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
-}
-
-/* Stacked Gold-Edged Pages visible outside Cover */
-.granth-cover::before {
-  content: "";
-  position: absolute;
-  inset: 10px -12px -10px 14px;
-  z-index: -1;
-  border-radius: 4px 16px 16px 4px;
-  background: repeating-linear-gradient(90deg, #f9efd4 0 2px, #d6be89 2px 4px);
-  box-shadow: 6px 12px 28px rgba(0, 0, 0, 0.65);
-}
-
-/* Silk Bookmark Ribbon on Cover */
-.silk-ribbon {
-  position: absolute;
-  top: -12px;
-  right: 12%;
-  width: 28px;
-  height: 86px;
-  background: linear-gradient(180deg, #d41e69 0%, #8f0f44 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.45);
-  z-index: 15;
-  cursor: pointer;
-  transition: height 0.3s ease, transform 0.3s ease;
-}
-.silk-ribbon:hover {
-  height: 98px;
-}
-.silk-ribbon::after {
-  content: "❦";
-  position: absolute;
-  bottom: 22px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--gold2);
-}
-
-/* Phulkari / Geometric Indian Textile Band */
-.band-border {
-  height: 14px;
-  margin: 0 22px;
-  border-block: 2px solid var(--gold);
-  background: repeating-conic-gradient(from 45deg, #b5195a 0 25%, #e8a33a 0 50%, #0f4f47 0 75%, #1c1b4a 0 100%) 0 0 / 14px 14px;
-}
-
-/* Open Book Two-Page Spread Container */
-.open-book-shell {
-  position: relative;
-  width: 100%;
-  max-width: 74rem;
-  margin: 0 auto;
-  padding: 14px;
-  background: linear-gradient(90deg, #06231f 0%, #0d443d 6%, #0a3732 50%, #0d443d 94%, #06231f 100%);
-  border-radius: 16px;
-  border: 2px solid var(--gold);
-  box-shadow:
-    0 34px 70px -15px rgba(0, 0, 0, 0.85),
-    inset 0 0 0 3px #072824,
-    inset 0 0 0 4px rgba(236, 200, 111, 0.35);
-  transform-style: preserve-3d;
-}
-
-/* Stacked Paper Thickness Edges Left & Right */
-.open-book-shell::before,
-.open-book-shell::after {
-  content: "";
-  position: absolute;
-  top: 18px;
-  bottom: 18px;
-  width: 12px;
-  z-index: 1;
-  background: repeating-linear-gradient(90deg, var(--paper) 0px, var(--paper-edge) 2px, #cbb482 3px);
-}
-.open-book-shell::before {
-  left: 4px;
-  border-radius: 6px 0 0 6px;
-}
-.open-book-shell::after {
-  right: 4px;
-  border-radius: 0 6px 6px 0;
-}
-
-.spread-grid {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr;
-  background: var(--paper);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
-}
-
-@media (min-width: 1024px) {
-  .spread-grid {
-    grid-template-columns: 1fr 1fr;
-    min-height: 43rem;
-  }
-}
-
-/* Individual Left and Right Manuscript Pages */
-.book-leaf {
-  position: relative;
-  padding: 2.1rem 1.8rem 3.4rem;
-  background-color: var(--paper);
-  background-image:
-    radial-gradient(circle at 50% 50%, transparent 65%, rgba(180, 145, 85, 0.08) 100%),
-    repeating-linear-gradient(0deg, transparent 0px, transparent 27px, rgba(201, 151, 47, 0.05) 28px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-@media (min-width: 640px) {
-  .book-leaf {
-    padding: 2.4rem 2.5rem 3.6rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .book-leaf.leaf-left {
-    border-right: 1px solid var(--line);
-    box-shadow: inset -28px 0 36px -18px var(--spine-shadow);
-  }
-  .book-leaf.leaf-right {
-    box-shadow: inset 28px 0 36px -18px var(--spine-shadow);
-  }
-}
-
-/* Central Spine Seam on Desktop */
-.spine-hinge {
-  display: none;
-}
-@media (min-width: 1024px) {
-  .spine-hinge {
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 34px;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(15, 10, 4, 0.16) 35%,
-      rgba(45, 32, 12, 0.38) 50%,
-      rgba(15, 10, 4, 0.16) 65%,
-      transparent 100%);
-    pointer-events: none;
-    z-index: 20;
-  }
-}
-
-/* 3D Page Flip Animation Keyframes */
-@keyframes pageTurnNext {
-  0% {
-    transform: perspective(2000px) rotateY(0deg);
-    filter: brightness(1);
-  }
-  40% {
-    transform: perspective(2000px) rotateY(-14deg) scale(0.99);
-    filter: brightness(0.92);
-  }
-  100% {
-    transform: perspective(2000px) rotateY(0deg);
-    filter: brightness(1);
-  }
-}
-
-@keyframes pageTurnPrev {
-  0% {
-    transform: perspective(2000px) rotateY(0deg);
-    filter: brightness(1);
-  }
-  40% {
-    transform: perspective(2000px) rotateY(14deg) scale(0.99);
-    filter: brightness(0.92);
-  }
-  100% {
-    transform: perspective(2000px) rotateY(0deg);
-    filter: brightness(1);
-  }
-}
-
-.anim-turn-next {
-  animation: pageTurnNext 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.anim-turn-prev {
-  animation: pageTurnPrev 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Interactive Page Curl Corner */
-.page-curl-btn {
-  position: absolute;
-  bottom: 0;
-  width: 44px;
-  height: 44px;
-  z-index: 25;
-  cursor: pointer;
-  transition: width 0.25s ease, height 0.25s ease;
-  border: none;
-  padding: 0;
-}
-.page-curl-btn.curl-right {
-  right: 0;
-  border-radius: 14px 0 0 0;
-  background: linear-gradient(315deg, var(--gold) 48%, var(--paper2) 50%);
-  box-shadow: -4px -4px 10px rgba(0,0,0,0.18);
-}
-.page-curl-btn.curl-left {
-  left: 0;
-  border-radius: 0 14px 0 0;
-  background: linear-gradient(45deg, var(--gold) 48%, var(--paper2) 50%);
-  box-shadow: 4px -4px 10px rgba(0,0,0,0.18);
-}
-.page-curl-btn:hover {
-  width: 58px;
-  height: 58px;
-}
-
-/* Ornamental Corner Filigree inside Pages */
-.corner-ornament {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  pointer-events: none;
-  opacity: 0.45;
-  color: var(--gold);
-}
-.corner-tl { top: 10px; left: 10px; }
-.corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
-.corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
-.corner-br { bottom: 10px; right: 10px; transform: scale(-1, -1); }
-
-/* Typography & Literary Elements */
-.ch-label {
-  margin: 0;
-  text-align: center;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.page-title {
-  margin: 0.15rem 0 0.7rem;
-  text-align: center;
-  font-size: clamp(1.65rem, 3.2vw, 2.25rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--head);
-}
-
-.page-title::after {
-  content: "─── ❦ ───";
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  color: var(--gold);
-  margin-top: 0.2rem;
-}
-
-.drop-cap::first-letter {
-  float: left;
-  margin: 0.04em 0.14em 0 0;
-  padding: 0.08em 0.16em;
-  font-size: 3.6rem;
-  line-height: 0.82;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--paper2);
-  border: 1.5px solid var(--gold);
-  border-radius: 6px;
-  box-shadow: 2px 2px 0 rgba(201, 151, 47, 0.35);
-}
-
-.folio-num {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.75rem;
-  text-align: center;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: var(--muted);
-  pointer-events: none;
-}
-
-/* Royal Buttons */
-.btn-royal {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  padding: 0.65rem 1.35rem;
-  border: 1.5px solid var(--gold);
-  border-radius: 999px;
-  font: 700 1.02rem/1.1 var(--serif);
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  color: #261804;
-  background: linear-gradient(180deg, #f6df96 0%, #cf9a2f 100%);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-.btn-royal:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow: 0 8px 20px rgba(201, 151, 47, 0.38);
-}
-
-.btn-outline-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  padding: 0.6rem 1.25rem;
-  border: 1.5px solid var(--gold);
-  border-radius: 999px;
-  font: 700 1rem/1.1 var(--serif);
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  color: var(--gold2);
-  background: rgba(10, 55, 50, 0.45);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.btn-outline-gold:hover {
-  background: rgba(201, 151, 47, 0.2);
-  transform: translateY(-2px);
-}
-
-.book-leaf .btn-outline-gold {
-  color: var(--head);
-  border-color: var(--head);
-  background: transparent;
-}
-.book-leaf .btn-outline-gold:hover {
-  background: var(--paper2);
-}
-
-/* TOC Dotted Leader List */
-.toc-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: ch-counter;
-}
-.toc-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  padding: 0.48rem 0.55rem;
-  border-radius: 8px;
-  counter-increment: ch-counter;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-.toc-item:hover {
-  background-color: var(--paper2);
-  transform: translateX(4px);
-}
-.toc-item::before {
-  content: counter(ch-counter, upper-roman) ".";
-  min-width: 2.1rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-.toc-dots {
-  flex: 1;
-  min-width: 1rem;
-  border-bottom: 2px dotted var(--muted);
-  opacity: 0.45;
-}
-
-/* Perforated Vintage Ticket Cards */
-.ticket-pass {
-  position: relative;
-  padding: 1.15rem 1.25rem;
-  border: 1.5px solid var(--gold);
-  border-radius: 12px;
-  background:
-    radial-gradient(circle at 0 50%, var(--paper) 10px, transparent 11px),
-    radial-gradient(circle at 100% 50%, var(--paper) 10px, transparent 11px),
-    var(--paper2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.ticket-pass:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.28);
-}
-
-/* Wax Seal Badge */
-.wax-seal {
-  display: inline-grid;
-  place-items: center;
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e02872, #850d3d 75%, #5c0729 100%);
-  color: #fce7f3;
-  font-size: 0.78rem;
-  font-weight: 700;
-  border: 2px dashed rgba(236, 200, 111, 0.6);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), inset 0 0 4px rgba(0,0,0,0.5);
-  flex-shrink: 0;
-}
-
-/* Jharokha Arch Card Frame */
-.jharokha-card {
-  position: relative;
-  border: 1.5px solid var(--gold);
-  border-radius: 28px 28px 8px 8px;
-  background: var(--paper2);
-  padding: 1rem 0.9rem 0.9rem;
-  text-align: center;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.jharokha-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-}
-
-/* Diya Flame Flicker */
-@keyframes flameFlicker {
-  0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
-  50% { transform: scale(1.12, 0.92) rotate(2deg); opacity: 1; }
-}
-.diya-flame {
-  transform-origin: bottom center;
-  animation: flameFlicker 1.8s infinite ease-in-out;
-}
-
-/* Ambient Rotating Mandala on Cover */
-@keyframes slowSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.mandala-spin {
-  animation: slowSpin 90s linear infinite;
-}
-
-/* Audio Equalizer Bars */
-@keyframes eqPulse {
-  0%, 100% { height: 4px; }
-  50% { height: 14px; }
-}
-.eq-bar {
-  width: 2.5px;
-  height: 4px;
-  background: var(--gold2);
-  border-radius: 2px;
-}
-.audio-playing .eq-bar:nth-child(1) { animation: eqPulse 0.7s infinite 0.1s; }
-.audio-playing .eq-bar:nth-child(2) { animation: eqPulse 0.55s infinite 0.25s; }
-.audio-playing .eq-bar:nth-child(3) { animation: eqPulse 0.8s infinite 0.05s; }
-.audio-playing .eq-bar:nth-child(4) { animation: eqPulse 0.65s infinite 0.35s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .mandala-spin, .diya-flame, .anim-turn-next, .anim-turn-prev {
-    animation: none !important;
-  }
-}
-
-/* ═══ UPGRADED ROYAL BRASS NAVBAR & AESTHETIC TABS ═══ */
-.brass-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 60;
-  background: linear-gradient(180deg, rgba(7, 36, 32, 0.98) 0%, rgba(4, 22, 20, 0.96) 100%);
-  border-bottom: 2px solid var(--gold);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(236, 200, 111, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.nav-ribbon {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0.2rem 0;
-}
-.nav-ribbon::-webkit-scrollbar { display: none; }
-
-.nav-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.42rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 151, 47, 0.25);
-  background: rgba(6, 35, 31, 0.45);
-  color: #e5cb91;
-  font-family: var(--serif);
-  font-size: 0.86rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  font-variant: small-caps;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.26s cubic-bezier(0.2, 0.8, 0.2, 1);
-  white-space: nowrap;
-  user-select: none;
-}
-.nav-tab .tab-icon {
-  width: 17px;
-  height: 17px;
-  stroke: var(--gold);
-  fill: none;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 0.25s ease, stroke 0.25s ease;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
-  flex-shrink: 0;
-}
-.nav-tab:hover {
-  color: #fff9ea;
-  border-color: rgba(236, 200, 111, 0.6);
-  background: rgba(201, 151, 47, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
-}
-.nav-tab:hover .tab-icon {
-  transform: scale(1.12);
-  stroke: #ecc86f;
-}
-.nav-tab.active-tab {
-  color: #24170f !important;
-  background: linear-gradient(180deg, #f7e4a6 0%, #d49f33 100%) !important;
-  border-color: #ffe6a3 !important;
-  box-shadow: 0 4px 15px rgba(201, 151, 47, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-  font-weight: 700;
-}
-.nav-tab.active-tab .tab-icon {
-  stroke: #24170f !important;
-  filter: none;
-}
-.nav-tab .tab-sub {
-  font-family: var(--hi);
-  font-size: 0.72rem;
-  opacity: 0.85;
-  font-variant: normal;
-  margin-left: 0.15rem;
-}
-
-.nav-fleuron {
-  color: rgba(201, 151, 47, 0.4);
-  font-size: 0.65rem;
-  user-select: none;
-  padding: 0 0.1rem;
-}
-
-/* ═══ 3D LEAF-TURNING ANIMATION ENGINE ═══ */
-.open-book-shell {
-  perspective: 2600px;
-}
-
-.turning-leaf-container {
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  width: calc(50% - 14px);
-  z-index: 45;
-  transform-style: preserve-3d;
-  pointer-events: none;
-  display: none;
-}
-
-.turning-leaf-container.turn-forward {
-  right: 14px;
-  transform-origin: left center;
-}
-
-.turning-leaf-container.turn-backward {
-  left: 14px;
-  transform-origin: right center;
-}
-
-.turning-leaf-container.animating {
-  display: block;
-}
-
-.turn-leaf-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 0 10px 10px 0;
-  overflow: hidden;
-  background-color: var(--paper);
-  background-image:
-    radial-gradient(circle at 50% 50%, transparent 65%, rgba(180, 145, 85, 0.08) 100%),
-    repeating-linear-gradient(0deg, transparent 0px, transparent 27px, rgba(201, 151, 47, 0.05) 28px);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-}
-
-.turn-leaf-front {
-  transform: rotateY(0deg);
-  border-radius: 0 10px 10px 0;
-  box-shadow: inset 24px 0 36px -18px var(--spine-shadow), 0 12px 35px rgba(0,0,0,0.4);
-}
-
-.turn-leaf-back {
-  transform: rotateY(180deg);
-  border-radius: 10px 0 0 10px;
-  border-right: 1px solid var(--line);
-  box-shadow: inset -24px 0 36px -18px var(--spine-shadow), 0 12px 35px rgba(0,0,0,0.4);
-}
-
-.turn-face-inner {
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  position: relative;
-  pointer-events: none;
-}
-
-/* Dynamic Page Cast Shadow */
-.page-shadow-curtain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, transparent 40%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Page Curl Corner Lift on Hover */
-.page-curl-btn {
-  transition: width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s ease !important;
-}
-.page-curl-btn.curl-right:hover {
-  width: 60px !important;
-  height: 60px !important;
-  transform: scale(1.05);
-  box-shadow: -6px -6px 14px rgba(0,0,0,0.3) !important;
-}
-.page-curl-btn.curl-left:hover {
-  width: 60px !important;
-  height: 60px !important;
-  transform: scale(1.05);
-  box-shadow: 6px -6px 14px rgba(0,0,0,0.3) !important;
-}
-
-</style>
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/book.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/navbar.css">
 </head>
-<body class="selection:bg-[#b5195a] selection:text-white">
+<body>
 
-<!-- Ambient Floating Golden Dust Canvas on the Scholar's Desk -->
-<canvas id="dustCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
-
-<!-- Reading Progress Gold Thread -->
-<div id="readingBar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-[#b5195a] via-[#ecc86f] to-[#c9972f] z-[70] transition-all duration-300" style="width: 14%;"></div>
-
-<!-- Top Royal Brass Navigation & Controls Bar -->
-<header class="brass-nav px-3 sm:px-5 py-2 text-[#ecc86f]">
-  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
-    <!-- Brand Emblem -->
-    <button onclick="goToSpread(0)" class="flex items-center gap-2.5 text-left group focus:outline-none" title="Return to Book Cover">
-      <div class="w-8 h-8 rounded-full border border-[var(--gold)] bg-[#072622] flex items-center justify-center shadow-inner group-hover:border-[#ecc86f] transition-all">
-        <span class="hi text-lg text-[#ecc86f]">अ</span>
-      </div>
-      <div>
-        <span class="hi text-2xl sm:text-3xl text-[#ecc86f] group-hover:text-white transition-colors leading-none block">अनहद</span>
-        <span class="text-[0.68rem] font-bold tracking-[0.28em] uppercase text-[#c9972f] block mt-0.5">ANHAD · GCET</span>
-      </div>
-    </button>
-
-    <!-- Aesthetic Brass Navigation Tabs with Ornate Icons -->
-    <nav class="nav-ribbon hidden lg:flex items-center">
-      <!-- Cover -->
-      <button onclick="goToSpread(0)" data-nav-spread="0" class="nav-tab active-tab" title="Front Cover">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
-          <path d="M6 2v20"/>
-          <path d="M12 7h5M12 11h4"/>
-        </svg>
-        <span>Cover</span>
-        <span class="tab-sub">मुख</span>
-      </button>
-
-      <span class="nav-fleuron">✦</span>
-
-      <!-- Preface & TOC -->
-      <button onclick="goToSpread(1)" data-nav-spread="1" class="nav-tab" title="Preface & Table of Contents">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <path d="M8 2h8a2 2 0 0 1 2 2v14a4 4 0 0 1-4 4H6a2 2 0 0 1-2-2V6a4 4 0 0 1 4-4Z"/>
-          <path d="M18 18a2 2 0 0 0-2-2H6"/>
-          <path d="M8 7h6M8 11h4"/>
-        </svg>
-        <span>I. Preface</span>
-        <span class="tab-sub">आमुख</span>
-      </button>
-
-      <span class="nav-fleuron">✦</span>
-
-      <!-- Explore & Schedule -->
-      <button onclick="goToSpread(2)" data-nav-spread="2" class="nav-tab" title="Explore Competitions & Timeline">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <path d="m19 2-8.5 8.5a2.12 2.12 0 0 0 0 3l1 1a2.12 2.12 0 0 0 3 0L23 6l-4-4Z"/>
-          <path d="m11 11-6.5 6.5a1.5 1.5 0 0 0-.4 1.1V21h2.4a1.5 1.5 0 0 0 1.1-.4L14 15"/>
-          <circle cx="6" cy="6" r="2.5"/>
-        </svg>
-        <span>II. Explore</span>
-        <span class="tab-sub">अध्याय</span>
-      </button>
-
-      <span class="nav-fleuron">✦</span>
-
-      <!-- Voices & Mehfil -->
-      <button onclick="goToSpread(3)" data-nav-spread="3" class="nav-tab" title="The Royal Mehfil & Quill Wall">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <path d="M9 18V5l12-2v13"/>
-          <circle cx="6" cy="18" r="3"/>
-          <circle cx="18" cy="16" r="3"/>
-          <path d="M12 8v10"/>
-        </svg>
-        <span>III. Mehfil</span>
-        <span class="tab-sub">महफ़िल</span>
-      </button>
-
-      <span class="nav-fleuron">✦</span>
-
-      <!-- Register & Visit -->
-      <button onclick="goToSpread(4)" data-nav-spread="4" class="nav-tab" title="Registration Passes & Campus Cartography">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <rect x="2" y="5" width="20" height="14" rx="2"/>
-          <line x1="2" y1="10" x2="22" y2="10" stroke-dasharray="2 2"/>
-          <circle cx="12" cy="14.5" r="2"/>
-          <path d="M12 12.5v4"/>
-        </svg>
-        <span>IV. Passes</span>
-        <span class="tab-sub">प्रवेश</span>
-      </button>
-
-      <span class="nav-fleuron">✦</span>
-
-      <!-- Patrons & FAQ -->
-      <button onclick="goToSpread(5)" data-nav-spread="5" class="nav-tab" title="Sponsors & Help Centre FAQ">
-        <svg class="tab-icon" viewBox="0 0 24 24">
-          <path d="M2 4l3 12h14l3-12-5 4-5-6-5 6-5-4z"/>
-          <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
-        </svg>
-        <span>V. Patrons</span>
-        <span class="tab-sub">जिज्ञासा</span>
-      </button>
-    </nav>
-
-    <!-- Interactive Desk & Cultural Controls -->
-    <div class="flex items-center gap-1.5 sm:gap-2">
-      <!-- View Mode Toggle: 3D Book vs Continuous Scroll -->
-      <button id="viewModeBtn" onclick="toggleViewMode()" class="px-2.5 py-1.5 rounded-full border border-[#c9972f]/60 bg-[#06231f]/90 text-xs sm:text-sm font-semibold tracking-wider hover:border-[#ecc86f] flex items-center gap-1.5 transition shadow-sm" title="Switch between 3D Interactive Flipbook and Continuous Scroll Manuscript">
-        <span id="viewModeIcon">📖</span>
-        <span id="viewModeLabel" class="hidden sm:inline">Scroll View</span>
-      </button>
-
-      <!-- Naad Sound FX Toggle with Animated Equalizer -->
-      <button id="soundToggleBtn" onclick="toggleSoundEngine()" class="px-2.5 py-1.5 rounded-full border border-[#ecc86f] bg-[#072e29] text-[#ecc86f] text-xs sm:text-sm font-semibold tracking-wider hover:brightness-110 flex items-center gap-1.5 transition shadow-sm" title="Toggle Tactile Page Rustle & Anhad Tanpura Chime">
-        <div id="eqContainer" class="flex items-end gap-0.5 h-3.5 audio-playing">
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
+  <!-- Top Royal Brass Navigation Bar -->
+  <header class="brass-nav">
+    <div class="brass-nav-inner">
+      <!-- Brand Crest -->
+      <a class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(0)">
+        <div class="brand-crest">अ</div>
+        <div>
+          <h1 class="brand-title">अनहद</h1>
+          <span class="brand-sub">ANHAD '26 · GCET</span>
         </div>
-        <span id="soundLabel" class="hidden md:inline">Naad On</span>
-      </button>
+      </a>
 
-      <!-- Brass Diya (Light Parchment vs Midnight Mehfil Dark Theme) -->
-      <button id="diyaBtn" onclick="toggleDiyaTheme()" class="px-2.5 py-1.5 rounded-full border border-[#c9972f]/60 bg-[#06231f]/90 text-xs sm:text-sm font-semibold tracking-wider hover:border-[#ecc86f] flex items-center gap-1.5 transition shadow-sm" title="Light the Brass Diya — Toggle Parchment / Midnight Mehfil Mode">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-          <path class="diya-flame" d="M12 2C12 2 16 6.5 16 9.5C16 11.7 14.2 13.5 12 13.5C9.8 13.5 8 11.7 8 9.5C8 6.5 12 2 12 2Z" fill="#ff9f1c"/>
-          <path d="M12 5.5C12 5.5 14 8 14 9.8C14 11 13.1 12 12 12C10.9 12 10 11 10 9.8C10 8 12 5.5 12 5.5Z" fill="#fff3b0"/>
-          <path d="M4 14H20L17.5 19.5C16.8 20.8 15.5 21.5 14 21.5H10C8.5 21.5 7.2 20.8 6.5 19.5L4 14Z" fill="#d4a338" stroke="#ecc86f" stroke-width="1.2"/>
-        </svg>
-        <span id="diyaLabel" class="hidden sm:inline">Mehfil Night</span>
-      </button>
-
-      <!-- Royal Register Button with Gold Emboss -->
-      <button onclick="goToSpread(4)" class="px-3.5 py-1.5 rounded-full bg-gradient-to-b from-[#f3d98c] to-[#cf9a2f] text-[#2a1c05] font-bold text-xs sm:text-sm tracking-wider shadow-md hover:brightness-105 active:scale-95 transition">
-        Register ↗
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ===================================================================== -->
-<!-- MAIN SCHOLAR'S DESK WORKSPACE                                         -->
-<!-- ===================================================================== -->
-<main class="relative z-10 pt-20 pb-24 px-3 sm:px-6 max-w-7xl mx-auto min-h-screen flex flex-col justify-center">
-
-  <!-- ================================================================= -->
-  <!-- MODE A: INTERACTIVE 3D FLIPBOOK VIEW                              -->
-  <!-- ================================================================= -->
-  <div id="bookFlipContainer" class="book-stage w-full my-auto">
-
-    <!-- --------------------------------------------------------------- -->
-    <!-- SPREAD 0: ORNATE ROYAL HARDCOVER (FRONT COVER)                  -->
-    <!-- --------------------------------------------------------------- -->
-    <section id="spread-0" class="book-spread">
-      <div class="granth-cover pb-8 pt-1 px-1">
-        <!-- Interactive Silk Bookmark Ribbon -->
-        <div class="silk-ribbon" onclick="goToSpread(1)" title="Open to Table of Contents"></div>
-
-        <!-- Traditional Geometric Phulkari / Mosaic Band -->
-        <div class="band-border mt-4"></div>
-
-        <!-- Rotating Subtle Mandala Watermark -->
-        <div class="relative overflow-hidden px-5 sm:px-9 pt-5 pb-2 text-center">
-          <svg class="mandala-spin pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-10 text-[#ecc86f]" viewBox="0 0 200 200" fill="none">
-            <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="1.2"/>
-            <circle cx="100" cy="100" r="48" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M100 12 L112 88 L188 100 L112 112 L100 188 L88 112 L12 100 L88 88 Z" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M38 38 L92 84 L162 38 L116 92 L162 162 L108 116 L38 162 L84 108 Z" stroke="currentColor" stroke-width="1"/>
+      <!-- Aesthetic Navigation Tabs with Handcrafted Vector Icons -->
+      <nav class="nav-ribbon">
+        <button class="nav-tab active-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)" title="Front Cover">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+            <path d="M6 2v20"/><path d="M11 6h5M11 10h4"/>
           </svg>
+          <span>Cover</span>
+          <span class="tab-sub">मुख</span>
+        </button>
 
-          <p class="relative z-10 text-xs sm:text-sm tracking-[0.42em] uppercase text-[#ecc86f] font-semibold">
-            GCET Presents · Royal Edition
-          </p>
+        <span class="nav-fleuron">✦</span>
 
-          <h1 class="hi relative z-10 mt-2 mb-0 text-[clamp(4.4rem,18vw,6.8rem)] leading-[1.08] text-[#ecc86f] drop-shadow-[0_4px_24px_rgba(236,200,111,0.35)]">
-            अनहद
-          </h1>
+        <button class="nav-tab" data-spread="1" onclick="window.anhadBook.turnToPage(1)" title="Preface & Table of Contents">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <path d="M8 2h8a2 2 0 0 1 2 2v14a4 4 0 0 1-4 4H6a2 2 0 0 1-2-2V6a4 4 0 0 1 4-4Z"/>
+            <path d="M18 18a2 2 0 0 0-2-2H6"/><path d="M8 7h6M8 11h4"/>
+          </svg>
+          <span>Preface</span>
+          <span class="tab-sub">आमुख</span>
+        </button>
 
-          <p class="relative z-10 m-0 pl-[0.55em] font-bold tracking-[0.55em] text-base sm:text-lg text-[#f3e3b5]">
-            ANHAD
-          </p>
+        <span class="nav-fleuron">✦</span>
 
-          <p class="relative z-10 mt-2 text-lg sm:text-xl tracking-[0.16em] uppercase text-[#ecc86f] font-semibold">
-            Galgotias Literature Fest
-          </p>
+        <button class="nav-tab" data-spread="2" onclick="window.anhadBook.turnToPage(3)" title="Three-Day Saga (Aarambh, Samvaad, Naad)">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <span>Three-Day Saga</span>
+          <span class="tab-sub">त्रि-दिवसीय</span>
+        </button>
 
-          <!-- Ornamental Divider -->
-          <div class="relative z-10 flex items-center justify-center gap-3 my-3 text-[#c9972f]">
-            <span class="h-px w-14 bg-[#c9972f]/60"></span>
-            <span>❦</span>
-            <span class="h-px w-14 bg-[#c9972f]/60"></span>
+        <span class="nav-fleuron">✦</span>
+
+        <button class="nav-tab" data-spread="3" onclick="window.anhadBook.turnToPage(5)" title="Bhagat Singh Exhibit & Sufi Mehfil">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            <path d="M2 2l7.586 7.586"/>
+            <circle cx="11" cy="11" r="2"/>
+          </svg>
+          <span>Revolution &amp; Mehfil</span>
+          <span class="tab-sub">कलम</span>
+        </button>
+
+        <span class="nav-fleuron">✦</span>
+
+        <button class="nav-tab" data-spread="4" onclick="window.anhadBook.turnToPage(7)" title="Registration Passes & Campus Map">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10" stroke-dasharray="2 2"/>
+            <circle cx="12" cy="14.5" r="2"/>
+          </svg>
+          <span>Passes &amp; Map</span>
+          <span class="tab-sub">प्रवेश</span>
+        </button>
+
+        <span class="nav-fleuron">✦</span>
+
+        <button class="nav-tab" data-spread="5" onclick="window.anhadBook.turnToPage(9)" title="Sponsors & Help Centre">
+          <svg class="tab-icon" viewBox="0 0 24 24">
+            <path d="M2 4l3 12h14l3-12-5 4-5-6-5 6-5-4z"/>
+            <circle cx="12" cy="19" r="1.5"/>
+          </svg>
+          <span>Patrons &amp; FAQ</span>
+          <span class="tab-sub">जिज्ञासा</span>
+        </button>
+      </nav>
+
+      <!-- Cultural & Sensory Controls -->
+      <div class="desk-controls">
+        <!-- Sound FX Toggle with Equalizer -->
+        <button class="control-btn" id="soundBtn" onclick="window.anhadAudio && window.anhadAudio.toggleSound()" title="Tactile Paper Rustle & Tanpura Chime">
+          <div class="eq-container audio-playing" id="eqContainer">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
           </div>
+          <span id="soundLabel">Naad On</span>
+        </button>
 
-          <p class="relative z-10 max-w-[28ch] mx-auto text-base sm:text-lg italic leading-snug text-[#cfe3da]">
-            अनहद (anhad) — boundless, without limit; the “unstruck sound” of Indian poetry and mysticism.
-          </p>
+        <!-- Brass Diya (Day Parchment vs. Mehfil Night) -->
+        <button class="control-btn" onclick="window.toggleDiyaMode()" title="Toggle Parchment / Midnight Mehfil Mode">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;">
+            <path class="diya-flame" d="M12 2C12 2 16 6.5 16 9.5C16 11.7 14.2 13.5 12 13.5C9.8 13.5 8 11.7 8 9.5C8 6.5 12 2 12 2Z" fill="#ff9f1c"/>
+            <path d="M12 5.5C12 5.5 14 8 14 9.8C14 11 13.1 12 12 12C10.9 12 10 11 10 9.8C10 8 12 5.5 12 5.5Z" fill="#fff3b0"/>
+            <path d="M4 14H20L17.5 19.5C16.8 20.8 15.5 21.5 14 21.5H10C8.5 21.5 7.2 20.8 6.5 19.5L4 14Z" fill="#d4a338" stroke="#ecc86f" stroke-width="1.2"/>
+          </svg>
+          <span id="diyaLabel">Mehfil</span>
+        </button>
 
-          <div class="relative z-10 mt-5 py-2.5 px-4 rounded-xl bg-black/25 border border-[#c9972f]/40 inline-block">
-            <p class="m-0 text-2xl sm:text-3xl tracking-[0.14em] uppercase font-bold text-[#ecc86f]">
-              Coming Soon
-            </p>
-            <p class="m-0 mt-0.5 text-xs tracking-[0.25em] uppercase text-[#cfe3da]">
-              Stay Tuned · Greater Noida
-            </p>
-            <p id="cd" class="m-0 mt-1.5 text-sm sm:text-base tracking-widest text-[#ecc86f] font-semibold">
-              Fest dates to be announced
-            </p>
-          </div>
-
-          <!-- Primary Action: Open the 3D Book -->
-          <div class="relative z-10 mt-6 flex flex-col items-center gap-3">
-            <button onclick="goToSpread(1)" class="btn-royal text-base sm:text-lg px-7 py-3 shadow-xl">
-              <span>Open the Granth (Enter Book)</span>
-              <span>➔</span>
-            </button>
-
-            <div class="flex flex-wrap items-center justify-center gap-2.5 pt-1">
-              <a class="btn-outline-gold text-xs sm:text-sm" data-link="luma" href="#register">
-                Attendees · Register on Luma ↗
-              </a>
-              <a class="btn-outline-gold text-xs sm:text-sm" data-link="unstop" href="#register">
-                Participants · Apply on Unstop ↗
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="band-border mt-5"></div>
+        <!-- Register CTA -->
+        <a class="btn-royal" data-link="luma" style="padding:0.42rem 1rem; font-size:0.82rem;" title="Reserve Attendee Pass">
+          Register ↗
+        </a>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- OPEN TWO-PAGE SPREADS SHELL (SPREADS 1 TO 5)                    -->
-    <!-- --------------------------------------------------------------- -->
-    <div id="openBookShell" class="open-book-shell hidden">
-      <!-- 3D Turning Leaf Overlay for Realistic Page Turning -->
-      <div id="turningLeaf" class="turning-leaf-container turn-forward">
-        <div class="turn-leaf-face turn-leaf-front">
-          <div id="turnFrontContent" class="turn-face-inner"></div>
-          <div class="page-shadow-curtain"></div>
-        </div>
-        <div class="turn-leaf-face turn-leaf-back">
-          <div id="turnBackContent" class="turn-face-inner"></div>
-          <div class="page-shadow-curtain"></div>
-        </div>
-      </div>
+  <!-- 3D Book Stage -->
+  <main class="book-stage">
+    <div class="book-wrapper">
+      
+      <!-- StPageFlip 3D Physical Book -->
+      <div id="flipbook">
 
-      <!-- Central Spine Shadow Hinge -->
-      <div class="spine-hinge"></div>
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 0: FRONT COVER (HARD LEATHER DENSITY)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page page-cover" data-density="hard">
+          <div class="cover-content">
+            <!-- Silk Bookmark Ribbon -->
+            <div class="silk-ribbon" onclick="window.anhadBook.turnToPage(1)" title="Pull Bookmark to Open"></div>
 
-      <!-- Movable Ribbon Bookmark inside Open Book -->
-      <div id="innerRibbon" onclick="goToSpread(4)" class="hidden lg:block silk-ribbon !top-[-10px] !right-[48.8%] !h-16 hover:!h-24" title="Bookmark: Jump to Registration Passes"></div>
+            <!-- Top Woven Textile Band -->
+            <div class="band-border"></div>
 
-      <!-- ============================================================= -->
-      <!-- SPREAD 1 (Pages i & ii): PREFACE & TABLE OF CONTENTS          -->
-      <!-- ============================================================= -->
-      <section id="spread-1" class="book-spread spread-grid hidden">
-        <!-- LEFT PAGE: FOLIO i (Preface & Navarasa Wheel) -->
-        <article class="book-leaf leaf-left page-scroll">
-          <!-- Gold Filigree Corners -->
-          <svg class="corner-ornament corner-tl" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h12v2H4v10H2V2zm4 4h6v1.5H7.5V12H6V6z"/></svg>
-          <svg class="corner-ornament corner-tr" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h12v2H4v10H2V2zm4 4h6v1.5H7.5V12H6V6z"/></svg>
+            <!-- Rotating Sacred Mandala Watermark -->
+            <svg class="mandala-watermark" viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="100" cy="100" r="48" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M100 12 L112 88 L188 100 L112 112 L100 188 L88 112 L12 100 L88 88 Z" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M38 38 L92 84 L162 38 L116 92 L162 162 L108 116 L38 162 L84 108 Z" stroke="currentColor" stroke-width="1"/>
+            </svg>
 
-          <div>
-            <p class="ch-label">Preface · आमुख</p>
-            <h2 class="page-title">A festival of words</h2>
-
-            <p class="drop-cap text-base sm:text-lg leading-relaxed mb-3">
-              Anhad is the literature fest of Galgotias College of Engineering &amp; Technology — an open book where stories, poems, ideas and voices share one stage. Whether you read, write, recite or simply love to listen, there is a chapter here with your name on it.
-            </p>
-
-            <!-- Interactive Cultural Feature: Navarasa (Moods of Indian Poetics) -->
-            <div class="mt-4 p-3.5 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/70">
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
-                  ✦ Interactive · Invoke a Literary Rasa
-                </span>
-                <span class="hi text-xs text-[var(--muted)]">नवरस काव्य</span>
-              </div>
-
-              <!-- Rasa Selector Pills -->
-              <div class="flex flex-wrap gap-1.5 mb-2.5" id="rasaButtons">
-                <button onclick="selectRasa('shanta')" data-rasa="shanta" class="rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--gold)] bg-[var(--head)] text-[#ecc86f] transition">
-                  शान्त · Mystic Peace
-                </button>
-                <button onclick="selectRasa('shringara')" data-rasa="shringara" class="rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">
-                  शृंगार ·Lyric Beauty
-                </button>
-                <button onclick="selectRasa('veera')" data-rasa="veera" class="rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">
-                  वीर · Courage
-                </button>
-                <button onclick="selectRasa('adbhuta')" data-rasa="adbhuta" class="rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">
-                  अद्भुत · Wonder
-                </button>
-              </div>
-
-              <!-- Selected Rasa Verse Box -->
-              <blockquote id="rasaVerseBox" class="m-0 pl-3 border-l-2 border-[var(--accent)] transition-opacity duration-300">
-                <p id="rasaHindi" class="hi text-base sm:text-lg text-[var(--head)] m-0 leading-snug">
-                  “हद चले सो मानवा, बेहद चले सो साध। हद बेहद दोनों तजे, ताकर मता अगाध॥”
-                </p>
-                <p id="rasaEng" class="text-sm italic text-[var(--muted)] m-0 mt-1">
-                  “Within limits walks the mortal; beyond limits walks the seeker. In the boundless unstruck sound (Anhad) lies infinite wisdom.” — Kabir
-                </p>
-              </blockquote>
-            </div>
-
-            <!-- Key Facts Grid from Original Page -->
-            <div class="grid grid-cols-3 gap-2 mt-4 text-center">
-              <div class="py-2 px-1.5 border-y border-[var(--line)]">
-                <b class="block text-xs tracking-[0.2em] uppercase text-[var(--head)]">When</b>
-                <span class="text-sm sm:text-base">Dates to be announced</span>
-              </div>
-              <div class="py-2 px-1.5 border-y border-[var(--line)]">
-                <b class="block text-xs tracking-[0.2em] uppercase text-[var(--head)]">Where</b>
-                <span class="text-sm sm:text-base">GCET Campus, Greater Noida</span>
-              </div>
-              <div class="py-2 px-1.5 border-y border-[var(--line)]">
-                <b class="block text-xs tracking-[0.2em] uppercase text-[var(--head)]">For</b>
-                <span class="text-sm sm:text-base">Readers, writers &amp; listeners</span>
-              </div>
-            </div>
-          </div>
-
-          <button onclick="goToSpread(0)" class="page-curl-btn curl-left" title="Close Book Cover"></button>
-          <span class="folio-num">— i —</span>
-        </article>
-
-        <!-- RIGHT PAGE: FOLIO ii (Interactive Table of Contents) -->
-        <article class="book-leaf leaf-right page-scroll">
-          <svg class="corner-ornament corner-tl" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h12v2H4v10H2V2zm4 4h6v1.5H7.5V12H6V6z"/></svg>
-          <svg class="corner-ornament corner-tr" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h12v2H4v10H2V2zm4 4h6v1.5H7.5V12H6V6z"/></svg>
-
-          <div>
-            <p class="ch-label">Explore · Table of Contents</p>
-            <h2 class="page-title">The chapters ahead</h2>
-            <p class="text-center text-sm italic text-[var(--muted)] -mt-2 mb-3">
-              Click any chapter below to inspect its literary charter or flip directly to that section.
-            </p>
-
-            <!-- Interactive Table of Contents -->
-            <ol class="toc-list text-base sm:text-lg">
-              <li class="toc-item" onclick="openEventCharter('poetry')">
-                <span class="font-semibold">Poetry &amp; Shayari <small class="hi text-xs text-[var(--muted)]">(महफ़िल-ए-सुख़न)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-              <li class="toc-item" onclick="openEventCharter('story')">
-                <span class="font-semibold">Story &amp; Script Writing <small class="hi text-xs text-[var(--muted)]">(कथा-पट)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-              <li class="toc-item" onclick="openEventCharter('author')">
-                <span class="font-semibold">Author Conversations <small class="hi text-xs text-[var(--muted)]">(संवाद)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-              <li class="toc-item" onclick="openEventCharter('openmic')">
-                <span class="font-semibold">Open Mic &amp; Stage <small class="hi text-xs text-[var(--muted)]">(आवाज़)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-              <li class="toc-item" onclick="openEventCharter('bookart')">
-                <span class="font-semibold">Poster &amp; Book Art <small class="hi text-xs text-[var(--muted)]">(चित्र-लेखा)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-              <li class="toc-item" onclick="openEventCharter('debate')">
-                <span class="font-semibold">Literary Quiz &amp; Shastrartha <small class="hi text-xs text-[var(--muted)]">(शास्त्रार्थ)</small></span>
-                <i class="toc-dots"></i>
-                <em class="text-sm text-[var(--accent)] font-semibold">TBA · View ↗</em>
-              </li>
-            </ol>
-
-            <p class="mt-3 text-center italic text-sm text-[var(--muted)]">
-              The full programme, dates and guests will be revealed soon.
-            </p>
-
-            <!-- Index of Book Spreads -->
-            <div class="mt-4 pt-3 border-t border-[var(--line)]">
-              <p class="text-xs font-bold uppercase tracking-[0.22em] text-center text-[var(--head)] mb-2">
-                Jump to Folio Spreads
+            <!-- Main Title & Emblem -->
+            <div style="position:relative; z-index:2; margin-top:0.8rem;">
+              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.38em; text-transform:uppercase; color:var(--gold-bright); margin:0; font-weight:700;">
+                GCET Student Council Presents
               </p>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                <button onclick="goToSpread(2)" class="p-2 rounded-lg border border-[var(--line)] bg-[var(--paper2)] hover:border-[var(--gold)] font-semibold transition">
-                  Folios iii–iv<br><span class="text-[var(--muted)]">Events &amp; Timeline</span>
-                </button>
-                <button onclick="goToSpread(3)" class="p-2 rounded-lg border border-[var(--line)] bg-[var(--paper2)] hover:border-[var(--gold)] font-semibold transition">
-                  Folios v–vi<br><span class="text-[var(--muted)]">Voices &amp; Quill Wall</span>
-                </button>
-                <button onclick="goToSpread(4)" class="p-2 rounded-lg border border-[var(--line)] bg-[var(--paper2)] hover:border-[var(--gold)] font-semibold transition">
-                  Folios vii–viii<br><span class="text-[var(--muted)]">Register &amp; Map</span>
-                </button>
-                <button onclick="goToSpread(5)" class="p-2 rounded-lg border border-[var(--line)] bg-[var(--paper2)] hover:border-[var(--gold)] font-semibold transition">
-                  Folios ix–x<br><span class="text-[var(--muted)]">Patrons &amp; FAQ</span>
-                </button>
-              </div>
-            </div>
-          </div>
 
-          <button onclick="goToSpread(2)" class="page-curl-btn curl-right" title="Turn to Next Spread (Folios iii & iv)"></button>
-          <span class="folio-num">— ii —</span>
-        </article>
-      </section>
+              <h1 style="font-family:var(--font-hindi); font-size:clamp(4.2rem, 11vw, 5.8rem); line-height:1.05; color:var(--gold-bright); margin:0.3rem 0 0; text-shadow:0 3px 18px rgba(240, 206, 122, 0.45);">
+                अनहद
+              </h1>
 
-      <!-- ============================================================= -->
-      <!-- SPREAD 2 (Pages iii & iv): EXPLORE CHAPTERS & SCHEDULE        -->
-      <!-- ============================================================= -->
-      <section id="spread-2" class="book-spread spread-grid hidden">
-        <!-- LEFT PAGE: FOLIO iii (Competitions, Workshops & Exhibitions) -->
-        <article class="book-leaf leaf-left page-scroll">
-          <div>
-            <p class="ch-label">Chapter I · Explore the Fest</p>
-            <h2 class="page-title">Literary &amp; Cultural Arena</h2>
+              <p style="font-family:var(--font-heading); font-size:1.35rem; font-weight:700; letter-spacing:0.45em; color:#f7e6c4; margin:0.2rem 0 0;">
+                ANHAD · 2026
+              </p>
 
-            <!-- Category Filter Pills -->
-            <div class="flex flex-wrap justify-center gap-1.5 mb-3">
-              <button onclick="filterChapters('all')" data-cat="all" class="cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--gold)] bg-[var(--head)] text-[#ecc86f] transition">All</button>
-              <button onclick="filterChapters('verse')" data-cat="verse" class="cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">Verse &amp; Stage</button>
-              <button onclick="filterChapters('prose')" data-cat="prose" class="cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">Prose &amp; Craft</button>
-              <button onclick="filterChapters('art')" data-cat="art" class="cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition">Art &amp; Panels</button>
+              <p style="font-family:var(--font-heading); font-size:1.15rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-bright); margin:0.4rem 0 0; font-weight:600;">
+                Galgotias Literature Fest
+              </p>
+
+              <div class="ornament-divider" style="margin:0.6rem auto; color:var(--gold-bright);">❦</div>
+
+              <p style="font-family:var(--font-serif); font-size:1rem; font-style:italic; line-height:1.45; color:#d2e5dd; max-width:28ch; margin:0 auto;">
+                “अनहद (Anhad) — boundless, without limit; the unstruck sound of Indian poetry and mysticism.”
+              </p>
             </div>
 
-            <!-- Interactive Chapter Grid -->
-            <div id="chapterCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <!-- Card 1 -->
-              <div data-chapter-cat="verse" onclick="openEventCharter('poetry')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter I · Verse</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Poetry &amp; Shayari</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">Slam poetry, Hindustani shayari, ghazal &amp; rhythmic recitation.</p>
-              </div>
+            <!-- Festival Dates & Countdown Badge -->
+            <div style="position:relative; z-index:2; padding:0.65rem 1.4rem; border-radius:12px; background:rgba(0,0,0,0.4); border:1.5px solid rgba(240, 206, 122, 0.45); margin:0.8rem 0;">
+              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#d2e5dd; margin:0; font-weight:700;">
+                26, 27, 28 November 2026 · Greater Noida
+              </p>
+              <p id="festCountdown" style="font-family:var(--font-ui); font-size:1.2rem; font-weight:700; color:var(--gold-bright); margin:0.25rem 0 0; letter-spacing:0.06em;">
+                Loading fest countdown...
+              </p>
+            </div>
 
-              <!-- Card 2 -->
-              <div data-chapter-cat="prose" onclick="openEventCharter('story')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter II · Prose</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Story &amp; Script Writing</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">On-the-spot short fiction, dramatic screenwriting &amp; micro-tales.</p>
-              </div>
+            <!-- Action CTA: Enter the Book -->
+            <div style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:0.6rem;">
+              <button onclick="window.anhadBook.turnToPage(1)" class="btn-royal" style="font-size:1.02rem; padding:0.75rem 2rem;">
+                <span>Open the Granth (Enter Book)</span>
+                <span>➔</span>
+              </button>
 
-              <!-- Card 3 -->
-              <div data-chapter-cat="art" onclick="openEventCharter('author')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter III · Dialogue</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Author Conversations</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">Fireside chats, book signings &amp; craft workshops with acclaimed writers.</p>
-              </div>
-
-              <!-- Card 4 -->
-              <div data-chapter-cat="verse" onclick="openEventCharter('openmic')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter IV · Stage</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Open Mic &amp; Stage</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">Unplugged storytelling, monologues, acoustic ballads &amp; spoken word.</p>
-              </div>
-
-              <!-- Card 5 -->
-              <div data-chapter-cat="art" onclick="openEventCharter('bookart')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter V · Visual</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Poster &amp; Book Art</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">redesigned book jackets, literary posters, zines &amp; calligraphy.</p>
-              </div>
-
-              <!-- Card 6 -->
-              <div data-chapter-cat="prose" onclick="openEventCharter('debate')" class="p-3 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/80 hover:border-[var(--gold)] cursor-pointer transition group">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Chapter VI · Intellect</span>
-                  <span class="text-xs px-2 py-0.5 rounded bg-[var(--paper)] border border-[var(--line)]">TBA</span>
-                </div>
-                <h3 class="text-lg font-bold text-[var(--head)] mt-0.5 group-hover:underline">Lit Quiz &amp; Shastrartha</h3>
-                <p class="text-sm text-[var(--muted)] m-0 leading-snug">Literary trivia, mythology, world classics &amp; parliamentary debate.</p>
+              <div style="display:flex; gap:0.6rem; margin-top:0.3rem;">
+                <a class="btn-outline" data-link="luma" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.78rem; padding:0.4rem 0.9rem;">
+                  Attendees (Luma) ↗
+                </a>
+                <a class="btn-outline" data-link="unstop" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.78rem; padding:0.4rem 0.9rem;">
+                  Competitions (Unstop) ↗
+                </a>
               </div>
             </div>
+
+            <!-- Bottom Woven Textile Band -->
+            <div class="band-border"></div>
           </div>
+        </div>
 
-          <button onclick="goToSpread(1)" class="page-curl-btn curl-left" title="Previous Spread (Folios i & ii)"></button>
-          <span class="folio-num">— iii —</span>
-        </article>
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 1: INSIDE COVER & PREFACE (FOLIO i)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page page-endpaper">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Preface · आमुख</p>
+              <h2 class="page-title">A Festival of Words</h2>
+              <div class="ornament-divider">❦</div>
 
-        <!-- RIGHT PAGE: FOLIO iv (Schedule, Guests & Media Timeline) -->
-        <article class="book-leaf leaf-right page-scroll">
-          <div>
-            <p class="ch-label">Schedule · Guests · Media</p>
-            <h2 class="page-title">The story so far</h2>
-            <p class="text-center text-sm sm:text-base text-[var(--muted)] -mt-2 mb-3">
-              We only publish what is confirmed. Each wax-sealed chapter below opens as it is announced.
-            </p>
+              <p class="drop-cap" style="font-size:1.06rem; line-height:1.75; color:var(--ink-primary); margin-bottom:0.8rem;">
+                Anhad is the premier literature festival of Galgotias College of Engineering &amp; Technology — an open book where stories, poems, ideas, and voices share one stage. Whether you read, write, recite, or simply love to listen, there is a chapter here with your name on it.
+              </p>
 
-            <!-- Interactive Wax-Seal Announcement Timeline -->
-            <ol class="space-y-2.5 m-0 p-0 list-none">
-              <li onclick="inspectSeal(0)" class="flex items-start gap-3 p-2.5 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/60 hover:border-[var(--gold)] cursor-pointer transition">
-                <span class="wax-seal">I</span>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <b class="text-base text-[var(--head)]">Fest dates &amp; venue</b>
-                    <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--paper)] border border-[var(--line)] text-[var(--muted)]">Coming soon</span>
-                  </div>
-                  <small class="block text-sm text-[var(--muted)]">GCET Campus, Knowledge Park II, Greater Noida · Dates TBA</small>
+              <!-- Interactive Navarasa Poetic Wheel -->
+              <div style="border:1.5px solid var(--gold-antique); border-radius:12px; background:var(--paper-cream); padding:0.85rem; margin:0.8rem 0;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-crimson);">
+                    ✦ Interactive · Invoke a Literary Rasa
+                  </span>
+                  <span style="font-family:var(--font-hindi); font-size:0.8rem; color:var(--ink-muted);">नवरस</span>
                 </div>
-              </li>
 
-              <li onclick="inspectSeal(1)" class="flex items-start gap-3 p-2.5 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/60 hover:border-[var(--gold)] cursor-pointer transition">
-                <span class="wax-seal">II</span>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <b class="text-base text-[var(--head)]">Day-wise schedule</b>
-                    <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--paper)] border border-[var(--line)] text-[var(--muted)]">Coming soon</span>
-                  </div>
-                  <small class="block text-sm text-[var(--muted)]">Stage timings, workshops &amp; venue-wise slots</small>
+                <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.6rem;">
+                  <button class="rasa-pill active" data-rasa="shanta" onclick="window.selectRasa('shanta')">शान्त · Peace</button>
+                  <button class="rasa-pill" data-rasa="shringara" onclick="window.selectRasa('shringara')">शृंगार · Romance</button>
+                  <button class="rasa-pill" data-rasa="veera" onclick="window.selectRasa('veera')">वीर · Valour</button>
+                  <button class="rasa-pill" data-rasa="adbhuta" onclick="window.selectRasa('adbhuta')">अद्भुत · Wonder</button>
                 </div>
-              </li>
 
-              <li onclick="inspectSeal(2)" class="flex items-start gap-3 p-2.5 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/60 hover:border-[var(--gold)] cursor-pointer transition">
-                <span class="wax-seal">III</span>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <b class="text-base text-[var(--head)]">Performers &amp; guests</b>
-                    <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--paper)] border border-[var(--line)] text-[var(--muted)]">Coming soon</span>
-                  </div>
-                  <small class="block text-sm text-[var(--muted)]">Authors, poets, storytellers &amp; cultural headliners</small>
-                </div>
-              </li>
-
-              <li onclick="goToSpread(4)" class="flex items-start gap-3 p-2.5 rounded-xl border-2 border-[var(--gold)] bg-[var(--paper2)] cursor-pointer transition">
-                <span class="wax-seal !bg-gradient-to-br !from-[#17695d] !to-[#0a3732]">IV</span>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <b class="text-base text-[var(--head)]">Registrations</b>
-                    <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#c9972f]/25 text-[var(--head)] font-bold">Portals Ready ➔</span>
-                  </div>
-                  <small class="block text-sm text-[var(--ink)]">Attendees on Luma · Participants on Unstop</small>
-                </div>
-              </li>
-
-              <li onclick="inspectSeal(4)" class="flex items-start gap-3 p-2.5 rounded-xl border border-[var(--line)] bg-[var(--paper2)]/60 hover:border-[var(--gold)] cursor-pointer transition">
-                <span class="wax-seal">V</span>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <b class="text-base text-[var(--head)]">Winners, Results &amp; Media</b>
-                    <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--paper)] border border-[var(--line)] text-[var(--muted)]">After the fest</span>
-                  </div>
-                  <small class="block text-sm text-[var(--muted)]">Event-wise laureates, certificates, photos &amp; official aftermovie</small>
-                </div>
-              </li>
-            </ol>
-
-            <p id="sealDetailNote" class="mt-2.5 text-center text-xs sm:text-sm italic text-[var(--accent)]">
-              ✦ Tip: Click any competition on the left leaf to read its full rules &amp; Unstop link.
-            </p>
-          </div>
-
-          <button onclick="goToSpread(3)" class="page-curl-btn curl-right" title="Turn to Next Spread (Folios v & vi)"></button>
-          <span class="folio-num">— iv —</span>
-        </article>
-      </section>
-
-      <!-- ============================================================= -->
-      <!-- SPREAD 3 (Pages v & vi): PERFORMERS & "INK YOUR VERSE" WALL   -->
-      <!-- ============================================================= -->
-      <section id="spread-3" class="book-spread spread-grid hidden">
-        <!-- LEFT PAGE: FOLIO v (Performers, Mehfil & Cultural Showcases) -->
-        <article class="book-leaf leaf-left page-scroll">
-          <div>
-            <p class="ch-label">Voices · Guests · Attractions</p>
-            <h2 class="page-title">The Royal Mehfil</h2>
-            <p class="text-center text-sm text-[var(--muted)] -mt-2 mb-3">
-              Curated literary and cultural experiences awaiting confirmation for this edition of Anhad.
-            </p>
-
-            <!-- 4 Ornate Jharokha Arch Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="jharokha-card">
-                <div class="text-2xl mb-1">🪶</div>
-                <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Mushaira &amp; Kavi Sammelan</span>
-                <h3 class="text-lg font-bold text-[var(--head)] my-0.5">Mehfil-e-Sukhan</h3>
-                <p class="text-xs sm:text-sm text-[var(--muted)] m-0 leading-snug">
-                  An evening of classical Urdu shayari, Hindi kavita, and contemporary spoken word under the stars.
-                </p>
-                <span class="inline-block mt-2 text-xs italic text-[var(--head)]">Lineup announcement soon</span>
+                <blockquote style="margin:0; padding-left:0.75rem; border-left:3px solid var(--head-crimson);">
+                  <p id="rasaHindi" style="font-family:var(--font-hindi); font-size:1.05rem; color:var(--head-teal); margin:0; line-height:1.45; font-weight:600;">
+                    “हद चले सो मानवा, बेहद चले सो साध। हद बेहद दोनों तजे, ताकर मता अगाध॥”
+                  </p>
+                  <p id="rasaTrans" style="font-family:var(--font-serif); font-size:0.88rem; font-style:italic; color:var(--ink-muted); margin:0.35rem 0 0; line-height:1.4;">
+                    “Within limits walks the mortal; beyond limits walks the seeker. In the boundless unstruck sound (Anhad) lies infinite wisdom.” — Kabir
+                  </p>
+                </blockquote>
               </div>
 
-              <div class="jharokha-card">
-                <div class="text-2xl mb-1">📜</div>
-                <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Oral Storytelling</span>
-                <h3 class="text-lg font-bold text-[var(--head)] my-0.5">Dastangoi &amp; Katha</h3>
-                <p class="text-xs sm:text-sm text-[var(--muted)] m-0 leading-snug">
-                  Reviving the 16th-century art of dramatic Urdu and Hindustani storytelling, folklore, and epics.
-                </p>
-                <span class="inline-block mt-2 text-xs italic text-[var(--head)]">Lineup announcement soon</span>
-              </div>
-
-              <div class="jharokha-card">
-                <div class="text-2xl mb-1">📚</div>
-                <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Keynotes &amp; Panels</span>
-                <h3 class="text-lg font-bold text-[var(--head)] my-0.5">Author Samvaad</h3>
-                <p class="text-xs sm:text-sm text-[var(--muted)] m-0 leading-snug">
-                  Candid conversations with bestselling novelists, screenwriters, journalists, and translators.
-                </p>
-                <span class="inline-block mt-2 text-xs italic text-[var(--head)]">Speaker reveal soon</span>
-              </div>
-
-              <div class="jharokha-card">
-                <div class="text-2xl mb-1">🪕</div>
-                <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Cultural Showcase</span>
-                <h3 class="text-lg font-bold text-[var(--head)] my-0.5">Anhad Naad Acoustic</h3>
-                <p class="text-xs sm:text-sm text-[var(--muted)] m-0 leading-snug">
-                  Folk, Sufi, and indie poetic ballads accompanied by a curated courtyard book fair &amp; art bazaar.
-                </p>
-                <span class="inline-block mt-2 text-xs italic text-[var(--head)]">Schedule coming soon</span>
+              <!-- Key Facts Summary -->
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; text-align:center; margin-top:0.8rem; border-top:1px solid var(--paper-edge); padding-top:0.6rem;">
+                <div>
+                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">When</b>
+                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">26–28 Nov 2026</span>
+                </div>
+                <div>
+                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">Where</b>
+                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">GCET Campus</span>
+                </div>
+                <div>
+                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">For</b>
+                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">Writers &amp; Readers</span>
+                </div>
               </div>
             </div>
+
+            <span class="folio-number">— i —</span>
           </div>
+        </div>
 
-          <button onclick="goToSpread(2)" class="page-curl-btn curl-left" title="Previous Spread (Folios iii & iv)"></button>
-          <span class="folio-num">— v —</span>
-        </article>
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 2: TABLE OF CONTENTS (FOLIO ii)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Index · विषय-सूची</p>
+              <h2 class="page-title">The Chapters Ahead</h2>
+              <div class="ornament-divider">❦</div>
 
-        <!-- RIGHT PAGE: FOLIO vi (Interactive "Ink Your Verse" Marginalia Wall) -->
-        <article class="book-leaf leaf-right page-scroll">
-          <div>
-            <p class="ch-label">Community · Interactive Marginalia</p>
-            <h2 class="page-title">Ink Your Verse</h2>
-            <p class="text-center text-sm text-[var(--muted)] -mt-2 mb-2.5">
-              Dip the quill and leave a two-line couplet, shayari, or literary reflection in the margins of Anhad.
-            </p>
+              <p style="font-size:0.95rem; font-style:italic; text-align:center; color:var(--ink-muted); margin-bottom:0.9rem;">
+                Click any chapter below to turn directly to that section.
+              </p>
 
-            <!-- Interactive Quill Form -->
-            <div class="p-3 rounded-xl border border-[var(--gold)] bg-[var(--paper2)]/90 space-y-2">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold uppercase tracking-wider text-[var(--muted)]">Ink:</span>
-                  <button type="button" onclick="setQuillInk('#b5195a')" class="w-5 h-5 rounded-full bg-[#b5195a] ring-2 ring-offset-1 ring-[#b5195a]" title="Sindoor Crimson"></button>
-                  <button type="button" onclick="setQuillInk('#0f4f47')" class="w-5 h-5 rounded-full bg-[#0f4f47]" title="Royal Emerald"></button>
-                  <button type="button" onclick="setQuillInk('#312e81')" class="w-5 h-5 rounded-full bg-[#312e81]" title="Midnight Indigo"></button>
-                  <button type="button" onclick="setQuillInk('#92400e')" class="w-5 h-5 rounded-full bg-[#92400e]" title="Sepia Gold"></button>
+              <ol class="toc-list">
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(3)">
+                  <span class="toc-num">I.</span>
+                  <span class="toc-name">Aarambh · The Beginning of Stories</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio iii ➔</span>
+                </li>
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(3)">
+                  <span class="toc-num">II.</span>
+                  <span class="toc-name">Samvaad · The Art of Conversation</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio iii ➔</span>
+                </li>
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(4)">
+                  <span class="toc-num">III.</span>
+                  <span class="toc-name">Naad · The Rhythm of Celebration</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio iv ➔</span>
+                </li>
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(5)">
+                  <span class="toc-num">IV.</span>
+                  <span class="toc-name">The Revolutionary Pen · Bhagat Singh</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio v ➔</span>
+                </li>
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(6)">
+                  <span class="toc-num">V.</span>
+                  <span class="toc-name">Mehfil-e-Sukhan · Sufi Night &amp; Quill Wall</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio vi ➔</span>
+                </li>
+                <li class="toc-item" onclick="window.anhadBook.turnToPage(7)">
+                  <span class="toc-num">VI.</span>
+                  <span class="toc-name">Passes &amp; Campus Cartography</span>
+                  <span class="toc-dots"></span>
+                  <span class="toc-sub">Folio vii ➔</span>
+                </li>
+              </ol>
+
+              <!-- Curated Official Festival Highlights Box -->
+              <div style="border:1.5px solid var(--paper-edge); border-radius:10px; background:var(--paper-vellum); padding:0.9rem; margin-top:1.1rem; text-align:center;">
+                <p style="font-family:var(--font-heading); font-size:1.15rem; font-weight:700; color:var(--head-crimson); margin:0 0 0.35rem 0;">
+                  “Three Days. Three Distinct Moods. A Thousand Stories.”
+                </p>
+                <p style="font-size:0.9rem; line-height:1.5; color:var(--ink-secondary); margin:0;">
+                  From turning pages to turning heads, from debating ideas to getting lost in Dastangoi, and from soulful Sufi melodies to celebration.
+                </p>
+              </div>
+            </div>
+
+            <span class="folio-number">— ii —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 3: THREE-DAY SAGA — AARAMBH & SAMVAAD (FOLIO iii)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">The Chronicles · दिवस वृत्त</p>
+              <h2 class="page-title">Days of Literature</h2>
+              <div class="ornament-divider">❦</div>
+
+              <!-- DAY 1: AARAMBH -->
+              <div class="day-saga-card">
+                <span class="day-badge">Day 1 · 26 November</span>
+                <h3 class="day-title">AARAMBH (आरम्भ) — The Beginning</h3>
+                <p class="day-desc">
+                  A day filled with books, authors, poetry, and fresh literary voices. Features the Grand Opening Ceremony, Keynote Samvaad, Classical Kavi Sammelan, and Freshers' Spoken Word Arena.
+                </p>
+                <div class="literary-quote" style="margin-top:0.5rem; font-size:0.92rem;">
+                  “Every age has its Kurukshetra, and every awakening begins with a word.”
                 </div>
-                <button type="button" onclick="fillPoeticPrompt()" class="text-xs font-bold text-[var(--accent)] hover:underline">
-                  ✨ Inspire Me (Sample Couplet)
-                </button>
               </div>
 
-              <textarea id="verseInput" rows="2" maxlength="160" placeholder="Write a couplet, shayari, or quote for the fest..." class="w-full p-2 rounded-lg border border-[var(--line)] bg-[var(--paper)] text-sm sm:text-base italic focus:outline-none focus:border-[var(--gold)]" style="color: #b5195a;"></textarea>
+              <!-- DAY 2: SAMVAAD -->
+              <div class="day-saga-card">
+                <span class="day-badge" style="background:var(--head-teal);">Day 2 · 27 November</span>
+                <h3 class="day-title">SAMVAAD (संवाद) — The Art of Conversation</h3>
+                <p class="day-desc">
+                  A day for fearless ideas, discussions, and oral storytelling. Highlights include:
+                </p>
+                <ul style="margin:0.4rem 0 0 1.2rem; padding:0; font-size:0.9rem; color:var(--ink-secondary); line-height:1.5;">
+                  <li><b>The Fourth Pillar of Democracy</b> — Journalism &amp; Free Press Panel</li>
+                  <li><b>Dastangoi</b> — 16th-century dramatic oral Hindustani storytelling</li>
+                  <li><b>Mehfil-e-Sukhan</b> — Soul-stirring Sufi Night under the open stars</li>
+                </ul>
+              </div>
+            </div>
 
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <input id="poetNameInput" type="text" maxlength="32" placeholder="Your Name / Takhallus (Pen Name)" class="flex-1 min-w-[140px] px-2.5 py-1 rounded-lg border border-[var(--line)] bg-[var(--paper)] text-xs sm:text-sm focus:outline-none focus:border-[var(--gold)]">
-                <div class="flex items-center gap-1.5">
-                  <button type="button" onclick="stampVerseOnWall()" class="btn-royal !py-1.5 !px-3 !text-xs">
-                    🪶 Stamp with Wax Seal
+            <span class="folio-number">— iii —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 4: THREE-DAY SAGA — NAAD & ARENA (FOLIO iv)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Celebration &amp; Debate · नाद एवं शास्त्रार्थ</p>
+              <h2 class="page-title">The Rhythm &amp; Arena</h2>
+              <div class="ornament-divider">❦</div>
+
+              <!-- DAY 3: NAAD -->
+              <div class="day-saga-card">
+                <span class="day-badge" style="background:#b8861e;">Day 3 · 28 November</span>
+                <h3 class="day-title">NAAD (नाद) — The Rhythm of Celebration</h3>
+                <p class="day-desc">
+                  A celebration of conscious living, freshers' artistry, music, and performances that bring everyone together. Unplugged indie acoustics, poetry slam finals, and the Grand Valedictory Awards.
+                </p>
+              </div>
+
+              <!-- Kurukshetra of Words (Debate & Turncoat) -->
+              <div class="day-saga-card" style="border-color:var(--head-crimson);">
+                <span class="day-badge" style="background:var(--head-crimson);">Special Arena</span>
+                <h3 class="day-title">The Kurukshetra of Words</h3>
+                <p class="day-desc">
+                  From spirited parliamentary debates and unexpected turncoat throwdowns to the National Literary Quiz — test your wit, dialectics, and conviction on the stage of ideas.
+                </p>
+              </div>
+
+              <!-- Official Announcement Status -->
+              <div style="border:1px dashed var(--gold-antique); border-radius:10px; padding:0.75rem; text-align:center; background:var(--paper-cream);">
+                <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-teal);">
+                  ✦ Detailed Rulebooks &amp; Stage Timelines Releasing on Unstop
+                </span>
+              </div>
+            </div>
+
+            <span class="folio-number">— iv —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 5: BHAGAT SINGH REVOLUTIONARY EXHIBIT (FOLIO v)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Special Exhibit · क्रांति एवं चेतना</p>
+              <h2 class="page-title">The Revolutionary Pen</h2>
+              <div class="ornament-divider">❦</div>
+
+              <!-- Bhagat Singh Commemorative Box from Council -->
+              <div class="revolutionary-box">
+                <div style="text-align:center; margin-bottom:0.6rem;">
+                  <h3 style="font-family:var(--font-hindi); font-size:1.85rem; font-weight:700; color:var(--head-crimson); margin:0;">
+                    भगत सिंह
+                  </h3>
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-primary);">
+                    The Revolutionary Who Believed in the Power of Ideas
+                  </span>
+                </div>
+
+                <p style="font-size:0.95rem; line-height:1.65; color:var(--ink-primary); margin:0 0 0.6rem 0;">
+                  Bhagat Singh was one of India's most influential revolutionary thinkers, remembered for his courage, intellectual thinking, and unwavering commitment to independence. Beyond his revolutionary activities, he was an insatiable reader, writer, and thinker who believed that true revolution began with ideas and awareness.
+                </p>
+
+                <div class="literary-quote" style="border-color:var(--head-crimson); font-size:0.95rem;">
+                  “Before the slogan echoed across the streets, it was forged in prison cells surrounded by books, essays, and an unbreakable self-belief.”
+                </div>
+
+                <p style="font-size:0.92rem; line-height:1.55; color:var(--ink-secondary); margin:0.6rem 0 0 0;">
+                  His famous treatise <i>Why I Am an Atheist</i> and his smuggled jail diaries reflected his rational mind. Because the sharpest weapon against any empire is a mind that dares to read and a pen that dares to write.
+                </p>
+              </div>
+
+              <!-- Reader's Courtyard / Kitab Ghar -->
+              <div class="sufi-verse-card" style="margin-top:0.75rem;">
+                <p style="font-family:var(--font-hindi); font-size:1.15rem; font-weight:600; color:var(--head-teal); margin:0; line-height:1.45;">
+                  “किताबें झाँकती हैं बंद अलमारी के शीशों से,<br>बड़ी हसरत से तकती हैं।”
+                </p>
+                <span style="font-size:0.82rem; font-style:italic; color:var(--ink-muted); display:block; margin-top:0.3rem;">
+                  — बशीर बद्र / गुलज़ार · Kitab Ghar Exhibit
+                </span>
+              </div>
+            </div>
+
+            <span class="folio-number">— v —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 6: SUFI MEHFIL & DIGITAL QUILL WALL (FOLIO vi)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Community Marginalia · महफ़िल-ए-सुख़न</p>
+              <h2 class="page-title">Ink Your Verse</h2>
+              <div class="ornament-divider">❦</div>
+
+              <!-- Sufi Night Verse Highlight -->
+              <div class="sufi-verse-card">
+                <p style="font-family:var(--font-hindi); font-size:1.18rem; font-weight:600; color:var(--head-crimson); margin:0; line-height:1.4;">
+                  “गुलों में रंग भरे बाद-ए-नौ-बहार चले,<br>चले भी आओ कि गुलशन का कारोबार चले।”
+                </p>
+                <span style="font-size:0.82rem; font-style:italic; color:var(--ink-muted); display:block; margin-top:0.3rem;">
+                  — फ़ैज़ अहमद फ़ैज़ (Faiz) · Soul-Stirring Sufi Night
+                </span>
+              </div>
+
+              <!-- Interactive Digital Quill Wall Form -->
+              <div style="border:1.5px solid var(--gold-antique); border-radius:12px; background:var(--paper-vellum); padding:0.85rem; margin-top:0.75rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--ink-muted);">
+                    Dip Quill in Ink:
+                  </span>
+                  <div style="display:flex; gap:0.4rem;">
+                    <button onclick="window.setQuillInk('#8b1328')" style="width:18px; height:18px; border-radius:50%; background:#8b1328; border:1px solid #ffffff; cursor:pointer;" title="Sindoor Crimson"></button>
+                    <button onclick="window.setQuillInk('#083b35')" style="width:18px; height:18px; border-radius:50%; background:#083b35; border:1px solid #ffffff; cursor:pointer;" title="Royal Emerald"></button>
+                    <button onclick="window.setQuillInk('#212061')" style="width:18px; height:18px; border-radius:50%; background:#212061; border:1px solid #ffffff; cursor:pointer;" title="Midnight Indigo"></button>
+                    <button onclick="window.setQuillInk('#966e1b')" style="width:18px; height:18px; border-radius:50%; background:#966e1b; border:1px solid #ffffff; cursor:pointer;" title="Sepia Gold"></button>
+                  </div>
+                  <button onclick="window.fillInspireVerse()" style="font-family:var(--font-ui); font-size:0.75rem; font-weight:700; color:var(--head-crimson); background:none; border:none; cursor:pointer; text-decoration:underline;">
+                    ✨ Inspire Me
                   </button>
-                  <button type="button" onclick="downloadBookmarkPNG()" class="btn-outline-gold !py-1.5 !px-2.5 !text-xs" title="Download as Souvenir Bookmark">
+                </div>
+
+                <textarea id="verseInput" rows="2" maxlength="140" placeholder="Compose a couplet or quote for the festival..." style="width:100%; box-sizing:border-box; padding:0.5rem; border-radius:6px; border:1px solid var(--paper-edge); background:var(--paper-cream); font-family:var(--font-serif); font-size:0.95rem; font-style:italic; color:#8b1328; resize:none;"></textarea>
+
+                <div style="display:flex; gap:0.4rem; margin-top:0.4rem;">
+                  <input id="poetInput" type="text" maxlength="30" placeholder="Your Name / Takhallus" style="flex:1; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid var(--paper-edge); background:var(--paper-cream); font-family:var(--font-ui); font-size:0.8rem;">
+                  <button onclick="window.stampVerse()" class="btn-royal" style="padding:0.4rem 0.85rem; font-size:0.78rem;">
+                    🪶 Stamp Seal
+                  </button>
+                  <button onclick="window.downloadBookmark()" class="btn-outline" style="padding:0.4rem 0.75rem; font-size:0.78rem;" title="Download Custom Souvenir Bookmark PNG">
                     🔖 Bookmark
                   </button>
                 </div>
               </div>
+
+              <!-- Live Marginalia Entries -->
+              <div id="marginaliaFeed" style="margin-top:0.75rem; max-height:160px; overflow-y:auto;"></div>
             </div>
 
-            <!-- Live Marginalia Entries -->
-            <div id="marginaliaFeed" class="mt-3 space-y-2 max-h-48 overflow-y-auto page-scroll pr-1">
-              <!-- Populated by JS -->
-            </div>
+            <span class="folio-number">— vi —</span>
           </div>
+        </div>
 
-          <button onclick="goToSpread(4)" class="page-curl-btn curl-right" title="Turn to Next Spread (Folios vii & viii)"></button>
-          <span class="folio-num">— vi —</span>
-        </article>
-      </section>
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 7: REGISTRATION PASSES (FOLIO vii)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Your Chapter · प्रवेश पत्रिका</p>
+              <h2 class="page-title">Turn the Page — Register</h2>
+              <div class="ornament-divider">❦</div>
 
-      <!-- ============================================================= -->
-      <!-- SPREAD 4 (Pages vii & viii): REGISTER & PLAN YOUR VISIT       -->
-      <!-- ============================================================= -->
-      <section id="spread-4" class="book-spread spread-grid hidden">
-        <!-- LEFT PAGE: FOLIO vii (Your Chapter — Registration Passes) -->
-        <article class="book-leaf leaf-left page-scroll">
-          <div>
-            <p class="ch-label">Your Chapter · Registration</p>
-            <h2 class="page-title">Turn the page — register</h2>
-
-            <div class="space-y-3 mt-2">
-              <!-- Ticket 1: Attendees on Luma -->
-              <div class="ticket-pass text-center">
-                <div class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-[var(--accent)] font-bold border-b border-dashed border-[var(--line)] pb-1.5 mb-2">
-                  <span>Admit One · Listener Pass</span>
-                  <span>FOLIO #A-01</span>
+              <!-- Pass 1: Luma Attendees -->
+              <div class="ticket-pass">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed var(--gold-antique); padding-bottom:0.4rem; margin-bottom:0.5rem;">
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--head-crimson);">
+                    Admit One · Listener Pass
+                  </span>
+                  <span style="font-family:var(--font-ui); font-size:0.7rem; font-weight:700; color:var(--ink-muted);">#LUMA-01</span>
                 </div>
-                <h3 class="text-2xl font-bold text-[var(--head)] m-0">Attendees</h3>
-                <p class="text-sm sm:text-base my-1.5 text-[var(--ink)]">
-                  Come to listen, discover and cheer. Reserve your place on Luma.
+                <h3 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:700; color:var(--head-teal); margin:0.2rem 0 0.3rem;">
+                  Festival Attendees
+                </h3>
+                <p style="font-size:0.95rem; line-height:1.5; color:var(--ink-primary); margin:0 0 0.8rem;">
+                  Come to listen, discover authors, applaud in the Kavi Sammelan, and experience the Sufi Night.
                 </p>
-                <a class="btn-royal mt-1" data-link="luma" href="#register">
+                <a class="btn-royal" data-link="luma" style="font-size:0.9rem; padding:0.6rem 1.6rem;">
                   Register on Luma ↗
                 </a>
               </div>
 
-              <!-- Ticket 2: Participants on Unstop -->
-              <div class="ticket-pass text-center">
-                <div class="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-[var(--accent)] font-bold border-b border-dashed border-[var(--line)] pb-1.5 mb-2">
-                  <span>Open Call · Contestant Pass</span>
-                  <span>FOLIO #P-02</span>
+              <!-- Pass 2: Unstop Competitors -->
+              <div class="ticket-pass">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed var(--gold-antique); padding-bottom:0.4rem; margin-bottom:0.5rem;">
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--head-crimson);">
+                    Open Call · Contestant Pass
+                  </span>
+                  <span style="font-family:var(--font-ui); font-size:0.7rem; font-weight:700; color:var(--ink-muted);">#UNSTOP-02</span>
                 </div>
-                <h3 class="text-2xl font-bold text-[var(--head)] m-0">Participants</h3>
-                <p class="text-sm sm:text-base my-1.5 text-[var(--ink)]">
-                  Compete, perform or present your words. Apply for the contests on Unstop.
+                <h3 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:700; color:var(--head-teal); margin:0.2rem 0 0.3rem;">
+                  Competitors &amp; Performers
+                </h3>
+                <p style="font-size:0.95rem; line-height:1.5; color:var(--ink-primary); margin:0 0 0.8rem;">
+                  Compete in Debate, Open Mic, Story Writing, Book Jacket Art, and Parliamentary Throwdown.
                 </p>
-                <a class="btn-outline-gold mt-1" data-link="unstop" href="#register">
+                <a class="btn-outline" data-link="unstop" style="font-size:0.9rem; padding:0.55rem 1.5rem;">
                   Apply on Unstop ↗
+                </a>
+              </div>
+
+              <p style="font-size:0.85rem; font-style:italic; text-align:center; color:var(--ink-muted); margin-top:0.4rem;">
+                Official participation certificates awarded to all shortlisted competitors.
+              </p>
+            </div>
+
+            <span class="folio-number">— vii —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 8: PLAN YOUR VISIT & CAMPUS CARTOGRAPHY (FOLIO viii)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Plan Your Visit · देशाटन</p>
+              <h2 class="page-title">Getting to ANHAD</h2>
+              <div class="ornament-divider">❦</div>
+
+              <p style="font-size:1rem; line-height:1.45; text-align:center; margin:0 0 0.6rem; color:var(--ink-primary);">
+                <b>Galgotias College of Engineering &amp; Technology</b><br>
+                <span style="font-size:0.9rem; color:var(--ink-muted);">1, Knowledge Park II, Greater Noida, Uttar Pradesh</span>
+              </p>
+
+              <!-- Interactive Campus Cartography Schematic -->
+              <div class="map-container">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-teal);">
+                    🧭 Interactive Campus Cartography
+                  </span>
+                  <span style="font-family:var(--font-ui); font-size:0.7rem; color:var(--head-crimson); font-weight:600;">Click pins to inspect</span>
+                </div>
+
+                <svg viewBox="0 0 400 160" style="width:100%; height:130px; background:var(--paper-cream); border:1px solid var(--paper-edge); border-radius:8px;">
+                  <!-- Compass -->
+                  <g transform="translate(365, 30)" opacity="0.6">
+                    <circle cx="0" cy="0" r="16" fill="none" stroke="var(--gold-antique)" stroke-width="1"/>
+                    <path d="M0 -14 L4 -3 L14 0 L4 3 L0 14 L-4 3 L-14 0 L-4 -3 Z" fill="var(--head-teal)"/>
+                  </g>
+                  <!-- Aqua Line Metro -->
+                  <path d="M 10 135 Q 140 130 390 135" stroke="#083b35" stroke-width="3" stroke-dasharray="6 4" fill="none"/>
+                  <text x="20" y="150" font-size="9" fill="var(--ink-muted)" font-weight="bold">AQUA LINE METRO CORRIDOR</text>
+                  <!-- Paths -->
+                  <path d="M 85 133 L 85 85 L 290 85 M 185 85 L 185 38" stroke="#cf9c34" stroke-width="2.5" fill="none"/>
+
+                  <!-- Pin 1: Metro -->
+                  <g class="cursor-pointer" onclick="window.inspectMapPin('metro')" style="cursor:pointer;">
+                    <circle cx="85" cy="133" r="10" fill="#8b1328" stroke="#fff" stroke-width="1.5"/>
+                    <text x="85" y="136" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">M</text>
+                    <text x="85" y="118" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">KP-II Metro</text>
+                  </g>
+                  <!-- Pin 2: Gate 1 -->
+                  <g class="cursor-pointer" onclick="window.inspectMapPin('gate')" style="cursor:pointer;">
+                    <circle cx="185" cy="85" r="10" fill="#083b35" stroke="#f0ce7a" stroke-width="1.5"/>
+                    <text x="185" y="88" text-anchor="middle" font-size="9" fill="#f0ce7a" font-weight="bold">1</text>
+                    <text x="185" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">GCET Gate 1</text>
+                  </g>
+                  <!-- Pin 3: Amphitheatre -->
+                  <g class="cursor-pointer" onclick="window.inspectMapPin('stage')" style="cursor:pointer;">
+                    <circle cx="185" cy="38" r="10" fill="#cf9c34" stroke="#120c06" stroke-width="1.5"/>
+                    <text x="185" y="41" text-anchor="middle" font-size="9" fill="#120c06" font-weight="bold">★</text>
+                    <text x="185" y="22" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">Main Stage</text>
+                  </g>
+                  <!-- Pin 4: Kitab Ghar -->
+                  <g class="cursor-pointer" onclick="window.inspectMapPin('kitab')" style="cursor:pointer;">
+                    <circle cx="290" cy="85" r="10" fill="#8b1328" stroke="#fff" stroke-width="1.5"/>
+                    <text x="290" y="88" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">📚</text>
+                    <text x="290" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">Kitab Ghar</text>
+                  </g>
+                </svg>
+
+                <p id="mapPinDesc" style="font-size:0.85rem; font-weight:600; color:var(--head-teal); text-align:center; margin:0.4rem 0 0;">
+                  🚇 By Metro: Take the Aqua Line directly to <b>Knowledge Park II Station</b>, located right outside GCET.
+                </p>
+              </div>
+
+              <div style="text-align:center; margin-top:0.6rem;">
+                <a class="btn-outline" href="https://www.google.com/maps/search/?api=1&query=Galgotias+College+of+Engineering+and+Technology+Greater+Noida" target="_blank" rel="noopener" style="font-size:0.82rem; padding:0.45rem 1.1rem;">
+                  Open Campus in Google Maps ↗
                 </a>
               </div>
             </div>
 
-            <!-- Participant Guidelines Note -->
-            <div class="mt-3 p-2.5 rounded-lg border border-[var(--line)] bg-[var(--paper)] text-xs sm:text-sm text-[var(--muted)]">
-              <b class="text-[var(--head)] uppercase tracking-wider">Participation Note:</b> Individual &amp; team eligibility, submission deadlines, rules, and certificate details are updated on the official Luma &amp; Unstop pages as each event opens.
-            </div>
-          </div>
-
-          <button onclick="goToSpread(3)" class="page-curl-btn curl-left" title="Previous Spread (Folios v & vi)"></button>
-          <span class="folio-num">— vii —</span>
-        </article>
-
-        <!-- RIGHT PAGE: FOLIO viii (Plan Your Visit & Interactive Campus Map) -->
-        <article class="book-leaf leaf-right page-scroll">
-          <div>
-            <p class="ch-label">Plan Your Visit · देशाटन</p>
-            <h2 class="page-title">Getting here</h2>
-
-            <p class="text-center text-base sm:text-lg leading-snug mb-2">
-              <b class="text-[var(--head)]">Galgotias College of Engineering &amp; Technology</b><br>
-              <span class="text-sm sm:text-base">1, Knowledge Park II, Greater Noida, Uttar Pradesh</span>
-            </p>
-
-            <!-- Illustrated Vintage Cartography Campus Schematic -->
-            <div class="relative p-3 rounded-xl border-2 border-[var(--gold)] bg-[var(--paper2)] my-2.5">
-              <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-1.5">
-                <span>🧭 Illustrated Campus Cartography</span>
-                <span class="text-[var(--accent)]">Click pins to inspect</span>
-              </div>
-
-              <svg class="w-full h-36 sm:h-40 rounded-lg bg-[var(--paper)] border border-[var(--line)]" viewBox="0 0 400 160">
-                <!-- Compass Rose -->
-                <g transform="translate(365, 30)" opacity="0.55">
-                  <circle cx="0" cy="0" r="16" fill="none" stroke="var(--gold)" stroke-width="1"/>
-                  <path d="M0 -14 L4 -3 L14 0 L4 3 L0 14 L-4 3 L-14 0 L-4 -3 Z" fill="var(--head)"/>
-                </g>
-                <!-- Aqua Line Metro Track -->
-                <path d="M 10 135 Q 140 130 390 135" stroke="#0f4f47" stroke-width="3" stroke-dasharray="6 4" fill="none"/>
-                <text x="20" y="150" font-size="9" fill="var(--muted)" font-weight="bold">AQUA LINE METRO CORRIDOR</text>
-
-                <!-- Campus Pathways -->
-                <path d="M 85 133 L 85 85 L 290 85 M 185 85 L 185 38" stroke="#c9972f" stroke-width="2.5" fill="none"/>
-
-                <!-- Pin 1: Knowledge Park II Metro -->
-                <g class="cursor-pointer" onclick="showMapPin('metro')">
-                  <circle cx="85" cy="133" r="9" fill="#b5195a" stroke="#fff" stroke-width="1.5"/>
-                  <text x="85" y="136" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">M</text>
-                  <text x="85" y="118" text-anchor="middle" font-size="9.5" fill="var(--ink)" font-weight="bold">KP-II Metro</text>
-                </g>
-
-                <!-- Pin 2: GCET Main Gate & Reg Desk -->
-                <g class="cursor-pointer" onclick="showMapPin('gate')">
-                  <circle cx="185" cy="85" r="9" fill="#0f4f47" stroke="#ecc86f" stroke-width="1.5"/>
-                  <text x="185" y="88" text-anchor="middle" font-size="9" fill="#ecc86f" font-weight="bold">1</text>
-                  <text x="185" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink)" font-weight="bold">GCET Gate &amp; Desk</text>
-                </g>
-
-                <!-- Pin 3: Main Literary Amphitheatre -->
-                <g class="cursor-pointer" onclick="showMapPin('stage')">
-                  <circle cx="185" cy="38" r="9" fill="#c9972f" stroke="#2b2218" stroke-width="1.5"/>
-                  <text x="185" y="41" text-anchor="middle" font-size="9" fill="#2b2218" font-weight="bold">★</text>
-                  <text x="185" y="22" text-anchor="middle" font-size="9.5" fill="var(--ink)" font-weight="bold">Anhad Stage</text>
-                </g>
-
-                <!-- Pin 4: Book Fair Courtyard -->
-                <g class="cursor-pointer" onclick="showMapPin('courtyard')">
-                  <circle cx="290" cy="85" r="9" fill="#b5195a" stroke="#fff" stroke-width="1.5"/>
-                  <text x="290" y="88" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">B</text>
-                  <text x="290" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink)" font-weight="bold">Book Courtyard</text>
-                </g>
-              </svg>
-
-              <p id="mapPinInfo" class="m-0 mt-2 text-xs sm:text-sm text-center text-[var(--head)] font-semibold">
-                🚇 By metro: take the Aqua Line to <b>Knowledge Park II</b>, the station right across from GCET.
-              </p>
-            </div>
-
-            <div class="text-center space-y-2">
-              <a class="btn-outline-gold" href="https://www.google.com/maps/search/?api=1&query=Galgotias+College+of+Engineering+and+Technology+Greater+Noida" target="_blank" rel="noopener">
-                Open in Google Maps ↗
-              </a>
-              <p class="text-xs sm:text-sm text-[var(--muted)] m-0">
-                Entry guidelines, college ID rules, passes and the detailed campus map: to be announced.
-              </p>
-            </div>
-          </div>
-
-          <button onclick="goToSpread(5)" class="page-curl-btn curl-right" title="Turn to Next Spread (Folios ix & x)"></button>
-          <span class="folio-num">— viii —</span>
-        </article>
-      </section>
-
-      <!-- ============================================================= -->
-      <!-- SPREAD 5 (Pages ix & x): PATRONS (SPONSORS) & HELP CENTRE FAQ -->
-      <!-- ============================================================= -->
-      <section id="spread-5" class="book-spread spread-grid hidden">
-        <!-- LEFT PAGE: FOLIO ix (Sponsors & Partners) -->
-        <article class="book-leaf leaf-left page-scroll">
-          <div>
-            <p class="ch-label">Sponsors &amp; Partners</p>
-            <h2 class="page-title">Our patrons</h2>
-            <p class="text-center text-sm sm:text-base text-[var(--muted)] -mt-2 mb-3">
-              Partners who help turn the pages of Anhad will be showcased here with their royal seals.
-            </p>
-
-            <!-- Royal Seal Sponsor Slots -->
-            <div class="grid grid-cols-2 gap-3 my-3">
-              <div class="p-4 rounded-xl border-2 border-dashed border-[var(--gold)] bg-[var(--paper2)]/60 flex flex-col items-center justify-center text-center">
-                <span class="text-xl text-[var(--gold)] mb-1">♛</span>
-                <span class="text-sm font-bold text-[var(--head)]">Title Partner</span>
-                <span class="text-xs text-[var(--muted)] italic">To be announced</span>
-              </div>
-              <div class="p-4 rounded-xl border-2 border-dashed border-[var(--gold)] bg-[var(--paper2)]/60 flex flex-col items-center justify-center text-center">
-                <span class="text-xl text-[var(--gold)] mb-1">⚜</span>
-                <span class="text-sm font-bold text-[var(--head)]">Presenting Partner</span>
-                <span class="text-xs text-[var(--muted)] italic">To be announced</span>
-              </div>
-              <div class="p-4 rounded-xl border-2 border-dashed border-[var(--line)] bg-[var(--paper2)]/40 flex flex-col items-center justify-center text-center">
-                <span class="text-xl text-[var(--accent)] mb-1">✒</span>
-                <span class="text-sm font-bold text-[var(--head)]">Media Partner</span>
-                <span class="text-xs text-[var(--muted)] italic">To be announced</span>
-              </div>
-              <div class="p-4 rounded-xl border-2 border-dashed border-[var(--line)] bg-[var(--paper2)]/40 flex flex-col items-center justify-center text-center">
-                <span class="text-xl text-[var(--accent)] mb-1">❦</span>
-                <span class="text-sm font-bold text-[var(--head)]">Community Partner</span>
-                <span class="text-xs text-[var(--muted)] italic">To be announced</span>
-              </div>
-            </div>
-
-            <div class="text-center mt-4 space-y-2">
-              <a class="btn-outline-gold" href="mailto:your-email@example.com?subject=Anhad%20partnership">
-                Partner with us ↗
-              </a>
-              <p class="text-xs text-[var(--muted)]">
-                Interested in publishing partnerships, book stalls, food courts, or campus ambassador roles? Write to the organising guild.
-              </p>
-            </div>
-          </div>
-
-          <button onclick="goToSpread(4)" class="page-curl-btn curl-left" title="Previous Spread (Folios vii & viii)"></button>
-          <span class="folio-num">— ix —</span>
-        </article>
-
-        <!-- RIGHT PAGE: FOLIO x (FAQ & Help Centre + Close Book Action) -->
-        <article class="book-leaf leaf-right page-scroll">
-          <div>
-            <p class="ch-label">Help Centre · जिज्ञासा</p>
-            <h2 class="page-title">Questions, answered</h2>
-
-            <div class="space-y-1 text-sm sm:text-base">
-              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] mt-2 mb-1">Registration</p>
-              <details class="py-1.5 border-b border-[var(--line)] group" open>
-                <summary class="cursor-pointer font-bold text-[var(--head)]">How do I attend?</summary>
-                <p class="mt-1 mb-0 text-sm text-[var(--ink)]">Register as an attendee on Luma using the button on the Cover or Folio vii.</p>
-              </details>
-              <details class="py-1.5 border-b border-[var(--line)] group">
-                <summary class="cursor-pointer font-bold text-[var(--head)]">How do I take part in a competition?</summary>
-                <p class="mt-1 mb-0 text-sm text-[var(--ink)]">Participants apply on Unstop. Rules, prizes, eligibility and deadlines will be shared as they are confirmed.</p>
-              </details>
-
-              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] mt-3 mb-1">Visiting</p>
-              <details class="py-1.5 border-b border-[var(--line)] group">
-                <summary class="cursor-pointer font-bold text-[var(--head)]">Where is Anhad held?</summary>
-                <p class="mt-1 mb-0 text-sm text-[var(--ink)]">At GCET, Knowledge Park II, Greater Noida (right beside Knowledge Park II Aqua Line Metro Station). Dates and entry guidelines will be announced soon.</p>
-              </details>
-
-              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] mt-3 mb-1">More</p>
-              <details class="py-1.5 border-b border-[var(--line)] group">
-                <summary class="cursor-pointer font-bold text-[var(--head)]">Fees, certificates and accommodation?</summary>
-                <p class="mt-1 mb-0 text-sm text-[var(--ink)]">These details will be posted here as soon as they are confirmed.</p>
-              </details>
-            </div>
-
-            <!-- Close Book to Back Cover Button -->
-            <div class="mt-5 text-center">
-              <button onclick="goToSpread(6)" class="btn-royal !text-sm">
-                <span>Close the Granth (Back Cover)</span>
-                <span>➔</span>
-              </button>
-            </div>
-          </div>
-
-          <button onclick="goToSpread(6)" class="page-curl-btn curl-right" title="Close Book to Back Cover"></button>
-          <span class="folio-num">— x —</span>
-        </article>
-      </section>
-    </div>
-
-    <!-- --------------------------------------------------------------- -->
-    <!-- SPREAD 6: ORNATE BACK COVER COLOPHON                            -->
-    <!-- --------------------------------------------------------------- -->
-    <section id="spread-6" class="book-spread hidden">
-      <div class="granth-cover py-8 px-6 text-center">
-        <div class="band-border mb-6"></div>
-
-        <div class="max-w-md mx-auto py-6 px-4 rounded-2xl border border-[#c9972f]/50 bg-black/20">
-          <p class="text-xs uppercase tracking-[0.35em] text-[#ecc86f] mb-2">Colophon · समापन</p>
-          <div class="hi text-5xl text-[#ecc86f] mb-1">अनहद</div>
-          <p class="text-lg font-bold tracking-[0.25em] text-[#f3e3b5] m-0">ANHAD</p>
-          <p class="text-sm text-[#cfe3da] mt-2">
-            Galgotias Literature Fest · GCET, Greater Noida
-          </p>
-          <p class="italic text-[#ecc86f] mt-3">
-            “To be continued… stay tuned!”
-          </p>
-
-          <div class="mt-6 flex flex-wrap justify-center gap-2.5">
-            <button onclick="goToSpread(0)" class="btn-royal !text-sm">
-              ↺ Flip to Front Cover
-            </button>
-            <button onclick="goToSpread(1)" class="btn-outline-gold !text-sm">
-              📖 Re-open Granth
-            </button>
+            <span class="folio-number">— viii —</span>
           </div>
         </div>
 
-        <div class="band-border mt-6"></div>
-      </div>
-    </section>
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 9: PATRONS & HELP CENTRE FAQ (FOLIO ix)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page">
+          <div class="page-content">
+            <div class="page-scroll">
+              <p class="ch-label">Patrons &amp; Inquiries · जिज्ञासा</p>
+              <h2 class="page-title">Questions, Answered</h2>
+              <div class="ornament-divider">❦</div>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- FLOATING BRASS BOOK PAGINATION BAR (BOTTOM DOCK)                -->
-    <!-- --------------------------------------------------------------- -->
-    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-      <button id="prevSpreadBtn" onclick="stepSpread(-1)" class="btn-outline-gold !py-1.5 !px-3.5 text-xs sm:text-sm disabled:opacity-40">
-        ← Prev Page
+              <!-- FAQ Items (Organized & Crystal-Clear) -->
+              <details open>
+                <summary>How do I register as an attendee?</summary>
+                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
+                  Registration for festival visitors and literature lovers is hosted on <b>Luma</b>. Simply reserve your free entry pass via the link in Chapter IV or on the Cover.
+                </p>
+              </details>
+
+              <details>
+                <summary>Who is eligible for competitions?</summary>
+                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
+                  All undergraduate and postgraduate students from any recognized college or university across India are welcome. Register on <b>Unstop</b>.
+                </p>
+              </details>
+
+              <details>
+                <summary>Is there an entry fee for visitors?</summary>
+                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
+                  General entry to attendee keynotes, book fairs, and courtyard performances is free upon pre-registration. Specific competition slots follow Unstop guidelines.
+                </p>
+              </details>
+
+              <details>
+                <summary>How can brands or publishers partner with ANHAD?</summary>
+                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
+                  We welcome publishers, book stores, literary guilds, food partners, and corporate sponsors. Write to the Student Council at <b>studentcouncil.gcet@galgotiascollege.edu</b>.
+                </p>
+              </details>
+
+              <!-- Close Book CTA -->
+              <div style="text-align:center; margin-top:1.1rem;">
+                <button onclick="window.anhadBook.turnToPage(10)" class="btn-royal" style="font-size:0.85rem; padding:0.5rem 1.4rem;">
+                  <span>Turn to Back Cover</span>
+                  <span>➔</span>
+                </button>
+              </div>
+            </div>
+
+            <span class="folio-number">— ix —</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════
+             PAGE 10: BACK COVER (HARD LEATHER DENSITY)
+             ════════════════════════════════════════════════════════════ -->
+        <div class="page page-cover -left" data-density="hard">
+          <div class="cover-content">
+            <!-- Top Band -->
+            <div class="band-border"></div>
+
+            <div style="margin:auto; max-width:320px; padding:1rem; border:1px solid rgba(240, 206, 122, 0.4); border-radius:14px; background:rgba(0,0,0,0.35);">
+              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-bright); margin:0;">
+                Colophon · समापन
+              </p>
+
+              <h2 style="font-family:var(--font-hindi); font-size:3.6rem; color:var(--gold-bright); margin:0.3rem 0 0; line-height:1;">
+                अनहद
+              </h2>
+
+              <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:700; letter-spacing:0.3em; color:#f7e6c4; margin:0.2rem 0 0;">
+                ANHAD '26
+              </p>
+
+              <p style="font-size:0.92rem; color:#cfe3da; margin:0.5rem 0 0;">
+                Galgotias Literature Fest · GCET, Greater Noida
+              </p>
+
+              <p style="font-size:0.95rem; font-style:italic; color:var(--gold-bright); margin:0.8rem 0 1.2rem;">
+                “To be continued… Let the stories unfold 🖋️”
+              </p>
+
+              <div style="display:flex; justify-content:center; gap:0.6rem;">
+                <button onclick="window.anhadBook.turnToPage(0)" class="btn-royal" style="font-size:0.82rem; padding:0.5rem 1.2rem;">
+                  ↺ Front Cover
+                </button>
+                <button onclick="window.anhadBook.turnToPage(1)" class="btn-outline" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.82rem; padding:0.5rem 1.2rem;">
+                  📖 Re-Open Book
+                </button>
+              </div>
+            </div>
+
+            <!-- Bottom Band -->
+            <div class="band-border"></div>
+          </div>
+        </div>
+
+      </div><!-- #flipbook -->
+
+    </div><!-- .book-wrapper -->
+  </main>
+
+  <!-- Bottom Floating Brass Navigation Dock -->
+  <footer class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <button class="dock-btn" id="prevPageBtn" onclick="window.anhadBook.turnPrev()">
+        ◂ Turn Back
       </button>
 
-      <!-- Spread Dots / Roman Folios -->
-      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#06231f]/90 border border-[#c9972f]/60 text-xs text-[#ecc86f]">
-        <button onclick="goToSpread(0)" data-dot="0" class="spread-dot px-2 py-0.5 rounded-full bg-[#c9972f] text-[#24170f] font-bold transition">Cover</button>
-        <button onclick="goToSpread(1)" data-dot="1" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">i–ii</button>
-        <button onclick="goToSpread(2)" data-dot="2" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">iii–iv</button>
-        <button onclick="goToSpread(3)" data-dot="3" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">v–vi</button>
-        <button onclick="goToSpread(4)" data-dot="4" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">vii–viii</button>
-        <button onclick="goToSpread(5)" data-dot="5" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">ix–x</button>
-        <button onclick="goToSpread(6)" data-dot="6" class="spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition">Back</button>
+      <div class="folio-tracker" id="folioTracker">
+        Front Cover · अनहद
       </div>
 
-      <button id="nextSpreadBtn" onclick="stepSpread(1)" class="btn-royal !py-1.5 !px-3.5 text-xs sm:text-sm">
-        Turn Page →
+      <button class="dock-btn" id="nextPageBtn" onclick="window.anhadBook.turnNext()">
+        Turn Forward ▸
       </button>
     </div>
+  </footer>
+
+  <!-- Modular Scripts -->
+  <script src="js/page-flip.min.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/glitter.js"></script>
+  <script src="js/book-controller.js"></script>
+  <script src="js/app.js"></script>
 
-    <p class="text-center text-xs text-[#ecc86f]/70 mt-2">
-      Use <kbd class="px-1.5 py-0.5 rounded bg-black/40 border border-[#c9972f]/40">←</kbd> <kbd class="px-1.5 py-0.5 rounded bg-black/40 border border-[#c9972f]/40">→</kbd> arrow keys, page corners, or switch to <b>Scroll View</b> in the top bar anytime.
-    </p>
-  </div>
-
-  <!-- ================================================================= -->
-  <!-- MODE B: UNFOLDED CONTINUOUS ROYAL MANUSCRIPT SCROLL VIEW          -->
-  <!-- ================================================================= -->
-  <div id="scrollManuscriptContainer" class="hidden max-w-3xl mx-auto w-full space-y-6">
-    <div class="text-center p-4 rounded-xl bg-[#0a3732] border border-[#c9972f] text-[#ecc86f] flex flex-wrap items-center justify-between gap-2">
-      <span class="text-sm font-semibold">📜 Reading in Unfolded Royal Scroll Mode</span>
-      <button onclick="toggleViewMode()" class="btn-royal !py-1 !px-3 !text-xs">Switch back to 3D Interactive Book 📖</button>
-    </div>
-    <div id="scrollCloneTarget" class="space-y-6"></div>
-  </div>
-
-</main>
-
-<!-- ===================================================================== -->
-<!-- PARCHMENT EVENT CHARTER MODAL (COMPETITION DETAILS)                   -->
-<!-- ===================================================================== -->
-<div id="charterModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-  <div class="relative w-full max-w-lg rounded-2xl border-2 border-[var(--gold)] bg-[var(--paper)] text-[var(--ink)] p-6 shadow-2xl">
-    <button onclick="closeEventCharter()" class="absolute top-3 right-3 w-8 h-8 rounded-full border border-[var(--line)] bg-[var(--paper2)] text-[var(--head)] font-bold hover:border-[var(--gold)]">✕</button>
-
-    <p id="modalChTag" class="ch-label text-left !text-[var(--accent)]">Chapter Charter</p>
-    <h3 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-[var(--head)] mt-1 mb-2">Poetry &amp; Shayari</h3>
-    <p id="modalDesc" class="text-base leading-relaxed text-[var(--ink)] mb-4"></p>
-
-    <div class="grid grid-cols-2 gap-2.5 p-3 rounded-xl bg-[var(--paper2)] border border-[var(--line)] text-sm mb-4">
-      <div>
-        <b class="block text-xs uppercase tracking-wider text-[var(--muted)]">Format &amp; Eligibility</b>
-        <span id="modalFormat" class="font-semibold text-[var(--head)]">Individual · Open to all college students</span>
-      </div>
-      <div>
-        <b class="block text-xs uppercase tracking-wider text-[var(--muted)]">Schedule &amp; Rules</b>
-        <span id="modalStatus" class="font-semibold text-[var(--accent)]">Dates &amp; Rulebook TBA</span>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap items-center justify-end gap-2.5">
-      <button onclick="closeEventCharter()" class="btn-outline-gold !text-sm !text-[var(--head)] !border-[var(--head)]">Close Charter</button>
-      <a data-link="unstop" href="#register" class="btn-royal !text-sm">Apply on Unstop ↗</a>
-    </div>
-  </div>
-</div>
-
-<script>
-/* =======================================================================
-   ✏️ EDIT HERE: PASTE YOUR REAL REGISTRATION LINKS & FEST DATE
-   (Every Luma & Unstop button across the entire book uses these two URLs)
-   ======================================================================= */
-var LINKS = {
-  luma: "https://lu.ma/your-anhad-event",
-  unstop: "https://unstop.com/your-anhad-event"
-};
-
-/* ✏️ Set the fest start, e.g. "2027-02-20T10:00:00+05:30", to switch on the live countdown */
-var FEST_DATE = "";
-
-/* Apply registration links to all [data-link] buttons */
-function bindRegistrationLinks(root) {
-  (root || document).querySelectorAll("[data-link]").forEach(function(a) {
-    var key = a.getAttribute("data-link");
-    if (LINKS[key]) {
-      a.href = LINKS[key];
-      a.target = "_blank";
-      a.rel = "noopener";
-    }
-  });
-}
-bindRegistrationLinks();
-
-/* Countdown Timer Logic */
-var cd = document.getElementById("cd");
-function tick() {
-  if (!FEST_DATE) return;
-  var d = new Date(FEST_DATE) - Date.now();
-  if (isNaN(d)) return;
-  if (d <= 0) {
-    cd.textContent = "The fest is live!";
-    return;
-  }
-  var s = Math.floor(d / 1e3);
-  cd.textContent =
-    Math.floor(s / 86400) + "d " +
-    Math.floor((s % 86400) / 3600) + "h " +
-    Math.floor((s % 3600) / 60) + "m " +
-    (s % 60) + "s to go";
-}
-tick();
-setInterval(tick, 1000);
-
-/* =======================================================================
-   WEB AUDIO SYNTHESIZER: REALISTIC 4-LAYER TACTILE PAGE RUSTLE & ANHAD NAAD
-   ======================================================================= */
-var audioCtx = null;
-var soundEnabled = true; // Enabled by default for rich tactile book experience!
-
-function getAudioContext() {
-  if (!audioCtx) {
-    var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (AudioContextClass) audioCtx = new AudioContextClass();
-  }
-  if (audioCtx && audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
-  return audioCtx;
-}
-
-// Unlock Web Audio automatically on first user click, touch or keydown
-function unlockAudioEngine() {
-  getAudioContext();
-  document.removeEventListener('click', unlockAudioEngine);
-  document.removeEventListener('touchstart', unlockAudioEngine);
-  document.removeEventListener('keydown', unlockAudioEngine);
-}
-document.addEventListener('click', unlockAudioEngine, { once: true });
-document.addEventListener('touchstart', unlockAudioEngine, { once: true });
-document.addEventListener('keydown', unlockAudioEngine, { once: true });
-
-/* Realistic Multi-Layered Paper Rustle & Settle Synthesizer */
-function playPageRustle() {
-  if (!soundEnabled) return;
-  try {
-    var ctx = getAudioContext();
-    if (!ctx) return;
-    var now = ctx.currentTime;
-    
-    // Layer 1: Friction sweep (paper sliding over paper)
-    var dur1 = 0.24 + Math.random() * 0.05;
-    var buf1 = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur1), ctx.sampleRate);
-    var d1 = buf1.getChannelData(0);
-    for (var i = 0; i < buf1.length; i++) {
-      var t1 = i / buf1.length;
-      var env1 = Math.sin(t1 * Math.PI) * Math.pow(1 - t1, 0.4);
-      d1[i] = (Math.random() * 2 - 1) * env1 * 0.12;
-    }
-    var src1 = ctx.createBufferSource();
-    src1.buffer = buf1;
-    
-    var filter1 = ctx.createBiquadFilter();
-    filter1.type = "bandpass";
-    filter1.frequency.setValueAtTime(2200 + Math.random() * 300, now);
-    filter1.frequency.exponentialRampToValueAtTime(1100 + Math.random() * 200, now + dur1);
-    filter1.Q.setValueAtTime(1.6, now);
-    
-    src1.connect(filter1);
-    filter1.connect(ctx.destination);
-    src1.start(now);
-    
-    // Layer 2: Air displacement / whoosh of page movement
-    var dur2 = 0.22;
-    var buf2 = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur2), ctx.sampleRate);
-    var d2 = buf2.getChannelData(0);
-    for (var j = 0; j < buf2.length; j++) {
-      var t2 = j / buf2.length;
-      var env2 = Math.sin(t2 * Math.PI) * (1 - t2);
-      d2[j] = (Math.random() * 2 - 1) * env2 * 0.10;
-    }
-    var src2 = ctx.createBufferSource();
-    src2.buffer = buf2;
-    
-    var filter2 = ctx.createBiquadFilter();
-    filter2.type = "lowpass";
-    filter2.frequency.setValueAtTime(480 + Math.random() * 80, now + 0.02);
-    filter2.Q.setValueAtTime(1.1, now + 0.02);
-    
-    src2.connect(filter2);
-    filter2.connect(ctx.destination);
-    src2.start(now + 0.02);
-    
-    // Layer 3: Paper settle / soft landing as page contacts opposite stack
-    var dur3 = 0.18;
-    var settleDelay = 0.32;
-    var buf3 = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur3), ctx.sampleRate);
-    var d3 = buf3.getChannelData(0);
-    for (var k = 0; k < buf3.length; k++) {
-      var t3 = k / buf3.length;
-      var env3 = Math.sin(t3 * Math.PI) * Math.pow(1 - t3, 1.3);
-      d3[k] = (Math.random() * 2 - 1) * env3 * 0.08;
-    }
-    var src3 = ctx.createBufferSource();
-    src3.buffer = buf3;
-    
-    var filter3 = ctx.createBiquadFilter();
-    filter3.type = "bandpass";
-    filter3.frequency.setValueAtTime(850 + Math.random() * 120, now + settleDelay);
-    filter3.Q.setValueAtTime(1.0, now + settleDelay);
-    
-    src3.connect(filter3);
-    filter3.connect(ctx.destination);
-    src3.start(now + settleDelay);
-    
-  } catch (e) {
-    // Audio gracefully muted if restricted
-  }
-}
-
-/* Subtle harmonic tanpura/singing bowl chime */
-function playAnhadChime(freq) {
-  if (!soundEnabled) return;
-  try {
-    var ctx = getAudioContext();
-    if (!ctx) return;
-    var now = ctx.currentTime;
-    
-    // Fundamental
-    var osc1 = ctx.createOscillator();
-    var gain1 = ctx.createGain();
-    osc1.type = "sine";
-    osc1.frequency.setValueAtTime(freq || 432, now);
-    osc1.frequency.exponentialRampToValueAtTime((freq || 432) * 1.05, now + 0.85);
-    gain1.gain.setValueAtTime(0.08, now);
-    gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.95);
-    osc1.connect(gain1);
-    gain1.connect(ctx.destination);
-    osc1.start(now);
-    osc1.stop(now + 1.0);
-
-    // Harmonic overtone
-    var osc2 = ctx.createOscillator();
-    var gain2 = ctx.createGain();
-    osc2.type = "sine";
-    osc2.frequency.setValueAtTime((freq || 432) * 1.5, now);
-    gain2.gain.setValueAtTime(0.03, now);
-    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
-    osc2.connect(gain2);
-    gain2.connect(ctx.destination);
-    osc2.start(now);
-    osc2.stop(now + 0.75);
-  } catch (e) {}
-}
-
-function toggleSoundEngine() {
-  soundEnabled = !soundEnabled;
-  var eq = document.getElementById("eqContainer");
-  var lbl = document.getElementById("soundLabel");
-  var btn = document.getElementById("soundToggleBtn");
-  if (soundEnabled) {
-    eq.classList.add("audio-playing");
-    lbl.textContent = "Naad On";
-    btn.classList.add("border-[#ecc86f]", "text-[#ecc86f]", "bg-[#072e29]");
-    btn.classList.remove("border-[#c9972f]/60", "text-[#c9972f]", "bg-[#06231f]/90");
-    playAnhadChime(432);
-  } else {
-    eq.classList.remove("audio-playing");
-    lbl.textContent = "Mute FX";
-    btn.classList.remove("border-[#ecc86f]", "text-[#ecc86f]", "bg-[#072e29]");
-    btn.classList.add("border-[#c9972f]/60", "text-[#c9972f]", "bg-[#06231f]/90");
-  }
-}
-
-/* =======================================================================
-   3D REALISTIC BOOK SPREAD NAVIGATION & TURNING ENGINE
-   ======================================================================= */
-var currentSpread = 0;
-var totalSpreads = 7; // 0: Cover, 1..5: Spreads i–x, 6: Back Cover
-var isScrollMode = false;
-var isPageTurning = false;
-
-function goToSpread(targetIndex) {
-  if (targetIndex < 0 || targetIndex >= totalSpreads) return;
-  if (targetIndex === currentSpread && !isScrollMode) return;
-  if (isPageTurning) return;
-
-  if (isScrollMode) {
-    toggleViewMode(); // Switch back to 3D book if user clicks spread button
-  }
-
-  var isForward = targetIndex > currentSpread;
-  var oldSpread = currentSpread;
-  currentSpread = targetIndex;
-
-  playPageRustle();
-
-  var frontCover = document.getElementById("spread-0");
-  var backCover = document.getElementById("spread-6");
-  var openShell = document.getElementById("openBookShell");
-  var turningLeaf = document.getElementById("turningLeaf");
-
-  // Handle Cover Opening (Spread 0 -> 1)
-  if (oldSpread === 0 && targetIndex >= 1) {
-    isPageTurning = true;
-    var coverEl = frontCover.querySelector(".granth-cover");
-    coverEl.style.transition = "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)";
-    coverEl.style.transform = "perspective(2400px) rotateY(-180deg)";
-    
-    setTimeout(function() {
-      frontCover.classList.add("hidden");
-      coverEl.style.transform = "";
-      coverEl.style.transition = "";
-      openShell.classList.remove("hidden");
-      
-      for (var i = 1; i <= 5; i++) {
-        var s = document.getElementById("spread-" + i);
-        if (s) s.classList.add("hidden");
-      }
-      var targetSpreadEl = document.getElementById("spread-" + currentSpread);
-      if (targetSpreadEl) targetSpreadEl.classList.remove("hidden");
-      
-      updateBookControlsUI();
-      isPageTurning = false;
-    }, 650);
-    return;
-  }
-
-  // Handle Returning to Front Cover (Spread >= 1 -> 0)
-  if (targetIndex === 0) {
-    isPageTurning = true;
-    openShell.classList.add("hidden");
-    frontCover.classList.remove("hidden");
-    var coverEl = frontCover.querySelector(".granth-cover");
-    coverEl.style.transition = "none";
-    coverEl.style.transform = "perspective(2400px) rotateY(-180deg)";
-    
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        coverEl.style.transition = "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)";
-        coverEl.style.transform = "perspective(2400px) rotateY(0deg)";
-        setTimeout(function() {
-          coverEl.style.transform = "";
-          coverEl.style.transition = "";
-          updateBookControlsUI();
-          isPageTurning = false;
-        }, 700);
-      });
-    });
-    return;
-  }
-
-  // Handle Closing to Back Cover (Spread 1..5 -> 6)
-  if (targetIndex === 6) {
-    isPageTurning = true;
-    openShell.classList.add("hidden");
-    backCover.classList.remove("hidden");
-    backCover.classList.add(isForward ? "anim-turn-next" : "anim-turn-prev");
-    setTimeout(function() {
-      backCover.classList.remove("anim-turn-next", "anim-turn-prev");
-      isPageTurning = false;
-    }, 550);
-    updateBookControlsUI();
-    return;
-  }
-
-  // Handle Leaving Back Cover (Spread 6 -> 1..5)
-  if (oldSpread === 6 && targetIndex < 6) {
-    backCover.classList.add("hidden");
-    openShell.classList.remove("hidden");
-  }
-
-  // 3D Leaf Flip between Open Spreads (Spreads 1 to 5)
-  if (window.innerWidth >= 1024 && turningLeaf && oldSpread >= 1 && oldSpread <= 5 && targetIndex >= 1 && targetIndex <= 5) {
-    isPageTurning = true;
-    var frontContent = document.getElementById("turnFrontContent");
-    var backContent = document.getElementById("turnBackContent");
-
-    if (isForward) {
-      // Setup Turning Leaf on Right Side
-      turningLeaf.className = "turning-leaf-container turn-forward animating";
-      turningLeaf.style.transition = "none";
-      turningLeaf.style.transform = "perspective(2600px) rotateY(0deg)";
-
-      var currRight = document.querySelector("#spread-" + oldSpread + " .leaf-right");
-      var nextLeft = document.querySelector("#spread-" + targetIndex + " .leaf-left");
-      
-      frontContent.innerHTML = currRight ? currRight.innerHTML : "";
-      backContent.innerHTML = nextLeft ? nextLeft.innerHTML : "";
-
-      // Hide old spread and show target spread underneath
-      for (var i = 1; i <= 5; i++) {
-        var s = document.getElementById("spread-" + i);
-        if (s) s.classList.add("hidden");
-      }
-      var targetSpreadEl = document.getElementById("spread-" + targetIndex);
-      if (targetSpreadEl) targetSpreadEl.classList.remove("hidden");
-
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          turningLeaf.style.transition = "transform 0.68s cubic-bezier(0.25, 0.1, 0.25, 1)";
-          turningLeaf.style.transform = "perspective(2600px) rotateY(-180deg)";
-          
-          setTimeout(function() {
-            turningLeaf.className = "turning-leaf-container turn-forward";
-            turningLeaf.style.transform = "";
-            turningLeaf.style.transition = "";
-            frontContent.innerHTML = "";
-            backContent.innerHTML = "";
-            isPageTurning = false;
-            updateBookControlsUI();
-          }, 680);
-        });
-      });
-      return;
-    } else {
-      // Setup Turning Leaf for Backward Flip
-      turningLeaf.className = "turning-leaf-container turn-backward animating";
-      turningLeaf.style.transition = "none";
-      turningLeaf.style.transform = "perspective(2600px) rotateY(-180deg)";
-
-      var currLeft = document.querySelector("#spread-" + oldSpread + " .leaf-left");
-      var prevRight = document.querySelector("#spread-" + targetIndex + " .leaf-right");
-      
-      backContent.innerHTML = currLeft ? currLeft.innerHTML : "";
-      frontContent.innerHTML = prevRight ? prevRight.innerHTML : "";
-
-      for (var i = 1; i <= 5; i++) {
-        var s = document.getElementById("spread-" + i);
-        if (s) s.classList.add("hidden");
-      }
-      var targetSpreadEl = document.getElementById("spread-" + targetIndex);
-      if (targetSpreadEl) targetSpreadEl.classList.remove("hidden");
-
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          turningLeaf.style.transition = "transform 0.68s cubic-bezier(0.25, 0.1, 0.25, 1)";
-          turningLeaf.style.transform = "perspective(2600px) rotateY(0deg)";
-          
-          setTimeout(function() {
-            turningLeaf.className = "turning-leaf-container turn-backward";
-            turningLeaf.style.transform = "";
-            turningLeaf.style.transition = "";
-            frontContent.innerHTML = "";
-            backContent.innerHTML = "";
-            isPageTurning = false;
-            updateBookControlsUI();
-          }, 680);
-        });
-      });
-      return;
-    }
-  }
-
-  // Fallback for mobile / small screens
-  openShell.classList.remove("hidden");
-  for (var i = 1; i <= 5; i++) {
-    var s = document.getElementById("spread-" + i);
-    if (s) {
-      s.classList.add("hidden");
-      s.classList.remove("anim-turn-next", "anim-turn-prev");
-    }
-  }
-  var activeSpread = document.getElementById("spread-" + currentSpread);
-  if (activeSpread) {
-    activeSpread.classList.remove("hidden");
-    activeSpread.classList.add(isForward ? "anim-turn-next" : "anim-turn-prev");
-    setTimeout(function() {
-      activeSpread.classList.remove("anim-turn-next", "anim-turn-prev");
-    }, 550);
-  }
-
-  updateBookControlsUI();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function stepSpread(delta) {
-  var next = currentSpread + delta;
-  if (next >= 0 && next < totalSpreads) {
-    goToSpread(next);
-  }
-}
-
-function updateBookControlsUI() {
-  // Update reading progress bar
-  var pct = Math.max(12, Math.round(((currentSpread + 1) / totalSpreads) * 100));
-  var bar = document.getElementById("readingBar");
-  if (bar) bar.style.width = pct + "%";
-
-  // Update Prev/Next button states
-  var prevBtn = document.getElementById("prevSpreadBtn");
-  var nextBtn = document.getElementById("nextSpreadBtn");
-  if (prevBtn) prevBtn.disabled = (currentSpread === 0);
-  if (nextBtn) nextBtn.disabled = (currentSpread === totalSpreads - 1);
-
-  // Highlight active bottom dot
-  document.querySelectorAll(".spread-dot").forEach(function(btn) {
-    var idx = parseInt(btn.getAttribute("data-dot"), 10);
-    if (idx === currentSpread) {
-      btn.className = "spread-dot px-2.5 py-0.5 rounded-full bg-[#c9972f] text-[#24170f] font-bold transition";
-    } else {
-      btn.className = "spread-dot px-2 py-0.5 rounded-full hover:bg-white/10 transition";
-    }
-  });
-
-  // Highlight active top nav tab
-  document.querySelectorAll(".nav-tab").forEach(function(tab) {
-    var idx = parseInt(tab.getAttribute("data-nav-spread"), 10);
-    if (idx === currentSpread) {
-      tab.classList.add("active-tab");
-    } else {
-      tab.classList.remove("active-tab");
-    }
-  });
-}
-
-/* =======================================================================
-   BRASS DIYA THEME TOGGLE (LIGHT PARCHMENT VS MIDNIGHT MEHFIL DARK)
-   ======================================================================= */
-function toggleDiyaTheme() {
-  var root = document.documentElement;
-  var current = root.getAttribute("data-theme") || "light";
-  var next = current === "dark" ? "light" : "dark";
-  root.setAttribute("data-theme", next);
-  document.getElementById("diyaLabel").textContent = next === "dark" ? "Day Parchment" : "Mehfil Night";
-  playAnhadChime(next === "dark" ? 330 : 528);
-}
-
-/* =======================================================================
-   NAVARASA POETIC WHEEL (SPREAD 1)
-   ======================================================================= */
-var RASA_VERSES = {
-  shanta: {
-    hi: "“हद चले सो मानवा, बेहद चले सो साध। हद बेहद दोनों तजे, ताकर मता अगाध॥”",
-    en: "“Within limits walks the mortal; beyond limits walks the seeker. In the boundless unstruck sound (Anhad) lies infinite wisdom.” — Kabir",
-    freq: 432
-  },
-  shringara: {
-    hi: "“हज़ारों ख़्वाहिशें ऐसी कि हर ख़्वाहिश पे दम निकले, बहुत निकले मेरे अरमान लेकिन फिर भी कम निकले।”",
-    en: "“A thousand desires, each worth a lifetime's breath; though many found voice on the page, still more remain unwritten.” — Mirza Ghalib",
-    freq: 528
-  },
-  veera: {
-    hi: "“कलम आज उनकी जय बोल, जला अस्थियाँ बारी-बारी, चिटकायी जिनमें चिंगारी!”",
-    en: "“Let the pen today sing victory to those who kindled sparks of courage across the pages of time.” — Ramdhari Singh Dinkar",
-    freq: 594
-  },
-  adbhuta: {
-    hi: "“जब मैं था तब हरि नहीं, अब हरि हैं मैं नाहिं। सब अँधियारा मिटि गया, जब दीपक देख्या माहिं॥”",
-    en: "“When the lamp of wonder was lit within, all shadows dissolved into boundless illumination.” — Mystic Verse",
-    freq: 639
-  }
-};
-
-function selectRasa(key) {
-  var data = RASA_VERSES[key];
-  if (!data) return;
-  document.getElementById("rasaHindi").textContent = data.hi;
-  document.getElementById("rasaEng").textContent = data.en;
-  playAnhadChime(data.freq);
-
-  document.querySelectorAll(".rasa-pill").forEach(function(btn) {
-    if (btn.getAttribute("data-rasa") === key) {
-      btn.className = "rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--gold)] bg-[var(--head)] text-[#ecc86f] transition";
-    } else {
-      btn.className = "rasa-pill px-2.5 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition";
-    }
-  });
-}
-
-/* =======================================================================
-   EXPLORE CHAPTERS FILTER & EVENT CHARTER MODAL (SPREAD 2)
-   ======================================================================= */
-var CHAPTER_DATA = {
-  poetry: {
-    tag: "Chapter I · Mehfil-e-Sukhan",
-    title: "Poetry & Shayari",
-    desc: "Bring your original verses in Hindi, Urdu, or English to the Anhad stage. Judged on imagery, meter, emotional resonance (Rasa), and stage presence.",
-    format: "Individual · Original compositions",
-    status: "Rules & dates TBA · Apply via Unstop"
-  },
-  story: {
-    tag: "Chapter II · Katha-Pat",
-    title: "Story & Script Writing",
-    desc: "Weave worlds from prompts on the spot or submit dramatic screenplays and short fiction. Celebrate narrative craft, character depth, and voice.",
-    format: "Individual / Duo · Prose & Script",
-    status: "Prompts & dates TBA · Apply via Unstop"
-  },
-  author: {
-    tag: "Chapter III · Samvaad",
-    title: "Author Conversations",
-    desc: "Interactive sessions, panel discussions, and book-signing corners with contemporary authors, poets, journalists, and literary critics.",
-    format: "Open to all registered attendees",
-    status: "Guest lineup TBA · Reserve via Luma"
-  },
-  openmic: {
-    tag: "Chapter IV · Awaaz",
-    title: "Open Mic & Stage",
-    desc: "An open courtyard stage for spoken word, dramatic monologues, Dastangoi storytelling, and acoustic literary ballads.",
-    format: "Individual · 3–5 min performance slot",
-    status: "Slot rules TBA · Apply via Unstop"
-  },
-  bookart: {
-    tag: "Chapter V · Chitra-Lekha",
-    title: "Poster & Book Art",
-    desc: "Reimagine classic book covers, illustrate poetic verses, or craft Devanagari and Latin calligraphy posters inspired by Indian literature.",
-    format: "Individual · Visual & Literary Design",
-    status: "Themes TBA · Apply via Unstop"
-  },
-  debate: {
-    tag: "Chapter VI · Shastrartha",
-    title: "Literary Quiz & Debate",
-    desc: "Test your command over world classics, Indian mythology, literary history, and spirited dialectical debate.",
-    format: "Teams of 2 / Individual",
-    status: "Format TBA · Apply via Unstop"
-  }
-};
-
-function openEventCharter(id) {
-  var item = CHAPTER_DATA[id];
-  if (!item) return;
-  playPageRustle();
-  document.getElementById("modalChTag").textContent = item.tag;
-  document.getElementById("modalTitle").textContent = item.title;
-  document.getElementById("modalDesc").textContent = item.desc;
-  document.getElementById("modalFormat").textContent = item.format;
-  document.getElementById("modalStatus").textContent = item.status;
-
-  var modal = document.getElementById("charterModal");
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-}
-
-function closeEventCharter() {
-  var modal = document.getElementById("charterModal");
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-}
-
-function filterChapters(cat) {
-  document.querySelectorAll(".cat-filter-btn").forEach(function(btn) {
-    if (btn.getAttribute("data-cat") === cat) {
-      btn.className = "cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--gold)] bg-[var(--head)] text-[#ecc86f] transition";
-    } else {
-      btn.className = "cat-filter-btn px-3 py-0.5 rounded-full text-xs font-bold border border-[var(--line)] hover:border-[var(--gold)] transition";
-    }
-  });
-
-  document.querySelectorAll("#chapterCardsGrid > div").forEach(function(card) {
-    var c = card.getAttribute("data-chapter-cat");
-    if (cat === "all" || c === cat) {
-      card.classList.remove("hidden");
-    } else {
-      card.classList.add("hidden");
-    }
-  });
-}
-
-function inspectSeal(idx) {
-  var messages = [
-    "✦ Seal I: Official festival dates and GCET venue halls will be stamped here upon confirmation.",
-    "✦ Seal II: Day-wise slot timings and stage schedules will unlock once registrations close.",
-    "✦ Seal III: Guest authors, poets, and performers will be revealed chapter by chapter.",
-    "✦ Seal IV: Luma (Attendees) & Unstop (Participants) portals are linked and ready.",
-    "✦ Seal V: Competition winners, certificates, and festival photo highlights will be archived here post-fest."
-  ];
-  document.getElementById("sealDetailNote").textContent = messages[idx] || messages[0];
-  playAnhadChime(480);
-}
-
-/* =======================================================================
-   "INK YOUR VERSE" INTERACTIVE MARGINALIA & BOOKMARK GENERATOR (SPREAD 3)
-   ======================================================================= */
-var currentQuillInk = "#b5195a";
-var SAMPLE_COUPLETS = [
-  "शब्दों की इस महफ़िल में एक पन्ना हमारा भी हो, अनहद की इस गूँज में एक नग़्मा तुम्हारा भी हो।",
-  "Between the margins of an ancient page, a quiet verse awakens the entire stage.",
-  "काग़ज़ की कश्ती पर कलम का सफ़र, अनहद के आँगन में शब्दों का घर।",
-  "Some books are read; others are lived under the banyan tree of shared stories."
-];
-var promptIndex = 0;
-
-var marginaliaEntries = [
-  {
-    verse: "शब्दों की इस महफ़िल में एक पन्ना हमारा भी हो, अनहद की इस गूँज में एक नग़्मा तुम्हारा भी हो।",
-    poet: "Aarav · GCET Lit Guild",
-    color: "#b5195a"
-  },
-  {
-    verse: "Where engineering meets elegy, and circuits pause to listen to Kabir's unstruck melody.",
-    poet: "Meera S. · Reader",
-    color: "#0f4f47"
-  }
-];
-
-function setQuillInk(hex) {
-  currentQuillInk = hex;
-  var input = document.getElementById("verseInput");
-  if (input) input.style.color = hex;
-}
-
-function fillPoeticPrompt() {
-  var input = document.getElementById("verseInput");
-  input.value = SAMPLE_COUPLETS[promptIndex % SAMPLE_COUPLETS.length];
-  promptIndex++;
-  playPageRustle();
-}
-
-function renderMarginalia() {
-  var feed = document.getElementById("marginaliaFeed");
-  if (!feed) return;
-  feed.innerHTML = "";
-  marginaliaEntries.forEach(function(item) {
-    var card = document.createElement("div");
-    card.className = "p-2.5 rounded-lg border border-[var(--line)] bg-[var(--paper)] flex items-start justify-between gap-2";
-    card.innerHTML =
-      '<div>' +
-        '<p class="m-0 text-sm italic font-semibold leading-snug" style="color:' + item.color + '">“' + item.verse.replace(/</g, "&lt;") + '”</p>' +
-        '<span class="text-xs text-[var(--muted)]">— ' + item.poet.replace(/</g, "&lt;") + '</span>' +
-      '</div>' +
-      '<span class="wax-seal !w-6 !h-6 !text-[0.65rem]" title="Stamped on Anhad Wall">अन</span>';
-    feed.appendChild(card);
-  });
-}
-renderMarginalia();
-
-function stampVerseOnWall() {
-  var verseEl = document.getElementById("verseInput");
-  var poetEl = document.getElementById("poetNameInput");
-  var text = (verseEl.value || "").trim();
-  if (!text) {
-    fillPoeticPrompt();
-    text = verseEl.value.trim();
-  }
-  var poet = (poetEl.value || "").trim() || "Anonymous Seeker";
-  marginaliaEntries.unshift({
-    verse: text,
-    poet: poet,
-    color: currentQuillInk
-  });
-  verseEl.value = "";
-  renderMarginalia();
-  playAnhadChime(528);
-}
-
-/* Souvenir Bookmark PNG Generator */
-function downloadBookmarkPNG() {
-  var verse = (document.getElementById("verseInput").value || "").trim() ||
-    "अनहद (anhad) — boundless, without limit; the unstruck sound of poetry.";
-  var poet = (document.getElementById("poetNameInput").value || "").trim() || "Anhad Reader · GCET";
-
-  var canvas = document.createElement("canvas");
-  canvas.width = 420;
-  canvas.height = 960;
-  var ctx = canvas.getContext("2d");
-
-  // Royal Emerald Bookmark Background
-  var grad = ctx.createLinearGradient(0, 0, 0, 960);
-  grad.addColorStop(0, "#0a3732");
-  grad.addColorStop(1, "#06231f");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 420, 960);
-
-  // Double Gold Frame
-  ctx.strokeStyle = "#ecc86f";
-  ctx.lineWidth = 4;
-  ctx.strokeRect(20, 20, 380, 920);
-  ctx.strokeStyle = "#c9972f";
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(30, 30, 360, 900);
-
-  // Header
-  ctx.fillStyle = "#ecc86f";
-  ctx.font = "bold 20px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillText("GCET PRESENTS", 210, 95);
-
-  ctx.font = "bold 72px serif";
-  ctx.fillText("अनहद", 210, 185);
-
-  ctx.font = "bold 24px Georgia, serif";
-  ctx.fillText("A N H A D", 210, 228);
-
-  ctx.font = "italic 18px Georgia, serif";
-  ctx.fillStyle = "#cfe3da";
-  ctx.fillText("Galgotias Literature Fest", 210, 262);
-
-  // Parchment Verse Box
-  ctx.fillStyle = "#fbf3df";
-  ctx.fillRect(46, 320, 328, 420);
-  ctx.strokeStyle = "#c9972f";
-  ctx.strokeRect(52, 326, 316, 408);
-
-  // Wrap Verse Text
-  ctx.fillStyle = "#2b2218";
-  ctx.font = "italic 22px Georgia, serif";
-  var words = ("“" + verse + "”").split(" ");
-  var line = "";
-  var y = 430;
-  for (var i = 0; i < words.length; i++) {
-    var test = line + words[i] + " ";
-    if (ctx.measureText(test).width > 270 && i > 0) {
-      ctx.fillText(line, 210, y);
-      line = words[i] + " ";
-      y += 34;
-    } else {
-      line = test;
-    }
-  }
-  ctx.fillText(line, 210, y);
-
-  ctx.fillStyle = "#b5195a";
-  ctx.font = "bold 18px Georgia, serif";
-  ctx.fillText("— " + poet, 210, 690);
-
-  // Footer
-  ctx.fillStyle = "#ecc86f";
-  ctx.font = "italic 18px Georgia, serif";
-  ctx.fillText("GCET, Greater Noida · Coming Soon", 210, 860);
-
-  var link = document.createElement("a");
-  link.download = "ANHAD-GCET-Bookmark.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-}
-
-/* =======================================================================
-   CAMPUS CARTOGRAPHY INTERACTIVE PINS (SPREAD 4)
-   ======================================================================= */
-function showMapPin(pin) {
-  var info = {
-    metro: "🚇 Knowledge Park II Metro Station (Aqua Line) — Walk right across to the GCET Campus entrance.",
-    gate: "🏛️ GCET Main Gate & Anhad Registration Desk — Verify your Luma pass or Unstop ID here upon arrival.",
-    stage: "🎭 Main Literary Amphitheatre — Venue for Author Keynotes, Mushaira, and Open Mic finals.",
-    courtyard: "📚 Kitab Ghar & Book Art Courtyard — Literary installations, book stalls, and reader'sadda."
-  };
-  document.getElementById("mapPinInfo").innerHTML = info[pin] || info.metro;
-  playAnhadChime(528);
-}
-
-/* =======================================================================
-   FLOATING GOLDEN DUST MOTES ON THE DESK CANVAS
-   ======================================================================= */
-(function initDustCanvas() {
-  var canvas = document.getElementById("dustCanvas");
-  if (!canvas) return;
-  var ctx = canvas.getContext("2d");
-  var motes = [];
-  var count = 36;
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  for (var i = 0; i < count; i++) {
-    motes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 2 + 0.6,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: -Math.random() * 0.3 - 0.08,
-      a: Math.random() * 0.65 + 0.15
-    });
-  }
-
-  function animateDust() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (var i = 0; i < motes.length; i++) {
-      var m = motes[i];
-      m.x += m.vx;
-      m.y += m.vy;
-      if (m.y < -10) m.y = canvas.height + 10;
-      if (m.x < -10) m.x = canvas.width + 10;
-      if (m.x > canvas.width + 10) m.x = -10;
-
-      ctx.beginPath();
-      ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(236, 200, 111, " + m.a + ")";
-      ctx.fill();
-    }
-    requestAnimationFrame(animateDust);
-  }
-  window.onload = function() {
-    animateDust();
-  };
-})();
-</script>
 </body>
 </html>

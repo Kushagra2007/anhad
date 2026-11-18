@@ -1,0 +1,174 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ANHAD '26 — EDITORIAL TYPOGRAPHY & HIGH-CONTRAST PALETTE
+   Inspired by Jaipur Literature Fest, Oxford Lit Press & Classical Manuscripts
+   ═════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@400;500;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+
+:root {
+  /* Fonts */
+  --font-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-hindi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif;
+  --font-ui: 'Outfit', -apple-system, sans-serif;
+
+  /* Desk Environment */
+  --desk-dark: #140d08;
+  --desk-mid: #22160d;
+  --desk-grain: #180f09;
+
+  /* Authentic Parchment / Paper Shades (Crisp & High Contrast!) */
+  --paper-cream: #faf5e8;
+  --paper-vellum: #f2e8d0;
+  --paper-edge: #dbcab0;
+  --paper-dark: #ebd9b8;
+
+  /* High-Contrast Inks (Sharp Readability, Zero Washed-Out Muddy Text) */
+  --ink-primary: #120c06;       /* Deepest black-brown ink for crystal clarity */
+  --ink-secondary: #281c12;     /* Rich body ink */
+  --ink-muted: #5e4934;         /* Legible secondary captions (WCAG AAA) */
+  --ink-accent: #8b1328;        /* Imperial Sindoor Crimson */
+  --head-teal: #083b35;         /* Deep Forest Emerald for titles */
+  --head-crimson: #841223;      /* Royal Crimson */
+
+  /* Gold Tooling & Brass Accents */
+  --gold-antique: #b8861e;
+  --gold-leaf: #cf9c34;
+  --gold-bright: #f0ce7a;
+  --gold-glow: rgba(236, 200, 111, 0.45);
+
+  /* Leather Cover Palette */
+  --morocco-teal: #0a332d;
+  --morocco-deep: #051d19;
+  --morocco-light: #12544a;
+  --ribbon-ruby: #9c1532;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --desk-dark: #070908;
+  --desk-mid: #0f1614;
+  --paper-cream: #14231f;
+  --paper-vellum: #1a2c27;
+  --paper-edge: #233d36;
+  --paper-dark: #101c18;
+  --ink-primary: #fbf5e6;
+  --ink-secondary: #ebdcb9;
+  --ink-muted: #b8a684;
+  --ink-accent: #f472b6;
+  --head-teal: #ecc86f;
+  --head-crimson: #f59e0b;
+  --gold-antique: #e5b342;
+  --gold-leaf: #f5d378;
+  --morocco-teal: #061e1b;
+  --morocco-deep: #03110f;
+  color-scheme: dark;
+}
+
+/* Global Font Classes */
+.font-display { font-family: var(--font-display); }
+.font-heading { font-family: var(--font-heading); }
+.font-serif { font-family: var(--font-serif); }
+.font-hindi { font-family: var(--font-hindi); }
+.font-ui { font-family: var(--font-ui); }
+
+/* Editorial Drop Cap */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-heading);
+  font-size: 3.8rem;
+  line-height: 0.78;
+  padding: 0.08em 0.14em 0.02em;
+  margin: 0.05em 0.16em 0 0;
+  font-weight: 700;
+  color: var(--head-crimson);
+  background: var(--paper-vellum);
+  border: 1.5px solid var(--gold-antique);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--gold-glow);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .drop-cap::first-letter {
+  text-shadow: none;
+  background: rgba(236, 200, 111, 0.1);
+  color: #ecc86f;
+  border-color: #ecc86f;
+}
+
+/* Chapter Label / Running Header */
+.ch-label {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  text-align: center;
+  margin: 0 0 0.25rem 0;
+}
+
+/* Page Titles */
+.page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--head-teal);
+  text-align: center;
+  margin: 0 0 0.4rem 0;
+}
+
+/* Ornate Literary Divider */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0.45rem auto 0.85rem;
+  color: var(--gold-antique);
+  font-size: 0.9rem;
+  user-select: none;
+}
+.ornament-divider::before,
+.ornament-divider::after {
+  content: "";
+  height: 1px;
+  width: 2.8rem;
+  background: linear-gradient(90deg, transparent, var(--gold-antique), transparent);
+}
+
+/* Roman Folio Page Number */
+.folio-number {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.65rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  user-select: none;
+}
+
+/* Quotation Styling */
+.literary-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+  border-left: 3px solid var(--ink-accent);
+  padding-left: 0.85rem;
+  margin: 0.6rem 0;
+}
+
+/* Text Selection */
+::selection {
+  background-color: var(--head-crimson);
+  color: #ffffff;
+}

@@ -1,0 +1,258 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ANHAD '26 — ROYAL BRASS NAVIGATION & DOCK CONTROLS
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* Top Royal Brass Navigation Bar */
+.brass-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  background: linear-gradient(180deg, rgba(7, 33, 29, 0.98) 0%, rgba(4, 20, 18, 0.95) 100%);
+  border-bottom: 2px solid var(--gold-leaf);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(240, 206, 122, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.5rem 1rem;
+}
+
+.brass-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Brand Emblem */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.brand-crest {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-leaf);
+  background: radial-gradient(circle at 35% 30%, #11544a 0%, #05211c 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-bright);
+  font-family: var(--font-hindi);
+  font-size: 1.15rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.brand-title {
+  font-family: var(--font-hindi);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--gold-bright);
+  text-shadow: 0 2px 10px rgba(240, 206, 122, 0.35);
+  margin: 0;
+}
+.brand-sub {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-antique);
+  display: block;
+}
+
+/* Navigation Tabs Ribbon */
+.nav-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0.2rem 0;
+}
+.nav-ribbon::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(207, 156, 52, 0.25);
+  background: rgba(6, 33, 29, 0.4);
+  color: #ebdcb9;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.22s ease;
+}
+.nav-tab .tab-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--gold-leaf);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+.nav-tab:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  background: rgba(207, 156, 52, 0.15);
+  transform: translateY(-1px);
+}
+.nav-tab:hover .tab-icon {
+  stroke: var(--gold-bright);
+  transform: scale(1.12);
+}
+.nav-tab.active-tab {
+  color: #1a1106 !important;
+  background: linear-gradient(180deg, #f7e096 0%, #cf9c34 100%) !important;
+  border-color: #ffea9f !important;
+  box-shadow: 0 4px 14px rgba(207, 156, 52, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  font-weight: 700;
+}
+.nav-tab.active-tab .tab-icon {
+  stroke: #1a1106 !important;
+}
+.nav-tab .tab-sub {
+  font-family: var(--font-hindi);
+  font-size: 0.74rem;
+  opacity: 0.85;
+}
+
+.nav-fleuron {
+  color: rgba(207, 156, 52, 0.35);
+  font-size: 0.65rem;
+  user-select: none;
+}
+
+/* Desk Controls (Diya, Audio, Register) */
+.desk-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.8rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(207, 156, 52, 0.5);
+  background: rgba(4, 23, 20, 0.85);
+  color: var(--gold-bright);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.control-btn:hover {
+  border-color: var(--gold-bright);
+  background: rgba(10, 51, 45, 0.9);
+}
+
+/* Diya Flame Flicker Animation */
+@keyframes flameFlicker {
+  0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+  50% { transform: scale(1.12, 0.92) rotate(2deg); opacity: 1; }
+}
+.diya-flame {
+  transform-origin: bottom center;
+  animation: flameFlicker 1.8s infinite ease-in-out;
+}
+
+/* Audio Equalizer Bars */
+@keyframes eqPulse {
+  0%, 100% { height: 3px; }
+  50% { height: 13px; }
+}
+.eq-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+.eq-bar {
+  width: 2.5px;
+  height: 4px;
+  background: var(--gold-bright);
+  border-radius: 2px;
+}
+.audio-playing .eq-bar:nth-child(1) { animation: eqPulse 0.7s infinite 0.1s; }
+.audio-playing .eq-bar:nth-child(2) { animation: eqPulse 0.55s infinite 0.25s; }
+.audio-playing .eq-bar:nth-child(3) { animation: eqPulse 0.8s infinite 0.05s; }
+.audio-playing .eq-bar:nth-child(4) { animation: eqPulse 0.65s infinite 0.35s; }
+
+/* ── BOTTOM DOCK CONTROLS ── */
+.bottom-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  background: linear-gradient(0deg, rgba(5, 23, 20, 0.97) 0%, rgba(7, 33, 29, 0.92) 100%);
+  border-top: 1.5px solid var(--gold-antique);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 0.55rem 1rem;
+}
+
+.bottom-dock-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.dock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--gold-antique);
+  background: rgba(6, 33, 29, 0.6);
+  color: var(--gold-bright);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dock-btn:hover:not(:disabled) {
+  background: var(--gold-leaf);
+  color: #120c06;
+  border-color: var(--gold-leaf);
+  transform: translateY(-1px);
+}
+.dock-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.folio-tracker {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--gold-bright);
+  text-align: center;
+}

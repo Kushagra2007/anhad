@@ -1,5 +1,5 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — FESTIVAL INTERACTIVE FEATURES & CULTURAL LOGIC
+   ANHAD '26 — FESTIVAL INTERACTIVE FEATURES, SCROLL MODAL & LOGIC
    ═════════════════════════════════════════════════════════════════════ */
 
 /* ✏️ EDIT HERE: Real Registration Links & Fest Dates */
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavarasa();
   initQuillWall();
   initDiyaTheme();
+  initScrollModal();
 });
 
 /* Countdown Timer */
@@ -50,6 +51,80 @@ function bindRegistrationLinks() {
     }
   });
 }
+
+/* ── ROYAL EVENT PROCLAMATION (शाही फ़रमान) SCROLL MODAL ── */
+function initScrollModal() {
+  const modal = document.getElementById('royalScrollModal');
+  if (!modal) return;
+
+  // Auto-open on initial page load with a gentle delay
+  setTimeout(() => {
+    openScrollModal();
+  }, 650);
+
+  // Close on Escape Key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeScrollModal();
+  });
+
+  // Close when clicking overlay backdrop
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeScrollModal();
+  });
+}
+
+window.openScrollModal = function() {
+  const modal = document.getElementById('royalScrollModal');
+  if (modal) {
+    modal.classList.add('active');
+    if (window.anhadAudio) window.anhadAudio.playChime(432);
+    if (window.anhadGlitter) {
+      const rect = modal.getBoundingClientRect();
+      window.anhadGlitter.emitPageTurnGlitter(rect.left + rect.width / 2, rect.top + 100);
+    }
+  }
+};
+
+window.closeScrollModal = function(thenOpenBook = false) {
+  const modal = document.getElementById('royalScrollModal');
+  if (modal) {
+    modal.classList.remove('active');
+    if (thenOpenBook && window.anhadBook) {
+      setTimeout(() => {
+        window.anhadBook.turnToPage(1);
+      }, 350);
+    }
+  }
+};
+
+/* Add to Calendar (.ics File Generator) */
+window.addToCalendar = function() {
+  const icsData = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ANHAD 2026//Galgotias Literature Fest//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    "SUMMARY:ANHAD '26 — Galgotias Literature Fest",
+    "DESCRIPTION:The grand 3-day literature festival at GCET Greater Noida: Aarambh, Samvaad, and Naad featuring authors, debates, Sufi night and poetry battles.",
+    "LOCATION:Galgotias College of Engineering & Technology, Knowledge Park II, Greater Noida",
+    "DTSTART:20261126T033000Z",
+    "DTEND:20261128T133000Z",
+    "STATUS:CONFIRMED",
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+
+  const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "ANHAD-2026-Calendar.ics";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  if (window.anhadAudio) window.anhadAudio.playChime(528);
+};
 
 /* ── NAVARASA POETIC WHEEL ── */
 const RASA_DATA = {

@@ -3,7 +3,7 @@
    Inspired by Jaipur Literature Fest, Oxford Lit Press & Classical Manuscripts
    ═════════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@400;500;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
 
 :root {
   /* Fonts */
@@ -14,20 +14,20 @@
   --font-ui: 'Outfit', -apple-system, sans-serif;
 
   /* Desk Environment */
-  --desk-dark: #140d08;
-  --desk-mid: #22160d;
-  --desk-grain: #180f09;
+  --desk-dark: #120a06;
+  --desk-mid: #1e1209;
+  --desk-grain: #160c07;
 
   /* Authentic Parchment / Paper Shades (Crisp & High Contrast!) */
   --paper-cream: #faf5e8;
-  --paper-vellum: #f2e8d0;
-  --paper-edge: #dbcab0;
-  --paper-dark: #ebd9b8;
+  --paper-vellum: #f3e9d2;
+  --paper-edge: #dac7aa;
+  --paper-dark: #e8d7b7;
 
   /* High-Contrast Inks (Sharp Readability, Zero Washed-Out Muddy Text) */
-  --ink-primary: #120c06;       /* Deepest black-brown ink for crystal clarity */
-  --ink-secondary: #281c12;     /* Rich body ink */
-  --ink-muted: #5e4934;         /* Legible secondary captions (WCAG AAA) */
+  --ink-primary: #120a05;       /* Deepest black-brown ink for crystal clarity */
+  --ink-secondary: #22140a;     /* Rich body ink */
+  --ink-muted: #543f2c;         /* Legible secondary captions */
   --ink-accent: #8b1328;        /* Imperial Sindoor Crimson */
   --head-teal: #083b35;         /* Deep Forest Emerald for titles */
   --head-crimson: #841223;      /* Royal Crimson */
@@ -35,13 +35,14 @@
   /* Gold Tooling & Brass Accents */
   --gold-antique: #b8861e;
   --gold-leaf: #cf9c34;
-  --gold-bright: #f0ce7a;
-  --gold-glow: rgba(236, 200, 111, 0.45);
+  --gold-bright: #f5c542;
+  --gold-glow: rgba(245, 197, 66, 0.45);
 
-  /* Leather Cover Palette */
-  --morocco-teal: #0a332d;
-  --morocco-deep: #051d19;
-  --morocco-light: #12544a;
+  /* Leather Cover Palette (Imperial Emerald / Morocco Binding) */
+  --morocco-teal: #082924;
+  --morocco-deep: #041613;
+  --morocco-light: #0d3d36;
+  --morocco-edge: #020c0a;
   --ribbon-ruby: #9c1532;
 
   color-scheme: light;
@@ -73,6 +74,20 @@
 .font-serif { font-family: var(--font-serif); }
 .font-hindi { font-family: var(--font-hindi); }
 .font-ui { font-family: var(--font-ui); }
+
+/* ── 24K HOT-STAMPED GOLD FOIL TEXT (REAL EMBOSSED LUSTER) ── */
+.gold-foil-text {
+  background: linear-gradient(135deg, #fff2be 0%, #f7c948 25%, #cb9426 50%, #fff0ad 75%, #a67215 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.85));
+  display: inline-block;
+}
+
+.gold-foil-sub {
+  color: #f7e6c4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 10px rgba(247, 201, 72, 0.35);
+}
 
 /* Editorial Drop Cap */
 .drop-cap::first-letter {

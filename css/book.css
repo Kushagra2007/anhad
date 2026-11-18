@@ -37,7 +37,7 @@ body {
   min-height: calc(100vh - 4rem);
 }
 
-/* Container holding the physical book */
+/* Container holding the physical book with smooth centering transitions */
 .book-wrapper {
   position: relative;
   display: flex;
@@ -46,17 +46,42 @@ body {
   max-width: 1180px;
   width: 100%;
   margin: 0 auto;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* StPageFlip Host Element */
+/* StPageFlip Host Element — Transparent background so closed covers don't leak empty boxes */
 #flipbook {
   margin: 0 auto;
-  box-shadow: 
-    0 35px 80px -15px rgba(0, 0, 0, 0.85),
-    0 15px 30px -10px rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
-  background-color: var(--morocco-deep);
+  background-color: transparent !important;
   transition: transform 0.4s ease;
+}
+
+/* ── DESKTOP CENTER-LOCK FOR COVERS ──
+   When on Page 0 (Front Cover), only the front cover is shown and centered horizontally.
+   When open, the two-page spread is centered.
+   When on Back Cover, the back cover is centered. */
+@media (min-width: 1024px) {
+  .book-wrapper.book-closed-front {
+    transform: translateX(-25%);
+  }
+  .book-wrapper.book-closed-front::before {
+    opacity: 0;
+  }
+
+  .book-wrapper.book-open {
+    transform: translateX(0);
+  }
+  .book-wrapper.book-open::before,
+  .book-wrapper.book-open::after {
+    opacity: 1;
+  }
+
+  .book-wrapper.book-closed-back {
+    transform: translateX(25%);
+  }
+  .book-wrapper.book-closed-back::after {
+    opacity: 0;
+  }
 }
 
 /* Each Page Leaf in StPageFlip */
@@ -101,21 +126,103 @@ body {
 
 /* ═══════════════════════════════════════════════════
    HARDCOVER LEATHERS (FRONT & BACK COVERS)
+   Authentic Moroccan Emerald Leather with 24K Tooling
    ═══════════════════════════════════════════════════ */
 .page-cover {
-  background: radial-gradient(120% 85% at 50% 15%, var(--morocco-light) 0%, var(--morocco-teal) 55%, var(--morocco-deep) 100%) !important;
+  background-color: #072520 !important;
+  background-image:
+    radial-gradient(110% 70% at 50% 12%, rgba(20, 95, 84, 0.95) 0%, rgba(7, 37, 32, 0.98) 60%, rgba(3, 18, 15, 1) 100%),
+    radial-gradient(circle at 50% 50%, rgba(245, 197, 66, 0.06) 0%, transparent 65%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 3px) !important;
   color: #f7e6c4;
   box-shadow:
-    inset 0 0 0 7px var(--morocco-deep),
-    inset 0 0 0 9px var(--gold-bright),
-    inset 0 0 0 11px var(--morocco-teal),
-    inset 22px 0 30px -10px rgba(0, 0, 0, 0.85);
+    inset 0 0 0 2px rgba(255, 235, 160, 0.45),
+    inset 0 0 0 8px var(--morocco-deep),
+    inset 0 0 0 10px var(--gold-bright),
+    inset 0 0 0 13px var(--morocco-teal),
+    inset 0 0 0 14px rgba(0, 0, 0, 0.6),
+    inset 26px 0 35px -12px rgba(0, 0, 0, 0.9),
+    -10px 25px 50px rgba(0, 0, 0, 0.7),
+    0 35px 80px rgba(0, 0, 0, 0.6);
   border-radius: 6px 14px 14px 6px;
   position: relative;
 }
 
+/* 3D Spine Hinge on Left Edge of Front Cover */
+.page-cover:not(.-left)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 24px;
+  background: linear-gradient(90deg, 
+    rgba(2, 10, 8, 0.95) 0%, 
+    rgba(18, 84, 74, 0.65) 25%, 
+    rgba(2, 10, 8, 0.85) 65%, 
+    rgba(245, 197, 66, 0.22) 75%, 
+    transparent 100%
+  );
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 20;
+}
+
 .page-cover.-left {
   border-radius: 14px 6px 6px 14px;
+}
+
+/* 3D Spine Hinge on Right Edge of Back Cover */
+.page-cover.-left::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  background: linear-gradient(270deg, 
+    rgba(2, 10, 8, 0.95) 0%, 
+    rgba(18, 84, 74, 0.65) 25%, 
+    rgba(2, 10, 8, 0.85) 65%, 
+    rgba(245, 197, 66, 0.22) 75%, 
+    transparent 100%
+  );
+  border-left: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Antique Brass Corner Mounts */
+.cover-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 15;
+  border: 2px solid var(--gold-bright);
+  box-shadow: inset 0 0 5px rgba(245, 197, 66, 0.6);
+}
+.cover-corner.corner-tl { top: 16px; left: 16px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+.cover-corner.corner-tr { top: 16px; right: 16px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
+.cover-corner.corner-bl { bottom: 16px; left: 16px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
+.cover-corner.corner-br { bottom: 16px; right: 16px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+
+/* Official Stamped Seal */
+.gcet-seal-wrapper {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  width: 58px;
+  height: 58px;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.gcet-seal-wrapper:hover {
+  opacity: 1;
 }
 
 .cover-content {
@@ -230,6 +337,7 @@ body {
   z-index: -1;
   background: repeating-linear-gradient(90deg, #f5ebd0 0px, #e4d3b0 2px, #caa87b 3px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.5s ease;
 }
 .book-wrapper::before {
   left: -9px;

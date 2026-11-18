@@ -15,10 +15,11 @@
   <link rel="stylesheet" href="css/book.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/scroll-modal.css">
 </head>
 <body>
 
-  <!-- Top Royal Brass Navigation Bar -->
+  <!-- Top Royal Brass Navigation Bar (3-Column Layout: Zero Overlap / Zero Squeeze) -->
   <header class="brass-nav">
     <div class="brass-nav-inner">
       <!-- Brand Crest -->
@@ -30,7 +31,7 @@
         </div>
       </a>
 
-      <!-- Aesthetic Navigation Tabs with Handcrafted Vector Icons -->
+      <!-- Center Navigation Ribbon with Handcrafted Vector Icons -->
       <nav class="nav-ribbon">
         <button class="nav-tab active-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)" title="Front Cover">
           <svg class="tab-icon" viewBox="0 0 24 24">
@@ -59,8 +60,8 @@
             <circle cx="12" cy="12" r="9"/>
             <path d="M12 6v6l4 2"/>
           </svg>
-          <span>Three-Day Saga</span>
-          <span class="tab-sub">त्रि-दिवसीय</span>
+          <span>Saga</span>
+          <span class="tab-sub">कथा</span>
         </button>
 
         <span class="nav-fleuron">✦</span>
@@ -70,10 +71,9 @@
             <path d="M12 19l7-7 3 3-7 7-3-3z"/>
             <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
             <path d="M2 2l7.586 7.586"/>
-            <circle cx="11" cy="11" r="2"/>
           </svg>
-          <span>Revolution &amp; Mehfil</span>
-          <span class="tab-sub">कलम</span>
+          <span>Mehfil</span>
+          <span class="tab-sub">महफ़िल</span>
         </button>
 
         <span class="nav-fleuron">✦</span>
@@ -82,9 +82,8 @@
           <svg class="tab-icon" viewBox="0 0 24 24">
             <rect x="2" y="5" width="20" height="14" rx="2"/>
             <line x1="2" y1="10" x2="22" y2="10" stroke-dasharray="2 2"/>
-            <circle cx="12" cy="14.5" r="2"/>
           </svg>
-          <span>Passes &amp; Map</span>
+          <span>Passes</span>
           <span class="tab-sub">प्रवेश</span>
         </button>
 
@@ -93,15 +92,20 @@
         <button class="nav-tab" data-spread="5" onclick="window.anhadBook.turnToPage(9)" title="Sponsors & Help Centre">
           <svg class="tab-icon" viewBox="0 0 24 24">
             <path d="M2 4l3 12h14l3-12-5 4-5-6-5 6-5-4z"/>
-            <circle cx="12" cy="19" r="1.5"/>
           </svg>
-          <span>Patrons &amp; FAQ</span>
+          <span>FAQ</span>
           <span class="tab-sub">जिज्ञासा</span>
         </button>
       </nav>
 
-      <!-- Cultural & Sensory Controls -->
+      <!-- Right Desk Controls (Uncluttered & Spacious) -->
       <div class="desk-controls">
+        <!-- Royal Proclamation Scroll Modal Trigger -->
+        <button class="control-btn proclamation-nav-btn" onclick="window.openScrollModal()" title="Unroll Royal Event Proclamation (शाही फ़रमान)">
+          <span>📜</span>
+          <span>Farman</span>
+        </button>
+
         <!-- Sound FX Toggle with Equalizer -->
         <button class="control-btn" id="soundBtn" onclick="window.anhadAudio && window.anhadAudio.toggleSound()" title="Tactile Paper Rustle & Tanpura Chime">
           <div class="eq-container audio-playing" id="eqContainer">
@@ -110,12 +114,12 @@
             <span class="eq-bar"></span>
             <span class="eq-bar"></span>
           </div>
-          <span id="soundLabel">Naad On</span>
+          <span id="soundLabel">Naad</span>
         </button>
 
         <!-- Brass Diya (Day Parchment vs. Mehfil Night) -->
         <button class="control-btn" onclick="window.toggleDiyaMode()" title="Toggle Parchment / Midnight Mehfil Mode">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;">
             <path class="diya-flame" d="M12 2C12 2 16 6.5 16 9.5C16 11.7 14.2 13.5 12 13.5C9.8 13.5 8 11.7 8 9.5C8 6.5 12 2 12 2Z" fill="#ff9f1c"/>
             <path d="M12 5.5C12 5.5 14 8 14 9.8C14 11 13.1 12 12 12C10.9 12 10 11 10 9.8C10 8 12 5.5 12 5.5Z" fill="#fff3b0"/>
             <path d="M4 14H20L17.5 19.5C16.8 20.8 15.5 21.5 14 21.5H10C8.5 21.5 7.2 20.8 6.5 19.5L4 14Z" fill="#d4a338" stroke="#ecc86f" stroke-width="1.2"/>
@@ -124,7 +128,7 @@
         </button>
 
         <!-- Register CTA -->
-        <a class="btn-royal" data-link="luma" style="padding:0.42rem 1rem; font-size:0.82rem;" title="Reserve Attendee Pass">
+        <a class="btn-royal" data-link="luma" style="padding:0.38rem 0.9rem; font-size:0.8rem;" title="Reserve Attendee Pass">
           Register ↗
         </a>
       </div>
@@ -133,7 +137,7 @@
 
   <!-- 3D Book Stage -->
   <main class="book-stage">
-    <div class="book-wrapper">
+    <div class="book-wrapper book-closed-front">
       
       <!-- StPageFlip 3D Physical Book -->
       <div id="flipbook">
@@ -142,9 +146,30 @@
              PAGE 0: FRONT COVER (HARD LEATHER DENSITY)
              ════════════════════════════════════════════════════════════ -->
         <div class="page page-cover" data-density="hard">
+          <!-- Antique Brass Corner Mounts -->
+          <div class="cover-corner corner-tl"></div>
+          <div class="cover-corner corner-tr"></div>
+          <div class="cover-corner corner-bl"></div>
+          <div class="cover-corner corner-br"></div>
+
+          <!-- Official GCET Student Council Medallion Seal -->
+          <div class="gcet-seal-wrapper" title="Verified GCET Student Council Seal">
+            <svg viewBox="0 0 100 100" style="width:100%; height:100%; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.7));">
+              <circle cx="50" cy="50" r="46" stroke="#f5c542" stroke-width="2" stroke-dasharray="3 2" fill="rgba(4, 24, 20, 0.85)"/>
+              <circle cx="50" cy="50" r="40" stroke="#cf9c34" stroke-width="1.2" fill="none"/>
+              <path id="sealPath" d="M 17,50 A 33,33 0 1,1 83,50 A 33,33 0 1,1 17,50" fill="none"/>
+              <text font-size="7.5" font-family="'Outfit', sans-serif" font-weight="700" fill="#f5c542" letter-spacing="1.5">
+                <textPath href="#sealPath">✦ GCET STUDENT COUNCIL · ANHAD 2026 ✦</textPath>
+              </text>
+              <text x="50" y="55" font-size="16" font-family="'Tiro Devanagari Hindi', serif" font-weight="700" text-anchor="middle" fill="#f5c542">
+                मुहर
+              </text>
+            </svg>
+          </div>
+
           <div class="cover-content">
             <!-- Silk Bookmark Ribbon -->
-            <div class="silk-ribbon" onclick="window.anhadBook.turnToPage(1)" title="Pull Bookmark to Open"></div>
+            <div class="silk-ribbon" onclick="window.anhadBook.turnToPage(1)" title="Pull Bookmark to Open Granth"></div>
 
             <!-- Top Woven Textile Band -->
             <div class="band-border"></div>
@@ -158,53 +183,53 @@
               <path d="M38 38 L92 84 L162 38 L116 92 L162 162 L108 116 L38 162 L84 108 Z" stroke="currentColor" stroke-width="1"/>
             </svg>
 
-            <!-- Main Title & Emblem -->
+            <!-- Main Title & Emblem (Razor Sharp & High Contrast) -->
             <div style="position:relative; z-index:2; margin-top:0.8rem;">
-              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.38em; text-transform:uppercase; color:var(--gold-bright); margin:0; font-weight:700;">
+              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:#f5c542; margin:0; font-weight:800; text-shadow:0 1px 3px rgba(0,0,0,0.85);">
                 GCET Student Council Presents
               </p>
 
-              <h1 style="font-family:var(--font-hindi); font-size:clamp(4.2rem, 11vw, 5.8rem); line-height:1.05; color:var(--gold-bright); margin:0.3rem 0 0; text-shadow:0 3px 18px rgba(240, 206, 122, 0.45);">
+              <h1 class="gold-foil-text" style="font-family:var(--font-hindi); font-size:clamp(4.2rem, 11vw, 5.8rem); line-height:1.05; margin:0.3rem 0 0;">
                 अनहद
               </h1>
 
-              <p style="font-family:var(--font-heading); font-size:1.35rem; font-weight:700; letter-spacing:0.45em; color:#f7e6c4; margin:0.2rem 0 0;">
+              <p class="gold-foil-sub" style="font-family:var(--font-heading); font-size:1.35rem; font-weight:700; letter-spacing:0.45em; margin:0.2rem 0 0;">
                 ANHAD · 2026
               </p>
 
-              <p style="font-family:var(--font-heading); font-size:1.15rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-bright); margin:0.4rem 0 0; font-weight:600;">
+              <p style="font-family:var(--font-heading); font-size:1.15rem; letter-spacing:0.2em; text-transform:uppercase; color:#ffe8a3; margin:0.4rem 0 0; font-weight:700; text-shadow:0 1px 3px rgba(0,0,0,0.9);">
                 Galgotias Literature Fest
               </p>
 
-              <div class="ornament-divider" style="margin:0.6rem auto; color:var(--gold-bright);">❦</div>
+              <div class="ornament-divider" style="margin:0.5rem auto; color:#f5c542;">❦</div>
 
-              <p style="font-family:var(--font-serif); font-size:1rem; font-style:italic; line-height:1.45; color:#d2e5dd; max-width:28ch; margin:0 auto;">
+              <p style="font-family:var(--font-serif); font-size:1.02rem; font-style:italic; line-height:1.45; color:#ffffff; max-width:28ch; margin:0.3rem auto 0; text-shadow:0 1px 4px rgba(0,0,0,0.95); font-weight:500;">
                 “अनहद (Anhad) — boundless, without limit; the unstruck sound of Indian poetry and mysticism.”
               </p>
             </div>
 
-            <!-- Festival Dates & Countdown Badge -->
-            <div style="position:relative; z-index:2; padding:0.65rem 1.4rem; border-radius:12px; background:rgba(0,0,0,0.4); border:1.5px solid rgba(240, 206, 122, 0.45); margin:0.8rem 0;">
-              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#d2e5dd; margin:0; font-weight:700;">
-                26, 27, 28 November 2026 · Greater Noida
+            <!-- Festival Dates & Countdown Badge (High-Contrast Dark Pill) -->
+            <div style="position:relative; z-index:2; padding:0.7rem 1.4rem; border-radius:12px; background:rgba(2, 14, 12, 0.85); border:1.5px solid #f5c542; box-shadow:0 6px 20px rgba(0,0,0,0.7); margin:0.8rem 0;">
+              <p style="font-family:var(--font-ui); font-size:0.78rem; letter-spacing:0.24em; text-transform:uppercase; color:#ffffff; margin:0; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.8);">
+                📅 26, 27, 28 November 2026 · Greater Noida
               </p>
-              <p id="festCountdown" style="font-family:var(--font-ui); font-size:1.2rem; font-weight:700; color:var(--gold-bright); margin:0.25rem 0 0; letter-spacing:0.06em;">
+              <p id="festCountdown" style="font-family:var(--font-ui); font-size:1.25rem; font-weight:800; color:#f5c542; margin:0.3rem 0 0; letter-spacing:0.06em; text-shadow:0 2px 8px rgba(245, 197, 66, 0.45);">
                 Loading fest countdown...
               </p>
             </div>
 
             <!-- Action CTA: Enter the Book -->
             <div style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:0.6rem;">
-              <button onclick="window.anhadBook.turnToPage(1)" class="btn-royal" style="font-size:1.02rem; padding:0.75rem 2rem;">
+              <button onclick="window.anhadBook.turnToPage(1)" class="btn-royal" style="font-size:1.05rem; padding:0.8rem 2.2rem; font-weight:800; letter-spacing:0.06em; box-shadow:0 4px 20px rgba(245, 197, 66, 0.5), inset 0 1px 0 rgba(255,255,255,0.8);">
                 <span>Open the Granth (Enter Book)</span>
-                <span>➔</span>
+                <span style="font-size:1.2rem; transition:transform 0.2s ease;">➔</span>
               </button>
 
               <div style="display:flex; gap:0.6rem; margin-top:0.3rem;">
-                <a class="btn-outline" data-link="luma" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.78rem; padding:0.4rem 0.9rem;">
+                <a class="btn-outline" data-link="luma" style="color:#ffffff !important; border-color:#f5c542; background:rgba(0,0,0,0.5); font-size:0.8rem; font-weight:700; padding:0.42rem 1rem;">
                   Attendees (Luma) ↗
                 </a>
-                <a class="btn-outline" data-link="unstop" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.78rem; padding:0.4rem 0.9rem;">
+                <a class="btn-outline" data-link="unstop" style="color:#ffffff !important; border-color:#f5c542; background:rgba(0,0,0,0.5); font-size:0.8rem; font-weight:700; padding:0.42rem 1rem;">
                   Competitions (Unstop) ↗
                 </a>
               </div>
@@ -784,6 +809,100 @@
       </button>
     </div>
   </footer>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ROYAL EVENT PROCLAMATION (शाही फ़रमान) SCROLL MODAL
+       ════════════════════════════════════════════════════════════ -->
+  <div class="scroll-modal-overlay" id="royalScrollModal">
+    <div class="royal-scroll">
+      <!-- Top 3D Cylindrical Wooden & Gold Roller with Spherical Brass Knobs -->
+      <div class="scroll-roller top-roller">
+        <div class="roller-inlay"></div>
+        <div class="roller-knob knob-left"></div>
+        <div class="roller-knob knob-right"></div>
+      </div>
+
+      <!-- Unrolled Royal Parchment Body -->
+      <div class="scroll-body">
+        <div class="scroll-inner-frame">
+          <!-- Proclamation Badge & Close Button -->
+          <div class="proclamation-badge">
+            <span class="proclamation-tag">
+              <span>✦</span>
+              <span>Royal Event Proclamation · शाही फ़रमान</span>
+            </span>
+            <button class="scroll-close-btn" onclick="window.closeScrollModal(false)" title="Close Proclamation">✕</button>
+          </div>
+
+          <!-- Festival Artwork Banner -->
+          <div class="proclamation-artwork">
+            <p style="font-family:var(--font-ui); font-size:0.68rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--gold-bright); margin:0 0 0.2rem; font-weight:700;">
+              GCET Student Council Presents
+            </p>
+            <h2 class="proclamation-title">अनहद '२६</h2>
+            <p class="proclamation-subtitle">ANHAD · Galgotias Literature Fest</p>
+            <p class="proclamation-quote">
+              “Three Days. Three Distinct Moods. A Thousand Stories Waiting to Unfold.”
+            </p>
+          </div>
+
+          <!-- Event Details Metadata Pills -->
+          <div class="metadata-pill">
+            <span class="pill-icon">📅</span>
+            <div>
+              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Festival Dates</b>
+              <span style="font-weight:600;">26, 27, 28 November 2026</span>
+            </div>
+          </div>
+
+          <div class="metadata-pill">
+            <span class="pill-icon">🕒</span>
+            <div>
+              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Timings</b>
+              <span style="font-weight:600;">10:00 AM – 7:00 PM IST Daily</span>
+            </div>
+          </div>
+
+          <div class="metadata-pill">
+            <span class="pill-icon">📍</span>
+            <div>
+              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Campus Location</b>
+              <span style="font-weight:600;">GCET Campus, Knowledge Park II, Greater Noida</span>
+            </div>
+          </div>
+
+          <!-- Primary CTA Button -->
+          <button class="scroll-cta-btn" onclick="window.closeScrollModal(true)">
+            <span>Enter Festival &amp; Open Granth</span>
+            <span>➔</span>
+          </button>
+
+          <!-- Secondary Action Buttons -->
+          <div class="scroll-secondary-actions">
+            <button class="scroll-sub-btn" onclick="window.addToCalendar()">
+              <span>📅</span>
+              <span>Add to Calendar</span>
+            </button>
+            <button class="scroll-sub-btn" onclick="window.closeScrollModal(true)">
+              <span>📖</span>
+              <span>View Three-Day Saga</span>
+            </button>
+          </div>
+
+          <p class="scroll-footer-tip">
+            Tip: Press <kbd style="padding:0.1rem 0.4rem; border-radius:4px; background:rgba(0,0,0,0.5); border:1px solid rgba(247,224,150,0.4);">Esc</kbd> or click ✕ to unfold the book.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom 3D Cylindrical Wooden & Gold Roller with Spherical Brass Knobs -->
+      <div class="scroll-roller bottom-roller">
+        <div class="roller-inlay"></div>
+        <div class="roller-knob knob-left"></div>
+        <div class="roller-knob knob-right"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modular Scripts -->
   <script src="js/page-flip.min.js"></script>

@@ -29,7 +29,7 @@ class BookController {
     // Calculate dimensions based on viewport
     const containerWidth = Math.min(window.innerWidth - 30, 1140);
     const pageWidth = window.innerWidth >= 1024 ? Math.floor(containerWidth / 2) : Math.min(window.innerWidth - 32, 540);
-    const pageHeight = Math.min(Math.floor(pageWidth * 1.38), window.innerHeight - 180);
+    const pageHeight = Math.min(Math.floor(pageWidth * 1.38), window.innerHeight - 170);
 
     try {
       this.pageFlip = new St.PageFlip(bookEl, {
@@ -68,8 +68,17 @@ class BookController {
     // Trigger Audio & Glitter on Flip State Change
     this.pageFlip.on('changeState', (e) => {
       if (e.data === 'flipping') {
-        const direction = this.pageFlip.getCurrentPageIndex() > this.currentPage ? 'forward' : 'backward';
+        const nextTarget = this.pageFlip.getCurrentPageIndex();
+        const direction = nextTarget >= this.currentPage ? 'forward' : 'backward';
         
+        // Dynamic Desktop Smooth Unfold: Start moving book to center as cover opens
+        const wrapper = document.querySelector('.book-wrapper');
+        if (wrapper && window.innerWidth >= 1024) {
+          if (this.currentPage === 0 && direction === 'forward') {
+            wrapper.className = 'book-wrapper book-open';
+          }
+        }
+
         // 1. Play Multi-Layer Paper Rustle Audio
         if (window.anhadAudio) {
           window.anhadAudio.playPageRustle(direction);
@@ -134,7 +143,19 @@ class BookController {
   }
 
   updateUI(pageIndex) {
-    // 1. Update Bottom Dock Buttons
+    // 1. Desktop Center Lock: Front Cover Centered, Two-Page Spread Centered, Back Cover Centered
+    const wrapper = document.querySelector('.book-wrapper');
+    if (wrapper && window.innerWidth >= 1024) {
+      if (pageIndex === 0) {
+        wrapper.className = 'book-wrapper book-closed-front';
+      } else if (pageIndex >= this.totalPageCount - 2) {
+        wrapper.className = 'book-wrapper book-closed-back';
+      } else {
+        wrapper.className = 'book-wrapper book-open';
+      }
+    }
+
+    // 2. Update Bottom Dock Buttons
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
     const folioTracker = document.getElementById('folioTracker');
@@ -142,20 +163,20 @@ class BookController {
     if (prevBtn) prevBtn.disabled = pageIndex === 0;
     if (nextBtn) nextBtn.disabled = pageIndex >= this.totalPageCount - 1;
 
-    // 2. Update Folio Tracker Text
+    // 3. Update Folio Tracker Text
     if (folioTracker) {
       if (pageIndex === 0) {
         folioTracker.textContent = 'Front Cover · मुख्य पृष्ठ';
       } else if (pageIndex >= this.totalPageCount - 2) {
         folioTracker.textContent = 'Back Cover · Colophon';
       } else {
-        const spreadNum = Math.floor(pageIndex / 2);
+        const spreadNum = Math.ceil(pageIndex / 2);
         folioTracker.textContent = this.folioNames[spreadNum] || `Page ${pageIndex} of ${this.totalPageCount}`;
       }
     }
 
-    // 3. Update Top Brass Navigation Tabs
-    const spreadIndex = Math.min(5, Math.floor(pageIndex / 2));
+    // 4. Update Top Brass Navigation Tabs
+    const spreadIndex = (pageIndex === 0) ? 0 : Math.min(5, Math.ceil(pageIndex / 2));
     document.querySelectorAll('.nav-tab').forEach((tab) => {
       const targetSpread = parseInt(tab.getAttribute('data-spread'), 10);
       if (targetSpread === spreadIndex) {

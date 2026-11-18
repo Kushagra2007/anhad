@@ -1,0 +1,344 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ANHAD '26 — ROYAL EVENT PROCLAMATION (शाही फ़रमान) SCROLL MODAL
+   Inspired by Royal Mughal & Vedic Farman Scrolls with Golden Rollers
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* Modal Backdrop */
+.scroll-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(8, 5, 2, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.scroll-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The Royal Scroll Container */
+.royal-scroll {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.scroll-modal-overlay.active .royal-scroll {
+  transform: scale(1) translateY(0);
+}
+
+/* ── 3D WOODEN & GOLD CYLINDRICAL ROLLERS ── */
+.scroll-roller {
+  position: relative;
+  height: 26px;
+  width: 100%;
+  border-radius: 13px;
+  background: linear-gradient(180deg, #6e3c15 0%, #a46228 35%, #50270a 70%, #2f1404 100%);
+  border: 1.5px solid #d4af37;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.6),
+    inset 0 2px 4px rgba(255, 235, 150, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.scroll-roller.top-roller {
+  margin-bottom: -10px;
+}
+
+.scroll-roller.bottom-roller {
+  margin-top: -10px;
+}
+
+/* Gold Cylindrical Inlay on Roller */
+.roller-inlay {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 28px;
+  right: 28px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fce58c 0%, #c9972f 50%, #7a5813 100%);
+  border-block: 1px solid #ffe99e;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* 3D Spherical Brass Knobs on Left & Right */
+.roller-knob {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6cc 0%, #ecc86f 40%, #b8861e 75%, #543b09 100%);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 3px rgba(255, 255, 255, 0.8);
+  border: 1.5px solid #d4af37;
+  z-index: 12;
+}
+.roller-knob.knob-left { left: -12px; }
+.roller-knob.knob-right { right: -12px; }
+
+/* ── THE UNROLLED PARCHMENT BODY (ROYAL CRIMSON VELVET & GOLD) ── */
+.scroll-body {
+  position: relative;
+  width: calc(100% - 16px);
+  margin: 0 auto;
+  background: 
+    radial-gradient(circle at 50% 20%, rgba(245, 197, 66, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 40%, #5e0d18 0%, #3a070e 55%, #1e0306 100%);
+  border-inline: 3px solid #f5c542;
+  border-radius: 4px;
+  box-shadow: 
+    0 16px 50px rgba(0, 0, 0, 0.85),
+    inset 0 12px 30px -10px rgba(0, 0, 0, 0.9),
+    inset 0 -12px 30px -10px rgba(0, 0, 0, 0.9);
+  padding: 1.6rem 1.4rem 1.4rem;
+  overflow-y: auto;
+  max-height: calc(88vh - 40px);
+  scrollbar-width: thin;
+  scrollbar-color: #f5c542 transparent;
+  box-sizing: border-box;
+}
+
+/* Intricate Golden Filigree Border Inset (Matching Royal Wedding Farman) */
+.scroll-inner-frame {
+  border: 2px solid #f5c542;
+  outline: 1px dashed rgba(245, 197, 66, 0.5);
+  outline-offset: 4px;
+  border-radius: 8px;
+  padding: 1.2rem;
+  background: rgba(14, 3, 5, 0.6);
+  box-shadow: inset 0 0 25px rgba(245, 197, 66, 0.12);
+  position: relative;
+}
+
+/* Proclamation Header */
+.proclamation-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(245, 197, 66, 0.45);
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.proclamation-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fce79f;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.scroll-close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid #f5c542;
+  background: rgba(50, 10, 15, 0.85);
+  color: #fce79f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.scroll-close-btn:hover {
+  background: #f5c542;
+  color: #120c06;
+  transform: rotate(90deg) scale(1.08);
+}
+
+/* Event Artwork Banner */
+.proclamation-artwork {
+  width: 100%;
+  border-radius: 8px;
+  border: 1.5px solid rgba(245, 197, 66, 0.6);
+  background: linear-gradient(135deg, #06241f 0%, #0d433b 50%, #041814 100%);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.proclamation-title {
+  font-family: var(--font-hindi);
+  font-size: 3.2rem;
+  line-height: 1.05;
+  margin: 0.2rem 0 0;
+  background: linear-gradient(135deg, #fff2be 0%, #f7c948 30%, #cb9426 60%, #fff0ad 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9));
+}
+
+.proclamation-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0.2rem 0 0.4rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.proclamation-quote {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  font-style: italic;
+  color: #e2f4ed;
+  margin: 0;
+  line-height: 1.45;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Key Metadata Box Row (Date, Time, Venue) — Crisp & High Contrast */
+.metadata-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1.5px solid rgba(245, 197, 66, 0.45);
+  margin-bottom: 0.55rem;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.metadata-pill .pill-icon {
+  font-size: 1.2rem;
+  color: #f5c542;
+  flex-shrink: 0;
+}
+.metadata-pill b {
+  display: block;
+  color: #f5c542;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 2px;
+}
+.metadata-pill span {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Action Buttons */
+.scroll-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 2px solid #fff2bd;
+  background: linear-gradient(180deg, #fbe8aa 0%, #e0aa37 60%, #b88219 100%);
+  color: #120a04 !important;
+  font-family: var(--font-ui);
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 0.9rem;
+  box-shadow: 0 6px 24px rgba(245, 197, 66, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.scroll-cta-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 30px rgba(245, 197, 66, 0.75);
+}
+  width: 100%;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid #ffe99e;
+  background: linear-gradient(180deg, #f7e4a6 0%, #d49f33 100%);
+  color: #1a1005 !important;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  box-shadow: 0 4px 18px rgba(207, 156, 52, 0.45);
+  transition: all 0.2s ease;
+}
+.scroll-cta-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 22px rgba(240, 206, 122, 0.6);
+}
+
+.scroll-secondary-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.scroll-sub-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(207, 156, 52, 0.45);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f7e096;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.scroll-sub-btn:hover {
+  background: rgba(207, 156, 52, 0.2);
+  border-color: #f7e096;
+  color: #ffffff;
+}
+
+.scroll-footer-tip {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  color: rgba(247, 224, 150, 0.6);
+  text-align: center;
+  margin: 0.8rem 0 0;
+  letter-spacing: 0.04em;
+}

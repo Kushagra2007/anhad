@@ -19,19 +19,5 @@ An interactive, 3D royal book experience for the Galgotias Literature Fest at Ga
 - **Dual Reading Modes**: Seamless toggle between 3D Interactive Flipbook and Unfolded Continuous Scroll Manuscript.
 - **Brass Diya Theme Toggle**: Light parchment mode vs. Midnight Mehfil dark mode with flickering brass lamp.
 - **Ambient Desk Environment**: Golden floating dust motes canvas and rich wooden scholar's desk background.
-
-## 🚀 Deployment
-
-### GitHub Pages
-1. Push this repository to GitHub.
-2. Go to **Settings** > **Pages**.
-3. Under **Branch**, select `main` and `/ (root)`, then click **Save**.
-4. Your site will be live at `https://<your-username>.github.io/<repo-name>/`.
-
-### Vercel
-1. Import this repository into Vercel (or run `vercel` via CLI).
-2. Framework Preset: **Other** / **Static HTML**.
-3. Deploy! Since it is a self-contained static site with zero dependencies, it deploys in seconds.
-
 ---
 *Created with care for ANHAD · Galgotias Literature Fest*

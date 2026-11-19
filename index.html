@@ -4,924 +4,841 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ANHAD '26 (अनहद) — Galgotias Literature Fest | GCET</title>
-  <meta name="description" content="ANHAD '26 — The grand three-day literature festival at Galgotias College of Engineering & Technology (GCET), Greater Noida. 26-28 November 2026.">
-  <meta name="theme-color" content="#07211d">
+  <meta name="description" content="ANHAD '26 — Three-day literature festival at Galgotias College of Engineering & Technology (GCET), Greater Noida. 26–28 November 2026.">
+  <meta property="og:title" content="ANHAD '26 (अनहद) — Galgotias Literature Fest | GCET">
+  <meta property="og:description" content="Three days of literature, debates, Dastangoi, poetry, Kitab Ghar, and Sufi Night at GCET, Greater Noida (26–28 Nov 2026).">
+  <meta name="theme-color" content="#081e19">
 
-  <!-- Favicon / Touch Icon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
 
-  <!-- Modular Stylesheets -->
-  <link rel="stylesheet" href="css/typography.css?v=2.1">
-  <link rel="stylesheet" href="css/book.css?v=2.1">
-  <link rel="stylesheet" href="css/components.css?v=2.1">
-  <link rel="stylesheet" href="css/navbar.css?v=2.1">
-  <link rel="stylesheet" href="css/scroll-modal.css?v=2.1">
+  <link rel="stylesheet" href="css/typography.css?v=3.0">
+  <link rel="stylesheet" href="css/book.css?v=3.0">
+  <link rel="stylesheet" href="css/components.css?v=3.0">
+  <link rel="stylesheet" href="css/navbar.css?v=3.0">
+  <link rel="stylesheet" href="css/scroll-modal.css?v=3.0">
 </head>
 <body>
 
-  <!-- Top Royal Brass Navigation Bar (3-Column Layout: Zero Overlap / Zero Squeeze) -->
+  <!-- Top Editorial Brass Navigation Bar -->
   <header class="brass-nav">
     <div class="brass-nav-inner">
-      <!-- Brand Crest -->
-      <a class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(0)">
-        <div class="brand-crest">अ</div>
-        <div>
-          <h1 class="brand-title">अनहद</h1>
-          <span class="brand-sub">ANHAD '26 · GCET</span>
-        </div>
-      </a>
+      <button type="button" class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(1)" aria-label="ANHAD '26 Home">
+        <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="brand-logo-img">
+        <span class="brand-meta">
+          <span class="brand-sub">Galgotias Literature Fest</span>
+          <span class="brand-dates">26–28 Nov 2026 · GCET</span>
+        </span>
+      </button>
 
-      <!-- Center Navigation Ribbon with Handcrafted Vector Icons -->
-      <nav class="nav-ribbon">
-        <button class="nav-tab active-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)" title="Front Cover">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
-            <path d="M6 2v20"/><path d="M11 6h5M11 10h4"/>
-          </svg>
-          <span>Cover</span>
-          <span class="tab-sub">मुख</span>
-        </button>
-
-        <span class="nav-fleuron">✦</span>
-
-        <button class="nav-tab" data-spread="1" onclick="window.anhadBook.turnToPage(1)" title="Preface & Table of Contents">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <path d="M8 2h8a2 2 0 0 1 2 2v14a4 4 0 0 1-4 4H6a2 2 0 0 1-2-2V6a4 4 0 0 1 4-4Z"/>
-            <path d="M18 18a2 2 0 0 0-2-2H6"/><path d="M8 7h6M8 11h4"/>
-          </svg>
-          <span>Preface</span>
-          <span class="tab-sub">आमुख</span>
-        </button>
-
-        <span class="nav-fleuron">✦</span>
-
-        <button class="nav-tab" data-spread="2" onclick="window.anhadBook.turnToPage(3)" title="Three-Day Saga (Aarambh, Samvaad, Naad)">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
-          <span>Saga</span>
-          <span class="tab-sub">कथा</span>
-        </button>
-
-        <span class="nav-fleuron">✦</span>
-
-        <button class="nav-tab" data-spread="3" onclick="window.anhadBook.turnToPage(5)" title="Bhagat Singh Exhibit & Sufi Mehfil">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-            <path d="M2 2l7.586 7.586"/>
-          </svg>
-          <span>Mehfil</span>
-          <span class="tab-sub">महफ़िल</span>
-        </button>
-
-        <span class="nav-fleuron">✦</span>
-
-        <button class="nav-tab" data-spread="4" onclick="window.anhadBook.turnToPage(7)" title="Registration Passes & Campus Map">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <rect x="2" y="5" width="20" height="14" rx="2"/>
-            <line x1="2" y1="10" x2="22" y2="10" stroke-dasharray="2 2"/>
-          </svg>
-          <span>Passes</span>
-          <span class="tab-sub">प्रवेश</span>
-        </button>
-
-        <span class="nav-fleuron">✦</span>
-
-        <button class="nav-tab" data-spread="5" onclick="window.anhadBook.turnToPage(9)" title="Sponsors & Help Centre">
-          <svg class="tab-icon" viewBox="0 0 24 24">
-            <path d="M2 4l3 12h14l3-12-5 4-5-6-5 6-5-4z"/>
-          </svg>
-          <span>FAQ</span>
-          <span class="tab-sub">जिज्ञासा</span>
-        </button>
+      <nav class="nav-ribbon" aria-label="Festival handbook sections">
+        <button type="button" class="nav-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)">Cover</button>
+        <button type="button" class="nav-tab active-tab" data-spread="1" onclick="window.anhadBook.turnToPage(1)">About</button>
+        <button type="button" class="nav-tab" data-spread="2" onclick="window.anhadBook.turnToPage(3)">Explore</button>
+        <button type="button" class="nav-tab" data-spread="3" onclick="window.anhadBook.turnToPage(5)">Schedule</button>
+        <button type="button" class="nav-tab" data-spread="4" onclick="window.anhadBook.turnToPage(7)">Passes &amp; Visit</button>
+        <button type="button" class="nav-tab" data-spread="5" onclick="window.anhadBook.turnToPage(9)">Community</button>
+        <button type="button" class="nav-tab" data-spread="6" onclick="window.anhadBook.turnToPage(11)">FAQ</button>
       </nav>
 
-      <!-- Right Desk Controls (Uncluttered & Spacious) -->
       <div class="desk-controls">
-        <!-- Royal Proclamation Scroll Modal Trigger -->
-        <button class="control-btn proclamation-nav-btn" onclick="window.openScrollModal()" title="Unroll Royal Event Proclamation (शाही फ़रमान)">
-          <span>📜</span>
-          <span>Farman</span>
+        <button type="button" class="control-btn" onclick="window.openScrollModal()" title="Read Festival Invitation Note">
+          Invitation
         </button>
 
-        <!-- Sound FX Toggle with Equalizer -->
-        <button class="control-btn" id="soundBtn" onclick="window.anhadAudio && window.anhadAudio.toggleSound()" title="Tactile Paper Rustle & Tanpura Chime">
-          <div class="eq-container audio-playing" id="eqContainer">
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-          </div>
-          <span id="soundLabel">Naad</span>
+        <button type="button" class="control-btn" id="soundBtn" onclick="window.anhadAudio && window.anhadAudio.toggleSound()" aria-label="Toggle paper-turn sound">
+          <span id="soundLabel">Sound: On</span>
         </button>
 
-        <!-- Brass Diya (Day Mode vs. Mehfil Night) -->
-        <button class="control-btn" onclick="window.toggleDiyaMode()" title="Toggle Day Mode / Midnight Mehfil Mode">
-          <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;">
-            <path class="diya-flame" d="M12 2C12 2 16 6.5 16 9.5C16 11.7 14.2 13.5 12 13.5C9.8 13.5 8 11.7 8 9.5C8 6.5 12 2 12 2Z" fill="#ff9f1c"/>
-            <path d="M12 5.5C12 5.5 14 8 14 9.8C14 11 13.1 12 12 12C10.9 12 10 11 10 9.8C10 8 12 5.5 12 5.5Z" fill="#fff3b0"/>
-            <path d="M4 14H20L17.5 19.5C16.8 20.8 15.5 21.5 14 21.5H10C8.5 21.5 7.2 20.8 6.5 19.5L4 14Z" fill="#d4a338" stroke="#ecc86f" stroke-width="1.2"/>
-          </svg>
-          <span id="diyaLabel">🌙 Mehfil Night</span>
+        <button type="button" class="control-btn" onclick="window.toggleDiyaMode()" aria-label="Toggle Day and Night reading theme">
+          <span id="diyaLabel">Night Mehfil</span>
         </button>
 
-        <!-- Register CTA -->
-        <a class="btn-royal" data-link="luma" style="padding:0.38rem 0.9rem; font-size:0.8rem;" title="Reserve Attendee Pass">
-          Register ↗
-        </a>
+        <a class="nav-register-btn" data-link="luma">Register ↗</a>
       </div>
     </div>
   </header>
 
-  <!-- 3D Book Stage -->
+  <!-- Main Two-Page Open Hardcover Book Stage -->
   <main class="book-stage">
-    <div class="book-wrapper book-closed-front">
-      
-      <!-- StPageFlip 3D Physical Book -->
+    <div class="book-wrapper book-open">
+      <!-- Physical Hardcover Boards & Layered Paper-Edge Stack -->
+      <div class="book-boards-backdrop" aria-hidden="true"></div>
+      <!-- Photorealistic Sewn Center Crease & Silk Headband/Tailband -->
+      <div class="spine-crease-overlay" aria-hidden="true"></div>
+
       <div id="flipbook">
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 0: FRONT COVER (HARD LEATHER DENSITY)
-             ════════════════════════════════════════════════════════════ -->
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 0: FRONT COVER (EMERALD LEATHER · OFFICIAL ANHAD LOGO · NO ROYAL SEAL)
+             ═══════════════════════════════════════════════════════════ -->
         <div class="page page-cover" data-density="hard">
-          <!-- Antique Brass Corner Mounts -->
-          <div class="cover-corner corner-tl"></div>
-          <div class="cover-corner corner-tr"></div>
-          <div class="cover-corner corner-bl"></div>
-          <div class="cover-corner corner-br"></div>
+          <div class="cover-inner">
+            <div class="cover-frame"></div>
+            <div class="cover-corner corner-tl"></div>
+            <div class="cover-corner corner-tr"></div>
+            <div class="cover-corner corner-bl"></div>
+            <div class="cover-corner corner-br"></div>
 
-          <!-- Official GCET Student Council Medallion Seal -->
-          <div class="gcet-seal-wrapper" title="Verified GCET Student Council Seal">
-            <svg viewBox="0 0 100 100" style="width:100%; height:100%; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.7));">
-              <circle cx="50" cy="50" r="46" stroke="#f5c542" stroke-width="2" stroke-dasharray="3 2" fill="rgba(4, 24, 20, 0.85)"/>
-              <circle cx="50" cy="50" r="40" stroke="#cf9c34" stroke-width="1.2" fill="none"/>
-              <path id="sealPath" d="M 17,50 A 33,33 0 1,1 83,50 A 33,33 0 1,1 17,50" fill="none"/>
-              <text font-size="7.5" font-family="'Outfit', sans-serif" font-weight="700" fill="#f5c542" letter-spacing="1.5">
-                <textPath href="#sealPath">✦ GCET STUDENT COUNCIL · ANHAD 2026 ✦</textPath>
-              </text>
-              <text x="50" y="55" font-size="16" font-family="'Tiro Devanagari Hindi', serif" font-weight="700" text-anchor="middle" fill="#f5c542">
-                मुहर
-              </text>
-            </svg>
-          </div>
-
-          <div class="cover-content">
-            <!-- Silk Bookmark Ribbon -->
-            <div class="silk-ribbon" onclick="window.anhadBook.turnToPage(1)" title="Pull Bookmark to Open Granth"></div>
-
-            <!-- Top Woven Textile Band -->
-            <div class="band-border"></div>
-
-            <!-- Rotating Sacred Mandala Watermark -->
-            <svg class="mandala-watermark" viewBox="0 0 200 200" fill="none">
-              <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="100" cy="100" r="48" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M100 12 L112 88 L188 100 L112 112 L100 188 L88 112 L12 100 L88 88 Z" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M38 38 L92 84 L162 38 L116 92 L162 162 L108 116 L38 162 L84 108 Z" stroke="currentColor" stroke-width="1"/>
+            <!-- Static Subtle Heritage Mandala Watermark -->
+            <svg class="mandala-watermark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+              <circle cx="100" cy="100" r="88" stroke="#d4a64a" stroke-width="1" stroke-dasharray="4 4"/>
+              <circle cx="100" cy="100" r="64" stroke="#d4a64a" stroke-width="1"/>
+              <polygon points="100,14 122,78 186,100 122,122 100,186 78,122 14,100 78,78" stroke="#d4a64a" stroke-width="0.9"/>
+              <polygon points="100,32 148,52 168,100 148,148 100,168 52,148 32,100 52,52" stroke="#d4a64a" stroke-width="0.8"/>
             </svg>
 
-            <!-- Main Title & Emblem (Razor Sharp & High Contrast) -->
-            <div style="position:relative; z-index:2; margin-top:0.8rem;">
-              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:#f5c542; margin:0; font-weight:800; text-shadow:0 1px 3px rgba(0,0,0,0.85);">
-                GCET Student Council Presents
-              </p>
+            <p class="cover-overline">GCET Student Council Presents</p>
 
-              <h1 class="gold-foil-text" style="font-family:var(--font-hindi); font-size:clamp(4.2rem, 11vw, 5.8rem); line-height:1.05; margin:0.3rem 0 0;">
-                अनहद
-              </h1>
-
-              <p class="gold-foil-sub" style="font-family:var(--font-heading); font-size:1.35rem; font-weight:700; letter-spacing:0.45em; margin:0.2rem 0 0;">
-                ANHAD · 2026
-              </p>
-
-              <p style="font-family:var(--font-heading); font-size:1.15rem; letter-spacing:0.2em; text-transform:uppercase; color:#ffe8a3; margin:0.4rem 0 0; font-weight:700; text-shadow:0 1px 3px rgba(0,0,0,0.9);">
-                Galgotias Literature Fest
-              </p>
-
-              <div class="ornament-divider" style="margin:0.5rem auto; color:#f5c542;">❦</div>
-
-              <p style="font-family:var(--font-serif); font-size:1.02rem; font-style:italic; line-height:1.45; color:#ffffff; max-width:28ch; margin:0.3rem auto 0; text-shadow:0 1px 4px rgba(0,0,0,0.95); font-weight:500;">
-                “अनहद (Anhad) — boundless, without limit; the unstruck sound of Indian poetry and mysticism.”
-              </p>
+            <div class="cover-center">
+              <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26 Official Calligraphic Logo" class="anhad-cover-logo">
+              <h1 class="cover-subtitle">Galgotias Literature Fest</h1>
+              <p class="cover-tagline">Where literature meets imagination and every expression finds its stage.</p>
+              <div class="cover-dates-line">26 · 27 · 28 NOVEMBER 2026</div>
             </div>
 
-            <!-- Festival Dates & Countdown Badge (High-Contrast Dark Pill) -->
-            <div style="position:relative; z-index:2; padding:0.7rem 1.4rem; border-radius:12px; background:rgba(2, 14, 12, 0.85); border:1.5px solid #f5c542; box-shadow:0 6px 20px rgba(0,0,0,0.7); margin:0.8rem 0;">
-              <p style="font-family:var(--font-ui); font-size:0.78rem; letter-spacing:0.24em; text-transform:uppercase; color:#ffffff; margin:0; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.8);">
-                📅 26, 27, 28 November 2026 · Greater Noida
-              </p>
-              <p id="festCountdown" style="font-family:var(--font-ui); font-size:1.25rem; font-weight:800; color:#f5c542; margin:0.3rem 0 0; letter-spacing:0.06em; text-shadow:0 2px 8px rgba(245, 197, 66, 0.45);">
-                Loading fest countdown...
-              </p>
-            </div>
-
-            <!-- Action CTA: Enter the Book -->
-            <div style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:0.6rem;">
-              <button onclick="window.anhadBook.turnToPage(1)" class="btn-royal" style="font-size:1.05rem; padding:0.8rem 2.2rem; font-weight:800; letter-spacing:0.06em; box-shadow:0 4px 20px rgba(245, 197, 66, 0.5), inset 0 1px 0 rgba(255,255,255,0.8);">
-                <span>Open the Granth (Enter Book)</span>
-                <span style="font-size:1.2rem; transition:transform 0.2s ease;">➔</span>
+            <div class="cover-bottom">
+              <button type="button" class="btn-cover-gold" onclick="window.anhadBook.turnToPage(1)">
+                Open Handbook →
               </button>
-
-              <div style="display:flex; gap:0.6rem; margin-top:0.3rem;">
-                <a class="btn-outline" data-link="luma" style="color:#ffffff !important; border-color:#f5c542; background:rgba(0,0,0,0.5); font-size:0.8rem; font-weight:700; padding:0.42rem 1rem;">
-                  Attendees (Luma) ↗
-                </a>
-                <a class="btn-outline" data-link="unstop" style="color:#ffffff !important; border-color:#f5c542; background:rgba(0,0,0,0.5); font-size:0.8rem; font-weight:700; padding:0.42rem 1rem;">
-                  Competitions (Unstop) ↗
-                </a>
-              </div>
+              <p class="cover-host">Galgotias College of Engineering &amp; Technology · Greater Noida</p>
             </div>
-
-            <!-- Bottom Woven Textile Band -->
-            <div class="band-border"></div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 1: INSIDE COVER & PREFACE (FOLIO i)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page page-endpaper">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Preface · आमुख</p>
-              <h2 class="page-title">A Festival of Words</h2>
-              <div class="ornament-divider">❦</div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 1 (LEFT OPEN PAGE): ABOUT ANHAD & THREE-DAY ARC
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page1">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <div class="page1-masthead">
+                <p class="page-kicker">GCET Student Council · Greater Noida</p>
+                <img src="/assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-light-only">
+                <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-dark-only">
+                <div class="meta-inline-strip">
+                  <span>26–28 November 2026</span>
+                  <span>·</span>
+                  <span>10:00 AM – 7:00 PM IST</span>
+                  <span>·</span>
+                  <span>Knowledge Park II</span>
+                </div>
+                <div class="countdown-line">
+                  Starts in <span id="pageCountdown" class="countdown-value">Calculating…</span>
+                </div>
+              </div>
 
-              <p class="drop-cap" style="font-size:1.06rem; line-height:1.75; color:var(--ink-primary); margin-bottom:0.8rem;">
-                Anhad is the premier literature festival of Galgotias College of Engineering &amp; Technology — an open book where stories, poems, ideas, and voices share one stage. Whether you read, write, recite, or simply love to listen, there is a chapter here with your name on it.
+              <p class="page-subtitle" style="margin-bottom:0.42rem;">
+                <strong>ANHAD ’26</strong> is GCET’s flagship three-day celebration of literature, poetry, journalism,
+                oral storytelling, and live music — bringing together student writers, debaters, and readers across Delhi NCR.
               </p>
 
-              <!-- Interactive Navarasa Poetic Wheel -->
-              <div style="border:1.5px solid var(--gold-antique); border-radius:12px; background:var(--paper-cream); padding:0.85rem; margin:0.8rem 0;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-crimson);">
-                    ✦ Interactive · Invoke a Literary Rasa
-                  </span>
-                  <span style="font-family:var(--font-hindi); font-size:0.8rem; color:var(--ink-muted);">नवरस</span>
+              <h2 class="section-heading" style="margin-top:0.35rem;">Three Days. Three Distinct Moods.</h2>
+              <div class="pillar-list">
+                <div class="pillar-row">
+                  <span class="pillar-day">Day 1 · 26 Nov</span>
+                  <div class="pillar-copy">
+                    <strong>Aarambh — The Beginning of Stories.</strong> Kitab Ghar book fair, authors, Turncoat throwdowns, Kavi Sammelan &amp; fresh literary voices.
+                  </div>
                 </div>
-
-                <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.6rem;">
-                  <button class="rasa-pill active" data-rasa="shanta" onclick="window.selectRasa('shanta')">शान्त · Peace</button>
-                  <button class="rasa-pill" data-rasa="shringara" onclick="window.selectRasa('shringara')">शृंगार · Romance</button>
-                  <button class="rasa-pill" data-rasa="veera" onclick="window.selectRasa('veera')">वीर · Valour</button>
-                  <button class="rasa-pill" data-rasa="adbhuta" onclick="window.selectRasa('adbhuta')">अद्भुत · Wonder</button>
+                <div class="pillar-row">
+                  <span class="pillar-day">Day 2 · 27 Nov</span>
+                  <div class="pillar-copy">
+                    <strong>Samvaad — The Art of Conversation.</strong> Fourth Pillar of Democracy panel, Bhagat Singh archival exhibit, Dastangoi &amp; Sufi Night.
+                  </div>
                 </div>
-
-                <blockquote style="margin:0; padding-left:0.75rem; border-left:3px solid var(--head-crimson);">
-                  <p id="rasaHindi" style="font-family:var(--font-hindi); font-size:1.05rem; color:var(--head-teal); margin:0; line-height:1.45; font-weight:600;">
-                    “हद चले सो मानवा, बेहद चले सो साध। हद बेहद दोनों तजे, ताकर मता अगाध॥”
-                  </p>
-                  <p id="rasaTrans" style="font-family:var(--font-serif); font-size:0.88rem; font-style:italic; color:var(--ink-muted); margin:0.35rem 0 0; line-height:1.4;">
-                    “Within limits walks the mortal; beyond limits walks the seeker. In the boundless unstruck sound (Anhad) lies infinite wisdom.” — Kabir
-                  </p>
-                </blockquote>
+                <div class="pillar-row">
+                  <span class="pillar-day">Day 3 · 28 Nov</span>
+                  <div class="pillar-copy">
+                    <strong>Naad — The Rhythm of Celebration.</strong> Conscious living reading circle, Open Mic, Debate Finals, freshers’ artistry &amp; closing concert.
+                  </div>
+                </div>
               </div>
 
-              <!-- Key Facts Summary -->
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; text-align:center; margin-top:0.8rem; border-top:1px solid var(--paper-edge); padding-top:0.6rem;">
-                <div>
-                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">When</b>
-                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">26–28 Nov 2026</span>
-                </div>
-                <div>
-                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">Where</b>
-                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">GCET Campus</span>
-                </div>
-                <div>
-                  <b style="display:block; font-family:var(--font-ui); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--head-crimson);">For</b>
-                  <span style="font-size:0.92rem; font-weight:600; color:var(--ink-primary);">Writers &amp; Readers</span>
-                </div>
+              <blockquote class="editorial-quote" style="margin:0.4rem 0 0.45rem;">
+                “Every age has its Kurukshetra, and every awakening begins with a word.”
+                <cite>— ANHAD ’26 · Where Ideas Find Expression</cite>
+              </blockquote>
+
+              <div class="action-row" style="margin-top:0.35rem;">
+                <a class="btn-royal" data-link="luma" style="padding:0.34rem 0.84rem; font-size:0.78rem;">Get Visitor Pass ↗</a>
+                <button type="button" class="btn-outline" onclick="window.openScrollModal()" style="padding:0.32rem 0.74rem; font-size:0.74rem;">
+                  Read Invitation Note
+                </button>
               </div>
             </div>
 
-            <span class="folio-number">— i —</span>
+            <div class="page-footer-folio">
+              <span>ANHAD ’26 HANDBOOK</span>
+              <span>i</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 2: TABLE OF CONTENTS (FOLIO ii)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Index · विषय-सूची</p>
-              <h2 class="page-title">The Chapters Ahead</h2>
-              <div class="ornament-divider">❦</div>
-
-              <p style="font-size:0.95rem; font-style:italic; text-align:center; color:var(--ink-muted); margin-bottom:0.9rem;">
-                Click any chapter below to turn directly to that section.
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 2 (RIGHT OPEN PAGE): TABLE OF CONTENTS & AT A GLANCE
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page2">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Festival Index</p>
+              <h2 class="page-title">Contents of This Edition</h2>
+              <p class="page-subtitle" style="margin-bottom:0.38rem;">
+                Turn pages by clicking the corners, pressing arrow keys, or selecting a chapter below.
               </p>
 
-              <ol class="toc-list">
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(3)">
-                  <span class="toc-num">I.</span>
-                  <span class="toc-name">Aarambh · The Beginning of Stories</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio iii ➔</span>
+              <ul class="toc-list">
+                <li>
+                  <button type="button" class="toc-btn" onclick="window.anhadBook.turnToPage(3)">
+                    <span>
+                      <span class="toc-title">I. Explore the Fest</span>
+                      <span class="toc-desc">6 Competitions, Rules &amp; Charters · Bhagat Singh Exhibit · Kitab Ghar</span>
+                    </span>
+                    <span class="toc-folio">pp. 3–4</span>
+                  </button>
                 </li>
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(3)">
-                  <span class="toc-num">II.</span>
-                  <span class="toc-name">Samvaad · The Art of Conversation</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio iii ➔</span>
+                <li>
+                  <button type="button" class="toc-btn" onclick="window.anhadBook.turnToPage(5)">
+                    <span>
+                      <span class="toc-title">II. Schedule &amp; Lineup</span>
+                      <span class="toc-desc">15 Day-wise Sessions with Search &amp; Filters · Performers &amp; Guests</span>
+                    </span>
+                    <span class="toc-folio">pp. 5–6</span>
+                  </button>
                 </li>
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(4)">
-                  <span class="toc-num">III.</span>
-                  <span class="toc-name">Naad · The Rhythm of Celebration</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio iv ➔</span>
+                <li>
+                  <button type="button" class="toc-btn" onclick="window.anhadBook.turnToPage(7)">
+                    <span>
+                      <span class="toc-title">III. Register &amp; Plan Your Visit</span>
+                      <span class="toc-desc">Visitor &amp; Competitor Passes · Interactive GCET Campus Map &amp; Metro Guide</span>
+                    </span>
+                    <span class="toc-folio">pp. 7–8</span>
+                  </button>
                 </li>
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(5)">
-                  <span class="toc-num">IV.</span>
-                  <span class="toc-name">The Revolutionary Pen · Bhagat Singh</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio v ➔</span>
+                <li>
+                  <button type="button" class="toc-btn" onclick="window.anhadBook.turnToPage(9)">
+                    <span>
+                      <span class="toc-title">IV. Community, Memories &amp; Partners</span>
+                      <span class="toc-desc">Navarasa Mood Guide · Ink Your Verse Wall · Results &amp; Organising Collective</span>
+                    </span>
+                    <span class="toc-folio">pp. 9–10</span>
+                  </button>
                 </li>
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(6)">
-                  <span class="toc-num">V.</span>
-                  <span class="toc-name">Mehfil-e-Sukhan · Sufi Night &amp; Quill Wall</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio vi ➔</span>
+                <li>
+                  <button type="button" class="toc-btn" onclick="window.anhadBook.turnToPage(11)">
+                    <span>
+                      <span class="toc-title">V. FAQ Help Centre &amp; Contact Desk</span>
+                      <span class="toc-desc">Topic-wise Answers · Student Council Help Desk &amp; Visitor Query Form</span>
+                    </span>
+                    <span class="toc-folio">pp. 11–12</span>
+                  </button>
                 </li>
-                <li class="toc-item" onclick="window.anhadBook.turnToPage(7)">
-                  <span class="toc-num">VI.</span>
-                  <span class="toc-name">Passes &amp; Campus Cartography</span>
-                  <span class="toc-dots"></span>
-                  <span class="toc-sub">Folio vii ➔</span>
-                </li>
-              </ol>
+              </ul>
 
-              <!-- Curated Official Festival Highlights Box -->
-              <div style="border:1.5px solid var(--paper-edge); border-radius:10px; background:var(--paper-vellum); padding:0.9rem; margin-top:1.1rem; text-align:center;">
-                <p style="font-family:var(--font-heading); font-size:1.15rem; font-weight:700; color:var(--head-crimson); margin:0 0 0.35rem 0;">
-                  “Three Days. Three Distinct Moods. A Thousand Stories.”
+              <h3 class="section-heading" style="margin-top:0.35rem;">Confirmed Highlights</h3>
+              <ul class="clean-list" style="margin-bottom:0.35rem;">
+                <li><strong>Curated Exhibits:</strong> <em>Bhagat Singh: The Revolutionary Pen</em> &amp; <em>Kitab Ghar</em> Courtyard.</li>
+                <li><strong>Evening Recitals:</strong> Kavi Sammelan (Day 1), Dastangoi &amp; Sufi Night (Day 2), Naad Finale (Day 3).</li>
+                <li><strong>Open to All Colleges:</strong> Free Visitor Pass on Luma; ₹55,500+ total competition prize pool.</li>
+              </ul>
+
+              <div class="action-row" style="margin-top:0.3rem;">
+                <button type="button" class="btn-royal" onclick="window.anhadBook.turnToPage(3)" style="padding:0.34rem 0.84rem; font-size:0.78rem;">
+                  Browse Competitions →
+                </button>
+                <button type="button" class="btn-outline" onclick="window.anhadBook.turnToPage(5)" style="padding:0.32rem 0.74rem; font-size:0.74rem;">
+                  View Schedule
+                </button>
+              </div>
+            </div>
+
+            <div class="page-footer-folio">
+              <span>GCET · KNOWLEDGE PARK II</span>
+              <span>ii</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 3: EXPLORE — COMPETITIONS & INTERACTIVE FILTERS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page3">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Explore the Fest</p>
+              <h2 class="page-title">Competitions &amp; Contests</h2>
+              <p class="page-subtitle">
+                Six flagship literary tracks across debate, poetry, fiction, quiz, and book-jacket art. Open any charter for full rules and deadlines.
+              </p>
+
+              <div class="filter-bar" role="group" aria-label="Filter competitions by category">
+                <button type="button" class="filter-tab active" data-comp-filter="all" aria-pressed="true" onclick="window.filterCompetitionCategory('all')">All (6)</button>
+                <button type="button" class="filter-tab" data-comp-filter="debate" aria-pressed="false" onclick="window.filterCompetitionCategory('debate')">Debate &amp; Oratory</button>
+                <button type="button" class="filter-tab" data-comp-filter="poetry" aria-pressed="false" onclick="window.filterCompetitionCategory('poetry')">Poetry &amp; Writing</button>
+                <button type="button" class="filter-tab" data-comp-filter="art" aria-pressed="false" onclick="window.filterCompetitionCategory('art')">Art &amp; Quiz</button>
+              </div>
+
+              <div id="competitionsList" class="comp-list"></div>
+            </div>
+
+            <div class="page-footer-folio">
+              <span>COMPETITIONS</span>
+              <span>3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 4: EXPLORE — EXHIBITIONS, WORKSHOPS & ATTRACTIONS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page4">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Curated Showcases</p>
+              <h2 class="page-title">Exhibits, Panels &amp; Mehfils</h2>
+
+              <div class="feature-entry">
+                <h3>Bhagat Singh: The Revolutionary Pen</h3>
+                <div class="feature-meta">Archival Exhibit · Day 2 (10:30 AM – 5:00 PM) · Heritage Gallery</div>
+                <p>
+                  Beyond rebellion, Bhagat Singh was a voracious reader, essayist, and thinker who believed revolution begins with ideas. Explore annotated readings of <em>Why I Am an Atheist</em>, prison notebooks, and letters.
                 </p>
-                <p style="font-size:0.9rem; line-height:1.5; color:var(--ink-secondary); margin:0;">
-                  From turning pages to turning heads, from debating ideas to getting lost in Dastangoi, and from soulful Sufi melodies to celebration.
+              </div>
+
+              <div class="feature-entry">
+                <h3>Kitab Ghar — Courtyard Book Fair &amp; Swap</h3>
+                <div class="feature-meta">All Three Days · Central Courtyard</div>
+                <p>
+                  Independent Hindi, Urdu, and English publishers, campus book swaps, and quiet reading benches.
+                  <span class="dev-text">“किताबें झाँकती हैं बंद अलमारी के शीशों से, बड़ी हसरत से तकती हैं।” — Bashir Badr</span>
+                </p>
+              </div>
+
+              <div class="feature-entry">
+                <h3>Fourth Pillar of Democracy</h3>
+                <div class="feature-meta">Journalism &amp; Media Dialogue · Day 2 · Main Auditorium</div>
+                <p>
+                  Long-form reporters, editors, and student journalists unpack investigative reporting, campus press independence, and verification in the age of noise.
+                </p>
+              </div>
+
+              <div class="feature-entry">
+                <h3>Dastangoi &amp; Evening Sufi Night</h3>
+                <div class="feature-meta">Live Oral &amp; Musical Recitals · Day 2 Dusk · Amphitheatre &amp; Main Lawn</div>
+                <p>
+                  Traditional 16th-century Urdu storytelling followed by an acoustic Sufi qawwali evening.
+                  <span class="dev-text">“गुलों में रंग भरे बाद-ए-नौ-बहार चले, चले भी आओ कि गुलशन का कारोबार चले।” — Faiz</span>
                 </p>
               </div>
             </div>
 
-            <span class="folio-number">— ii —</span>
+            <div class="page-footer-folio">
+              <span>EXHIBITS &amp; ATTRACTIONS</span>
+              <span>4</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 3: THREE-DAY SAGA — AARAMBH & SAMVAAD (FOLIO iii)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">The Chronicles · दिवस वृत्त</p>
-              <h2 class="page-title">Days of Literature</h2>
-              <div class="ornament-divider">❦</div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 5: SCHEDULE — DAY-WISE WITH SEARCH & CATEGORY FILTERS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page5">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Festival Programme</p>
+              <h2 class="page-title">Three-Day Schedule</h2>
 
-              <!-- DAY 1: AARAMBH -->
-              <div class="day-saga-card">
-                <span class="day-badge">Day 1 · 26 November</span>
-                <h3 class="day-title">AARAMBH (आरम्भ) — The Beginning</h3>
-                <p class="day-desc">
-                  A day filled with books, authors, poetry, and fresh literary voices. Features the Grand Opening Ceremony, Keynote Samvaad, Classical Kavi Sammelan, and Freshers' Spoken Word Arena.
-                </p>
-                <div class="literary-quote" style="margin-top:0.5rem; font-size:0.92rem;">
-                  “Every age has its Kurukshetra, and every awakening begins with a word.”
-                </div>
+              <div class="filter-bar" role="group" aria-label="Filter schedule by festival day">
+                <button type="button" class="filter-tab active" data-day-filter="all" aria-pressed="true" onclick="window.setScheduleDay('all')">All Days</button>
+                <button type="button" class="filter-tab" data-day-filter="day1" aria-pressed="false" onclick="window.setScheduleDay('day1')">Day 1 · 26 Nov</button>
+                <button type="button" class="filter-tab" data-day-filter="day2" aria-pressed="false" onclick="window.setScheduleDay('day2')">Day 2 · 27 Nov</button>
+                <button type="button" class="filter-tab" data-day-filter="day3" aria-pressed="false" onclick="window.setScheduleDay('day3')">Day 3 · 28 Nov</button>
               </div>
 
-              <!-- DAY 2: SAMVAAD -->
-              <div class="day-saga-card">
-                <span class="day-badge" style="background:var(--head-teal);">Day 2 · 27 November</span>
-                <h3 class="day-title">SAMVAAD (संवाद) — The Art of Conversation</h3>
-                <p class="day-desc">
-                  A day for fearless ideas, discussions, and oral storytelling. Highlights include:
-                </p>
-                <ul style="margin:0.4rem 0 0 1.2rem; padding:0; font-size:0.9rem; color:var(--ink-secondary); line-height:1.5;">
-                  <li><b>The Fourth Pillar of Democracy</b> — Journalism &amp; Free Press Panel</li>
-                  <li><b>Dastangoi</b> — 16th-century dramatic oral Hindustani storytelling</li>
-                  <li><b>Mehfil-e-Sukhan</b> — Soul-stirring Sufi Night under the open stars</li>
+              <div class="schedule-search-row">
+                <input type="search" id="scheduleSearchInput" class="editorial-input" placeholder="Search session, venue, or keyword…" aria-label="Search schedule sessions">
+                <select id="scheduleCategorySelect" class="editorial-select" aria-label="Filter schedule by type">
+                  <option value="all">All Types</option>
+                  <option value="competition">Competitions</option>
+                  <option value="panel">Panels &amp; Talks</option>
+                  <option value="performance">Performances</option>
+                  <option value="exhibit">Exhibits</option>
+                </select>
+              </div>
+
+              <div id="scheduleList" class="schedule-list"></div>
+            </div>
+
+            <div class="page-footer-folio">
+              <span>SCHEDULE · 26–28 NOV</span>
+              <span>5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 6: PERFORMERS, SPEAKERS & ANNOUNCEMENT TIMELINE
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page6">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Performers &amp; Guests</p>
+              <h2 class="page-title">Voices on Stage</h2>
+              <p class="page-subtitle">
+                We list only confirmed programming formats here; individual celebrity poets, authors, and Sufi ensemble headliners are unveiled on our official schedule below.
+              </p>
+
+              <div class="feature-entry">
+                <h3>Confirmed Stage Formats</h3>
+                <ul class="clean-list">
+                  <li><strong>Opening Kavi Sammelan (Day 1):</strong> Invited Hindi &amp; Urdu poets alongside top university slam finalists.</li>
+                  <li><strong>Fourth Pillar Panelists (Day 2):</strong> Print &amp; digital journalists, non-fiction authors, and editors.</li>
+                  <li><strong>Dastangoi &amp; Sufi Night (Day 2):</strong> Professional Delhi-based Dastangoi duo followed by an acoustic qawwali &amp; Sufi collective.</li>
+                  <li><strong>Freshers’ Artistry &amp; Naad Finale (Day 3):</strong> Campus acoustic bands, soloists, and poetry showcases.</li>
                 </ul>
               </div>
-            </div>
 
-            <span class="folio-number">— iii —</span>
-          </div>
-        </div>
-
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 4: THREE-DAY SAGA — NAAD & ARENA (FOLIO iv)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Celebration &amp; Debate · नाद एवं शास्त्रार्थ</p>
-              <h2 class="page-title">The Rhythm &amp; Arena</h2>
-              <div class="ornament-divider">❦</div>
-
-              <!-- DAY 3: NAAD -->
-              <div class="day-saga-card">
-                <span class="day-badge" style="background:#b8861e;">Day 3 · 28 November</span>
-                <h3 class="day-title">NAAD (नाद) — The Rhythm of Celebration</h3>
-                <p class="day-desc">
-                  A celebration of conscious living, freshers' artistry, music, and performances that bring everyone together. Unplugged indie acoustics, poetry slam finals, and the Grand Valedictory Awards.
-                </p>
-              </div>
-
-              <!-- Kurukshetra of Words (Debate & Turncoat) -->
-              <div class="day-saga-card" style="border-color:var(--head-crimson);">
-                <span class="day-badge" style="background:var(--head-crimson);">Special Arena</span>
-                <h3 class="day-title">The Kurukshetra of Words</h3>
-                <p class="day-desc">
-                  From spirited parliamentary debates and unexpected turncoat throwdowns to the National Literary Quiz — test your wit, dialectics, and conviction on the stage of ideas.
-                </p>
-              </div>
-
-              <!-- Official Announcement Status -->
-              <div style="border:1px dashed var(--gold-antique); border-radius:10px; padding:0.75rem; text-align:center; background:var(--paper-cream);">
-                <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-teal);">
-                  ✦ Detailed Rulebooks &amp; Stage Timelines Releasing on Unstop
-                </span>
-              </div>
-            </div>
-
-            <span class="folio-number">— iv —</span>
-          </div>
-        </div>
-
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 5: BHAGAT SINGH REVOLUTIONARY EXHIBIT (FOLIO v)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Special Exhibit · क्रांति एवं चेतना</p>
-              <h2 class="page-title">The Revolutionary Pen</h2>
-              <div class="ornament-divider">❦</div>
-
-              <!-- Bhagat Singh Commemorative Box from Council -->
-              <div class="revolutionary-box">
-                <div style="text-align:center; margin-bottom:0.6rem;">
-                  <h3 style="font-family:var(--font-hindi); font-size:1.85rem; font-weight:700; color:var(--head-crimson); margin:0;">
-                    भगत सिंह
-                  </h3>
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-primary);">
-                    The Revolutionary Who Believed in the Power of Ideas
-                  </span>
-                </div>
-
-                <p style="font-size:0.95rem; line-height:1.65; color:var(--ink-primary); margin:0 0 0.6rem 0;">
-                  Bhagat Singh was one of India's most influential revolutionary thinkers, remembered for his courage, intellectual thinking, and unwavering commitment to independence. Beyond his revolutionary activities, he was an insatiable reader, writer, and thinker who believed that true revolution began with ideas and awareness.
-                </p>
-
-                <div class="literary-quote" style="border-color:var(--head-crimson); font-size:0.95rem;">
-                  “Before the slogan echoed across the streets, it was forged in prison cells surrounded by books, essays, and an unbreakable self-belief.”
-                </div>
-
-                <p style="font-size:0.92rem; line-height:1.55; color:var(--ink-secondary); margin:0.6rem 0 0 0;">
-                  His famous treatise <i>Why I Am an Atheist</i> and his smuggled jail diaries reflected his rational mind. Because the sharpest weapon against any empire is a mind that dares to read and a pen that dares to write.
-                </p>
-              </div>
-
-              <!-- Reader's Courtyard / Kitab Ghar -->
-              <div class="sufi-verse-card" style="margin-top:0.75rem;">
-                <p style="font-family:var(--font-hindi); font-size:1.15rem; font-weight:600; color:var(--head-teal); margin:0; line-height:1.45;">
-                  “किताबें झाँकती हैं बंद अलमारी के शीशों से,<br>बड़ी हसरत से तकती हैं।”
-                </p>
-                <span style="font-size:0.82rem; font-style:italic; color:var(--ink-muted); display:block; margin-top:0.3rem;">
-                  — बशीर बद्र / गुलज़ार · Kitab Ghar Exhibit
-                </span>
-              </div>
-            </div>
-
-            <span class="folio-number">— v —</span>
-          </div>
-        </div>
-
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 6: SUFI MEHFIL & DIGITAL QUILL WALL (FOLIO vi)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Community Marginalia · महफ़िल-ए-सुख़न</p>
-              <h2 class="page-title">Ink Your Verse</h2>
-              <div class="ornament-divider">❦</div>
-
-              <!-- Sufi Night Verse Highlight -->
-              <div class="sufi-verse-card">
-                <p style="font-family:var(--font-hindi); font-size:1.18rem; font-weight:600; color:var(--head-crimson); margin:0; line-height:1.4;">
-                  “गुलों में रंग भरे बाद-ए-नौ-बहार चले,<br>चले भी आओ कि गुलशन का कारोबार चले।”
-                </p>
-                <span style="font-size:0.82rem; font-style:italic; color:var(--ink-muted); display:block; margin-top:0.3rem;">
-                  — फ़ैज़ अहमद फ़ैज़ (Faiz) · Soul-Stirring Sufi Night
-                </span>
-              </div>
-
-              <!-- Interactive Digital Quill Wall Form -->
-              <div style="border:1.5px solid var(--gold-antique); border-radius:12px; background:var(--paper-vellum); padding:0.85rem; margin-top:0.75rem;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--ink-muted);">
-                    Dip Quill in Ink:
-                  </span>
-                  <div style="display:flex; gap:0.4rem;">
-                    <button onclick="window.setQuillInk('#8b1328')" style="width:18px; height:18px; border-radius:50%; background:#8b1328; border:1px solid #ffffff; cursor:pointer;" title="Sindoor Crimson"></button>
-                    <button onclick="window.setQuillInk('#083b35')" style="width:18px; height:18px; border-radius:50%; background:#083b35; border:1px solid #ffffff; cursor:pointer;" title="Royal Emerald"></button>
-                    <button onclick="window.setQuillInk('#212061')" style="width:18px; height:18px; border-radius:50%; background:#212061; border:1px solid #ffffff; cursor:pointer;" title="Midnight Indigo"></button>
-                    <button onclick="window.setQuillInk('#966e1b')" style="width:18px; height:18px; border-radius:50%; background:#966e1b; border:1px solid #ffffff; cursor:pointer;" title="Sepia Gold"></button>
+              <div class="feature-entry">
+                <h3>Guest Announcement Timeline</h3>
+                <div class="pillar-list" style="margin-top:0.25rem;">
+                  <div class="pillar-row">
+                    <span class="pillar-day">5 Nov 2026</span>
+                    <div class="pillar-copy"><strong>Wave 1 Reveal:</strong> Inaugural keynote speaker &amp; Fourth Pillar panel lineup.</div>
                   </div>
-                  <button onclick="window.fillInspireVerse()" style="font-family:var(--font-ui); font-size:0.75rem; font-weight:700; color:var(--head-crimson); background:none; border:none; cursor:pointer; text-decoration:underline;">
-                    ✨ Inspire Me
-                  </button>
-                </div>
-
-                <textarea id="verseInput" rows="2" maxlength="140" placeholder="Compose a couplet or quote for the festival..." style="width:100%; box-sizing:border-box; padding:0.5rem; border-radius:6px; border:1px solid var(--paper-edge); background:var(--paper-cream); font-family:var(--font-serif); font-size:0.95rem; font-style:italic; color:#8b1328; resize:none;"></textarea>
-
-                <div style="display:flex; gap:0.4rem; margin-top:0.4rem;">
-                  <input id="poetInput" type="text" maxlength="30" placeholder="Your Name / Takhallus" style="flex:1; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid var(--paper-edge); background:var(--paper-cream); font-family:var(--font-ui); font-size:0.8rem;">
-                  <button onclick="window.stampVerse()" class="btn-royal" style="padding:0.4rem 0.85rem; font-size:0.78rem;">
-                    🪶 Stamp Seal
-                  </button>
-                  <button onclick="window.downloadBookmark()" class="btn-outline" style="padding:0.4rem 0.75rem; font-size:0.78rem;" title="Download Custom Souvenir Bookmark PNG">
-                    🔖 Bookmark
-                  </button>
+                  <div class="pillar-row">
+                    <span class="pillar-day">12 Nov 2026</span>
+                    <div class="pillar-copy"><strong>Wave 2 Reveal:</strong> Kavi Sammelan poets &amp; Dastangoi storytellers.</div>
+                  </div>
+                  <div class="pillar-row">
+                    <span class="pillar-day">18 Nov 2026</span>
+                    <div class="pillar-copy"><strong>Headliner Reveal:</strong> Day 2 Sufi Night ensemble &amp; Day 3 Naad closing act.</div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Live Marginalia Entries -->
-              <div id="marginaliaFeed" style="margin-top:0.75rem; max-height:160px; overflow-y:auto;"></div>
+              <div class="action-row">
+                <a class="btn-outline" data-link="instagram">Follow @studentcouncil.gcet for Reveals ↗</a>
+              </div>
             </div>
 
-            <span class="folio-number">— vi —</span>
+            <div class="page-footer-folio">
+              <span>PERFORMERS &amp; GUESTS</span>
+              <span>6</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 7: REGISTRATION PASSES (FOLIO vii)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Your Chapter · प्रवेश पत्रिका</p>
-              <h2 class="page-title">Turn the Page — Register</h2>
-              <div class="ornament-divider">❦</div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 7: REGISTER & PARTICIPATE — PASSES & GUIDELINES
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page7">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Register &amp; Participate</p>
+              <h2 class="page-title">Festival Passes &amp; Entry</h2>
 
-              <!-- Pass 1: Luma Attendees -->
-              <div class="ticket-pass">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed var(--gold-antique); padding-bottom:0.4rem; margin-bottom:0.5rem;">
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--head-crimson);">
-                    Admit One · Listener Pass
-                  </span>
-                  <span style="font-family:var(--font-ui); font-size:0.7rem; font-weight:700; color:var(--ink-muted);">#LUMA-01</span>
+              <div class="pass-tier">
+                <div class="pass-tier-head">
+                  <h3>General Visitor Pass (3 Days)</h3>
+                  <span class="pass-price">Free · RSVP Required</span>
                 </div>
-                <h3 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:700; color:var(--head-teal); margin:0.2rem 0 0.3rem;">
-                  Festival Attendees
-                </h3>
-                <p style="font-size:0.95rem; line-height:1.5; color:var(--ink-primary); margin:0 0 0.8rem;">
-                  Come to listen, discover authors, applaud in the Kavi Sammelan, and experience the Sufi Night.
-                </p>
-                <a class="btn-royal" data-link="luma" style="font-size:0.9rem; padding:0.6rem 1.6rem;">
-                  Register on Luma ↗
-                </a>
+                <ul class="clean-list">
+                  <li>Access to Kitab Ghar, Bhagat Singh Exhibit, Fourth Pillar Panel, Kavi Sammelan, Dastangoi &amp; Sufi Night.</li>
+                  <li>Valid for GCET students, external college visitors, and literary enthusiasts with valid photo ID.</li>
+                </ul>
+                <a class="btn-royal" data-link="luma" style="padding:0.32rem 0.8rem; font-size:0.78rem;">Book Visitor Pass on Luma ↗</a>
               </div>
 
-              <!-- Pass 2: Unstop Competitors -->
-              <div class="ticket-pass">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed var(--gold-antique); padding-bottom:0.4rem; margin-bottom:0.5rem;">
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--head-crimson);">
-                    Open Call · Contestant Pass
-                  </span>
-                  <span style="font-family:var(--font-ui); font-size:0.7rem; font-weight:700; color:var(--ink-muted);">#UNSTOP-02</span>
+              <div class="pass-tier">
+                <div class="pass-tier-head">
+                  <h3>Competitor Entry (Per Track)</h3>
+                  <span class="pass-price">₹80 – ₹250 · Unstop</span>
                 </div>
-                <h3 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:700; color:var(--head-teal); margin:0.2rem 0 0.3rem;">
-                  Competitors &amp; Performers
-                </h3>
-                <p style="font-size:0.95rem; line-height:1.5; color:var(--ink-primary); margin:0 0 0.8rem;">
-                  Compete in Debate, Open Mic, Story Writing, Book Jacket Art, and Parliamentary Throwdown.
-                </p>
-                <a class="btn-outline" data-link="unstop" style="font-size:0.9rem; padding:0.55rem 1.5rem;">
-                  Apply on Unstop ↗
-                </a>
+                <ul class="clean-list">
+                  <li>Includes full 3-day visitor access, competition slot, archival writing stationery, and verified certificate.</li>
+                  <li>Deadlines close between 22 Nov and 24 Nov 2026 depending on the event charter.</li>
+                </ul>
+                <a class="btn-outline" data-link="unstop" style="padding:0.3rem 0.78rem; font-size:0.76rem;">Register Competitions on Unstop ↗</a>
               </div>
 
-              <p style="font-size:0.85rem; font-style:italic; text-align:center; color:var(--ink-muted); margin-top:0.4rem;">
-                Official participation certificates awarded to all shortlisted competitors.
-              </p>
+              <h3 class="section-heading">Entry &amp; Campus Guidelines</h3>
+              <ul class="clean-list">
+                <li>Carry your <strong>physical College ID card</strong> (or Government ID for non-student guests) plus QR confirmation.</li>
+                <li>Gate entry closes at 5:15 PM for evening lawn recitals; no re-entry after 6:00 PM.</li>
+                <li>Outside food, prohibited substances, and sharp items are not permitted on campus.</li>
+              </ul>
             </div>
 
-            <span class="folio-number">— vii —</span>
+            <div class="page-footer-folio">
+              <span>PASSES &amp; REGISTRATION</span>
+              <span>7</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 8: PLAN YOUR VISIT & CAMPUS CARTOGRAPHY (FOLIO viii)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Plan Your Visit · देशाटन</p>
-              <h2 class="page-title">Getting to ANHAD</h2>
-              <div class="ornament-divider">❦</div>
-
-              <p style="font-size:1rem; line-height:1.45; text-align:center; margin:0 0 0.6rem; color:var(--ink-primary);">
-                <b>Galgotias College of Engineering &amp; Technology</b><br>
-                <span style="font-size:0.9rem; color:var(--ink-muted);">1, Knowledge Park II, Greater Noida, Uttar Pradesh</span>
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 8: PLAN YOUR VISIT — INTERACTIVE CAMPUS MAP & TRAVEL
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page8">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Plan Your Visit</p>
+              <h2 class="page-title">GCET Campus Map &amp; Travel</h2>
+              <p class="page-subtitle">
+                Select any campus venue below to inspect directions and scheduled events.
               </p>
 
-              <!-- Interactive Campus Cartography Schematic -->
-              <div class="map-container">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                  <span style="font-family:var(--font-ui); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:var(--head-teal);">
-                    🧭 Interactive Campus Cartography
-                  </span>
-                  <span style="font-family:var(--font-ui); font-size:0.7rem; color:var(--head-crimson); font-weight:600;">Click pins to inspect</span>
+              <div class="campus-map-grid" role="group" aria-label="GCET campus venue landmarks">
+                <button type="button" class="map-pin-btn active" data-map-pin="auditorium" aria-pressed="true" onclick="window.selectMapPin('auditorium')">1. Main Auditorium</button>
+                <button type="button" class="map-pin-btn" data-map-pin="lawn" aria-pressed="false" onclick="window.selectMapPin('lawn')">2. Amphitheatre &amp; Lawn</button>
+                <button type="button" class="map-pin-btn" data-map-pin="kitab" aria-pressed="false" onclick="window.selectMapPin('kitab')">3. Kitab Ghar Courtyard</button>
+                <button type="button" class="map-pin-btn" data-map-pin="gallery" aria-pressed="false" onclick="window.selectMapPin('gallery')">4. Bhagat Singh Gallery</button>
+                <button type="button" class="map-pin-btn" data-map-pin="desk" aria-pressed="false" onclick="window.selectMapPin('desk')">5. Registration Desk</button>
+                <button type="button" class="map-pin-btn" data-map-pin="metro" aria-pressed="false" onclick="window.selectMapPin('metro')">6. Gate 1 · Metro Point</button>
+              </div>
+
+              <div class="map-detail-box" aria-live="polite">
+                <h4 id="mapPinTitle">Main Auditorium (Block A)</h4>
+                <div id="mapPinMeta" class="map-detail-meta">Inaugural · Fourth Pillar Panel · Debate Finals · Valedictory</div>
+                <p id="mapPinDetail"></p>
+              </div>
+
+              <h3 class="section-heading">Reaching GCET, Greater Noida</h3>
+              <ul class="clean-list">
+                <li><strong>Address:</strong> Plot No. 1, Knowledge Park II, Greater Noida, UP 201310.</li>
+                <li><strong>By Metro:</strong> Aqua Line to <strong>Knowledge Park II</strong> (1.2 km / 5-min e-rickshaw to Gate 1).</li>
+                <li><strong>Outstation Stay:</strong> Partner hostel/PG guidance for outstation finalists via Help Desk by 18 Nov.</li>
+              </ul>
+
+              <div class="action-row">
+                <a class="btn-outline" data-link="maps">Open in Google Maps ↗</a>
+              </div>
+            </div>
+
+            <div class="page-footer-folio">
+              <span>PLAN YOUR VISIT</span>
+              <span>8</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 9: COMMUNITY — NAVARASA WHEEL & INK YOUR VERSE WALL
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page9">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Community &amp; Engagement</p>
+              <h2 class="page-title">Navarasa &amp; Reader Wall</h2>
+
+              <h3 class="section-heading" style="margin-top:0.2rem;">Pick Your Literary Rasa</h3>
+              <div class="rasa-grid" role="group" aria-label="Choose a literary rasa mood">
+                <button type="button" class="rasa-btn active" data-rasa="shringara" aria-pressed="true" onclick="window.selectRasa('shringara')">Shringara</button>
+                <button type="button" class="rasa-btn" data-rasa="veera" aria-pressed="false" onclick="window.selectRasa('veera')">Veera</button>
+                <button type="button" class="rasa-btn" data-rasa="adbhuta" aria-pressed="false" onclick="window.selectRasa('adbhuta')">Adbhuta</button>
+                <button type="button" class="rasa-btn" data-rasa="shanta" aria-pressed="false" onclick="window.selectRasa('shanta')">Shanta</button>
+                <button type="button" class="rasa-btn" data-rasa="hasya" aria-pressed="false" onclick="window.selectRasa('hasya')">Hasya</button>
+                <button type="button" class="rasa-btn" data-rasa="karuna" aria-pressed="false" onclick="window.selectRasa('karuna')">Karuna</button>
+              </div>
+              <div id="rasaReadout" class="rasa-readout" aria-live="polite"></div>
+
+              <h3 class="section-heading">Ink Your Verse</h3>
+              <form id="verseWallForm" class="verse-wall-form" novalidate>
+                <input type="text" id="verseAuthorInput" class="editorial-input" placeholder="Your name & college (e.g. Riya · GCET)" aria-label="Your name and college" maxlength="50">
+                <textarea id="verseTextInput" class="editorial-textarea" rows="2" placeholder="Leave a couplet, book recommendation, or line for ANHAD ’26…" aria-label="Your couplet or note" maxlength="180"></textarea>
+                <div class="action-row" style="margin-top:0.15rem;">
+                  <button type="submit" class="btn-royal" style="padding:0.3rem 0.78rem; font-size:0.76rem;">Pin to Wall</button>
+                  <button type="button" class="btn-outline" onclick="window.downloadBookmarkPNG()" style="padding:0.28rem 0.72rem; font-size:0.74rem;">Download Bookmark PNG</button>
                 </div>
+                <p id="verseStatus" class="form-status" aria-live="polite"></p>
+              </form>
 
-                <svg viewBox="0 0 400 160" style="width:100%; height:130px; background:var(--paper-cream); border:1px solid var(--paper-edge); border-radius:8px;">
-                  <!-- Compass -->
-                  <g transform="translate(365, 30)" opacity="0.6">
-                    <circle cx="0" cy="0" r="16" fill="none" stroke="var(--gold-antique)" stroke-width="1"/>
-                    <path d="M0 -14 L4 -3 L14 0 L4 3 L0 14 L-4 3 L-14 0 L-4 -3 Z" fill="var(--head-teal)"/>
-                  </g>
-                  <!-- Aqua Line Metro -->
-                  <path d="M 10 135 Q 140 130 390 135" stroke="#083b35" stroke-width="3" stroke-dasharray="6 4" fill="none"/>
-                  <text x="20" y="150" font-size="9" fill="var(--ink-muted)" font-weight="bold">AQUA LINE METRO CORRIDOR</text>
-                  <!-- Paths -->
-                  <path d="M 85 133 L 85 85 L 290 85 M 185 85 L 185 38" stroke="#cf9c34" stroke-width="2.5" fill="none"/>
-
-                  <!-- Pin 1: Metro -->
-                  <g class="cursor-pointer" onclick="window.inspectMapPin('metro')" style="cursor:pointer;">
-                    <circle cx="85" cy="133" r="10" fill="#8b1328" stroke="#fff" stroke-width="1.5"/>
-                    <text x="85" y="136" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">M</text>
-                    <text x="85" y="118" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">KP-II Metro</text>
-                  </g>
-                  <!-- Pin 2: Gate 1 -->
-                  <g class="cursor-pointer" onclick="window.inspectMapPin('gate')" style="cursor:pointer;">
-                    <circle cx="185" cy="85" r="10" fill="#083b35" stroke="#f0ce7a" stroke-width="1.5"/>
-                    <text x="185" y="88" text-anchor="middle" font-size="9" fill="#f0ce7a" font-weight="bold">1</text>
-                    <text x="185" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">GCET Gate 1</text>
-                  </g>
-                  <!-- Pin 3: Amphitheatre -->
-                  <g class="cursor-pointer" onclick="window.inspectMapPin('stage')" style="cursor:pointer;">
-                    <circle cx="185" cy="38" r="10" fill="#cf9c34" stroke="#120c06" stroke-width="1.5"/>
-                    <text x="185" y="41" text-anchor="middle" font-size="9" fill="#120c06" font-weight="bold">★</text>
-                    <text x="185" y="22" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">Main Stage</text>
-                  </g>
-                  <!-- Pin 4: Kitab Ghar -->
-                  <g class="cursor-pointer" onclick="window.inspectMapPin('kitab')" style="cursor:pointer;">
-                    <circle cx="290" cy="85" r="10" fill="#8b1328" stroke="#fff" stroke-width="1.5"/>
-                    <text x="290" y="88" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">📚</text>
-                    <text x="290" y="104" text-anchor="middle" font-size="9.5" fill="var(--ink-primary)" font-weight="bold">Kitab Ghar</text>
-                  </g>
-                </svg>
-
-                <p id="mapPinDesc" style="font-size:0.85rem; font-weight:600; color:var(--head-teal); text-align:center; margin:0.4rem 0 0;">
-                  🚇 By Metro: Take the Aqua Line directly to <b>Knowledge Park II Station</b>, located right outside GCET.
-                </p>
-              </div>
-
-              <div style="text-align:center; margin-top:0.6rem;">
-                <a class="btn-outline" href="https://www.google.com/maps/search/?api=1&query=Galgotias+College+of+Engineering+and+Technology+Greater+Noida" target="_blank" rel="noopener" style="font-size:0.82rem; padding:0.45rem 1.1rem;">
-                  Open Campus in Google Maps ↗
-                </a>
-              </div>
+              <div id="verseWallEntries" class="verse-wall-entries"></div>
             </div>
 
-            <span class="folio-number">— viii —</span>
+            <div class="page-footer-folio">
+              <span>COMMUNITY</span>
+              <span>9</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 9: PATRONS & HELP CENTRE FAQ (FOLIO ix)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page">
-          <div class="page-content">
-            <div class="page-scroll">
-              <p class="ch-label">Patrons &amp; Inquiries · जिज्ञासा</p>
-              <h2 class="page-title">Questions, Answered</h2>
-              <div class="ornament-divider">❦</div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 10: ORGANISERS, PARTNERS, MEDIA & RESULTS NOTICEBOARD
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page10">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Organisers, Media &amp; Results</p>
+              <h2 class="page-title">Partners &amp; Memories</h2>
 
-              <!-- FAQ Items (Organized & Crystal-Clear) -->
-              <details open>
-                <summary>How do I register as an attendee?</summary>
-                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
-                  Registration for festival visitors and literature lovers is hosted on <b>Luma</b>. Simply reserve your free entry pass via the link in Chapter IV or on the Cover.
+              <div class="feature-entry">
+                <h3>Organising Collective</h3>
+                <ul class="clean-list">
+                  <li><strong>GCET Student Council (@studentcouncil.gcet):</strong> Festival host, curation, and logistics.</li>
+                  <li><strong>APEX GCET (@apex.gcet):</strong> Creative direction, stage production &amp; campaign film.</li>
+                  <li><strong>GCET Online Promotions (@gcet.onlinepromotions) &amp; We Create Magic:</strong> Campus outreach &amp; digital storytelling.</li>
+                </ul>
+              </div>
+
+              <div class="feature-entry">
+                <h3>Sponsors &amp; Bookshop Partners</h3>
+                <p>
+                  Partnering with independent Delhi NCR bookshops, literary journals, and student welfare sponsors. For sponsorship decks or stall reservations at Kitab Ghar, write to the Council desk on Page 12.
                 </p>
-              </details>
+              </div>
 
-              <details>
-                <summary>Who is eligible for competitions?</summary>
-                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
-                  All undergraduate and postgraduate students from any recognized college or university across India are welcome. Register on <b>Unstop</b>.
+              <div class="feature-entry">
+                <h3>Media Archive &amp; Results Noticeboard</h3>
+                <p>
+                  Official campaign reels, photo essays from <em>Aarambh</em>, <em>Samvaad</em>, and <em>Naad</em>, and competition winner lists are published live here and on Instagram right after the Day 3 Valedictory (28 Nov, 4:30 PM).
                 </p>
-              </details>
-
-              <details>
-                <summary>Is there an entry fee for visitors?</summary>
-                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
-                  General entry to attendee keynotes, book fairs, and courtyard performances is free upon pre-registration. Specific competition slots follow Unstop guidelines.
-                </p>
-              </details>
-
-              <details>
-                <summary>How can brands or publishers partner with ANHAD?</summary>
-                <p style="margin:0.4rem 0 0; font-size:0.92rem; line-height:1.55; color:var(--ink-primary);">
-                  We welcome publishers, book stores, literary guilds, food partners, and corporate sponsors. Write to the Student Council at <b>studentcouncil.gcet@galgotiascollege.edu</b>.
-                </p>
-              </details>
-
-              <!-- Close Book CTA -->
-              <div style="text-align:center; margin-top:1.1rem;">
-                <button onclick="window.anhadBook.turnToPage(10)" class="btn-royal" style="font-size:0.85rem; padding:0.5rem 1.4rem;">
-                  <span>Turn to Back Cover</span>
-                  <span>➔</span>
-                </button>
+                <div class="action-row" style="margin-top:0.35rem;">
+                  <a class="btn-outline" data-link="instagram" style="padding:0.28rem 0.7rem; font-size:0.74rem;">@studentcouncil.gcet ↗</a>
+                  <a class="btn-outline" data-link="instagramApex" style="padding:0.28rem 0.7rem; font-size:0.74rem;">@apex.gcet ↗</a>
+                </div>
               </div>
             </div>
 
-            <span class="folio-number">— ix —</span>
+            <div class="page-footer-folio">
+              <span>PARTNERS &amp; ARCHIVE</span>
+              <span>10</span>
+            </div>
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════
-             PAGE 10: BACK COVER (HARD LEATHER DENSITY)
-             ════════════════════════════════════════════════════════════ -->
-        <div class="page page-cover -left" data-density="hard">
-          <div class="cover-content">
-            <!-- Top Band -->
-            <div class="band-border"></div>
-
-            <div style="margin:auto; max-width:320px; padding:1rem; border:1px solid rgba(240, 206, 122, 0.4); border-radius:14px; background:rgba(0,0,0,0.35);">
-              <p style="font-family:var(--font-ui); font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-bright); margin:0;">
-                Colophon · समापन
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 11: FAQ & HELP CENTRE (ORGANISED BY TOPIC)
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page11">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Help Centre</p>
+              <h2 class="page-title">Frequently Asked Questions</h2>
+              <p class="page-subtitle">
+                Browse answers organised by topic before reaching out to the organising desk.
               </p>
 
-              <h2 style="font-family:var(--font-hindi); font-size:3.6rem; color:var(--gold-bright); margin:0.3rem 0 0; line-height:1;">
-                अनहद
-              </h2>
-
-              <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:700; letter-spacing:0.3em; color:#f7e6c4; margin:0.2rem 0 0;">
-                ANHAD '26
-              </p>
-
-              <p style="font-size:0.92rem; color:#cfe3da; margin:0.5rem 0 0;">
-                Galgotias Literature Fest · GCET, Greater Noida
-              </p>
-
-              <p style="font-size:0.95rem; font-style:italic; color:var(--gold-bright); margin:0.8rem 0 1.2rem;">
-                “To be continued… Let the stories unfold 🖋️”
-              </p>
-
-              <div style="display:flex; justify-content:center; gap:0.6rem;">
-                <button onclick="window.anhadBook.turnToPage(0)" class="btn-royal" style="font-size:0.82rem; padding:0.5rem 1.2rem;">
-                  ↺ Front Cover
-                </button>
-                <button onclick="window.anhadBook.turnToPage(1)" class="btn-outline" style="color:var(--gold-bright) !important; border-color:var(--gold-bright); font-size:0.82rem; padding:0.5rem 1.2rem;">
-                  📖 Re-Open Book
-                </button>
+              <div class="filter-bar" role="group" aria-label="FAQ topic categories">
+                <button type="button" class="filter-tab active" data-faq-topic="registration" aria-pressed="true" onclick="window.selectFaqTopic('registration')">Registration</button>
+                <button type="button" class="filter-tab" data-faq-topic="competitions" aria-pressed="false" onclick="window.selectFaqTopic('competitions')">Competitions</button>
+                <button type="button" class="filter-tab" data-faq-topic="travel" aria-pressed="false" onclick="window.selectFaqTopic('travel')">Travel &amp; Entry</button>
+                <button type="button" class="filter-tab" data-faq-topic="certificates" aria-pressed="false" onclick="window.selectFaqTopic('certificates')">Certificates</button>
               </div>
+
+              <div id="faqList" class="faq-list" aria-live="polite"></div>
             </div>
 
-            <!-- Bottom Band -->
-            <div class="band-border"></div>
+            <div class="page-footer-folio">
+              <span>FAQ HELP CENTRE</span>
+              <span>11</span>
+            </div>
           </div>
         </div>
 
-      </div><!-- #flipbook -->
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 12: CONTACT DESK & VISITOR FEEDBACK FORM
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page" id="page12">
+          <div class="page-inner">
+            <div class="page-scroll-body">
+              <p class="page-kicker">Write to Us</p>
+              <h2 class="page-title">Contact &amp; Query Desk</h2>
+              <p class="page-subtitle">
+                Questions about outstation teams, Kitab Ghar stalls, press passes, or accessibility? Send a note to the Student Council desk.
+              </p>
 
-      <!-- 3D Center Spine Valley Crease Overlay (Photorealistic Book Valley) -->
-      <div class="spine-crease-overlay" id="spineCreaseOverlay"></div>
+              <form id="feedbackForm" class="feedback-form" novalidate>
+                <div>
+                  <label class="form-label" for="fbName">Full Name</label>
+                  <input type="text" id="fbName" class="editorial-input" placeholder="Your name" required>
+                </div>
+                <div>
+                  <label class="form-label" for="fbEmail">Email Address</label>
+                  <input type="email" id="fbEmail" class="editorial-input" placeholder="you@college.edu" required>
+                </div>
+                <div>
+                  <label class="form-label" for="fbMessage">Query or Message</label>
+                  <textarea id="fbMessage" class="editorial-textarea" rows="3" placeholder="Tell us how we can help…" required></textarea>
+                </div>
+                <div class="action-row" style="margin-top:0.2rem;">
+                  <button type="submit" class="btn-royal" style="padding:0.36rem 0.9rem; font-size:0.8rem;">Send to Help Desk</button>
+                  <a class="btn-outline" data-link="email" style="padding:0.34rem 0.78rem; font-size:0.76rem;">Email Directly ↗</a>
+                </div>
+                <p id="feedbackStatus" class="form-status" aria-live="polite"></p>
+              </form>
 
-    </div><!-- .book-wrapper -->
+              <h3 class="section-heading" style="margin-top:0.5rem;">Student Council Desk</h3>
+              <p class="page-subtitle" style="margin:0;">
+                Student Activity Centre, Galgotias College of Engineering &amp; Technology, Knowledge Park II, Greater Noida · Desk hours: 10:00 AM – 5:30 PM IST.
+              </p>
+            </div>
+
+            <div class="page-footer-folio">
+              <span>CONTACT &amp; SUPPORT</span>
+              <span>12</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PAGE 13: BACK COVER (COLOPHON · OFFICIAL GOLD LOGO)
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="page page-cover" data-density="hard">
+          <div class="cover-inner">
+            <div class="cover-frame"></div>
+            <div class="cover-corner corner-tl"></div>
+            <div class="cover-corner corner-tr"></div>
+            <div class="cover-corner corner-bl"></div>
+            <div class="cover-corner corner-br"></div>
+
+            <p class="cover-overline">Colophon · 2026 Edition</p>
+
+            <div class="cover-center">
+              <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-back-logo">
+              <p class="cover-tagline">
+                “Bring your words, unleash your creativity, and be a part of something unforgettable. Let the stories unfold.”
+              </p>
+              <div class="cover-dates-line">26–28 NOVEMBER 2026 · GCET</div>
+            </div>
+
+            <div class="cover-bottom">
+              <button type="button" class="btn-cover-gold" onclick="window.anhadBook.turnToPage(1)">
+                Return to Contents
+              </button>
+              <p class="cover-host">Published by GCET Student Council · Greater Noida</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </main>
 
-  <!-- Bottom Floating Brass Navigation Dock -->
+  <!-- Bottom Folio Navigation Dock -->
   <footer class="bottom-dock">
-    <div class="bottom-dock-inner">
-      <button class="dock-btn" id="prevPageBtn" onclick="window.anhadBook.turnPrev()">
-        ◂ Turn Back
-      </button>
-
-      <div class="folio-tracker" id="folioTracker">
-        Front Cover · अनहद
-      </div>
-
-      <button class="dock-btn" id="nextPageBtn" onclick="window.anhadBook.turnNext()">
-        Turn Forward ▸
-      </button>
+    <div class="dock-inner">
+      <button type="button" class="dock-btn" id="prevPageBtn" onclick="window.anhadBook.turnPrev()">◂ Previous Spread</button>
+      <div class="folio-tracker" id="folioTracker">Pages 1–2 · About ANHAD &amp; Festival Index</div>
+      <button type="button" class="dock-btn" id="nextPageBtn" onclick="window.anhadBook.turnNext()">Next Spread ▸</button>
     </div>
   </footer>
 
-  <!-- ════════════════════════════════════════════════════════════
-       ROYAL EVENT PROCLAMATION (शाही फ़रमान) SCROLL MODAL
-       ════════════════════════════════════════════════════════════ -->
-  <div class="scroll-modal-overlay" id="royalScrollModal">
-    <div class="royal-scroll">
-      <!-- Top 3D Cylindrical Wooden & Gold Roller with Spherical Brass Knobs -->
-      <div class="scroll-roller top-roller">
-        <div class="roller-inlay"></div>
-        <div class="roller-knob knob-left"></div>
-        <div class="roller-knob knob-right"></div>
+  <!-- Human Printed Letterpress Invitation Modal (No Royal Seal, No AI Scroll Decree) -->
+  <div class="invitation-overlay" id="scrollModalOverlay" role="dialog" aria-modal="true" aria-labelledby="invitationHeading" aria-hidden="true">
+    <div class="invitation-card">
+      <button type="button" class="invitation-close-btn" onclick="window.closeScrollModal(false)" aria-label="Close invitation">✕</button>
+
+      <div class="invitation-header">
+        <p class="invitation-kicker">An Invitation from GCET Student Council · Greater Noida</p>
+        <img src="/assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="invitation-logo logo-light-only">
+        <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="invitation-logo logo-dark-only">
+        <h2 id="invitationHeading" class="invitation-sub">Galgotias Literature Fest · 2026 Edition</h2>
       </div>
 
-      <!-- Unrolled Royal Wasli Parchment Body -->
-      <div class="scroll-body">
-        <div class="scroll-inner-frame">
-          <button class="farman-close-btn" onclick="window.closeScrollModal(false)" title="Close Proclamation">✕</button>
+      <div class="invitation-letter">
+        <p>Dear reader, writer, debater, and friend,</p>
+        <p>
+          For three November days on the lawns and auditoriums of Galgotias College of Engineering &amp; Technology,
+          we are setting aside timetables to gather around books, honest arguments, poetry, and music. Whether you
+          arrive with a notebook of unfinished poems, a sharp rebuttal, or simply a love for good stories, there is a
+          seat waiting for you at <strong>ANHAD ’26</strong>.
+        </p>
 
-          <!-- Auspicious Invocation & Royal Decree Header -->
-          <div class="farman-auspicious">॥ श्री ॥</div>
-          <h2 class="farman-royal-title">शाही फ़रमान</h2>
-          <p class="farman-eng-title">ROYAL PROCLAMATION · ANHAD '26</p>
-          <div class="farman-divider">❦ ═════════ ✤ ═════════ ❦</div>
+        <blockquote class="invitation-couplet dev-text">
+          “गुलों में रंग भरे बाद-ए-नौ-बहार चले,<br>
+          चले भी आओ कि गुलशन का कारोबार चले।” — Faiz Ahmad Faiz
+        </blockquote>
 
-          <!-- Human Literary Prose & Convocation Statement -->
-          <div class="farman-prose">
-            <p class="farman-opening">
-              समस्त साहित्य-प्रेमियों, कवियों, विचारकों एवं जिज्ञासुओं को सादर सूचित किया जाता है —
-            </p>
-            <p class="farman-statement">
-              गलगोटियास कॉलेज ऑफ़ इंजीनियरिंग एंड टेक्नोलॉजी (GCET) की छात्र परिषद द्वारा त्रि-दिवसीय राष्ट्रीय साहित्य एवं विचार कुंभ <b>‘अनहद २०२६’</b> का गरिमामय आयोजन सुनिश्चित हुआ है।
-            </p>
-            <p class="farman-quote">
-              “जहाँ शब्द मौन को चीरकर क्रांति और सुरों में बदल जाते हैं, उस अनहद नाद के आप भी साक्षी बनें।”
-            </p>
+        <div class="invitation-facts">
+          <div>
+            <span class="fact-label">Dates</span>
+            <span class="fact-val">26, 27 &amp; 28 Nov 2026</span>
           </div>
-
-          <!-- Traditional Decree Schedule Grid (No Modern AI Emojis!) -->
-          <div class="farman-schedule-grid">
-            <div class="farman-entry">
-              <span class="farman-label">तिथी एवं काल · FESTIVAL DATES</span>
-              <span class="farman-value">२६, २७ एवं २८ नवम्बर २०२६</span>
-              <span class="farman-subval">26th, 27th &amp; 28th November 2026</span>
-            </div>
-
-            <div class="farman-entry">
-              <span class="farman-label">स्थान · ROYAL VENUE</span>
-              <span class="farman-value">मुख्य परिसर, गलगोटियास कॉलेज (GCET)</span>
-              <span class="farman-subval">Knowledge Park II, Greater Noida (Metro Connectivity)</span>
-            </div>
-
-            <div class="farman-entry">
-              <span class="farman-label">प्रहर · TIMINGS</span>
-              <span class="farman-value">प्रातः १०:०० बजे से सायं ७:०० बजे तक</span>
-              <span class="farman-subval">10:00 AM – 7:00 PM IST Daily</span>
-            </div>
+          <div>
+            <span class="fact-label">Venue</span>
+            <span class="fact-val">GCET, Knowledge Park II, Greater Noida</span>
           </div>
-
-          <!-- The 3-Day Saga Summary -->
-          <div class="farman-saga-summary">
-            <span class="saga-step"><b>प्रथम दिवस · Day 1:</b> आरम्भ (Aarambh) — The Genesis &amp; Spoken Word</span>
-            <span class="saga-step"><b>द्वितीय दिवस · Day 2:</b> संवाद (Samvaad) — The Art of Debate &amp; Dastangoi</span>
-            <span class="saga-step"><b>तृतीय दिवस · Day 3:</b> नाद (Naad) — Sufi Mehfil &amp; Unplugged Celebration</span>
+          <div>
+            <span class="fact-label">Hours</span>
+            <span class="fact-val">10:00 AM – 7:00 PM IST</span>
           </div>
-
-          <!-- Official Hand-Pressed Vermilion Wax Seal & Order -->
-          <div class="farman-signoff">
-            <div class="farman-seal" title="राजकीय मुहर · Official GCET Seal">
-              <svg viewBox="0 0 100 100" style="width:100%; height:100%;">
-                <circle cx="50" cy="50" r="45" fill="#a3192f" stroke="#e0aa37" stroke-width="2" stroke-dasharray="3 2"/>
-                <circle cx="50" cy="50" r="38" fill="none" stroke="#fce58c" stroke-width="1.2"/>
-                <text x="50" y="44" font-family="'Tiro Devanagari Hindi', serif" font-size="12" font-weight="700" fill="#fff5ea" text-anchor="middle">राजकीय</text>
-                <text x="50" y="60" font-family="'Tiro Devanagari Hindi', serif" font-size="14" font-weight="700" fill="#fce58c" text-anchor="middle">मुहर</text>
-                <text x="50" y="74" font-family="'Outfit', sans-serif" font-size="6.5" font-weight="700" fill="#fff5ea" text-anchor="middle" letter-spacing="1">GCET 2026</text>
-              </svg>
-            </div>
-            <div class="farman-orders">
-              <span class="farman-order-hindi">आज्ञा से: छात्र परिषद</span>
-              <span class="farman-order-eng">By Order: GCET Student Council</span>
-            </div>
-          </div>
-
-          <!-- Primary Royal Acceptance CTA -->
-          <button class="farman-accept-btn" onclick="window.closeScrollModal(true)">
-            <span>फ़रमान स्वीकार करें एवं ग्रंथ खोलें (Accept Decree &amp; Open Granth)</span>
-            <span class="farman-arrow">➔</span>
-          </button>
-
-          <!-- Calendar ICS Export Link -->
-          <a href="javascript:void(0)" onclick="window.addToCalendar()" class="farman-cal-link">
-            📅 Add Festival Dates to Calendar (.ics)
-          </a>
         </div>
-      </div>
 
-      <!-- Bottom 3D Cylindrical Wooden & Gold Roller with Spherical Brass Knobs -->
-      <div class="scroll-roller bottom-roller">
-        <div class="roller-inlay"></div>
-        <div class="roller-knob knob-left"></div>
-        <div class="roller-knob knob-right"></div>
+        <div class="invitation-days">
+          <div>
+            <strong>Day 1 · Aarambh</strong>
+            Books, Kavi Sammelan, Turncoat &amp; fresh literary voices.
+          </div>
+          <div>
+            <strong>Day 2 · Samvaad</strong>
+            Fourth Pillar panel, Bhagat Singh exhibit, Dastangoi &amp; Sufi Night.
+          </div>
+          <div>
+            <strong>Day 3 · Naad</strong>
+            Reading circle, Open Mic, Debate Finals &amp; closing music.
+          </div>
+        </div>
+
+        <p class="invitation-signoff">
+          Warmly,<br>
+          The Student Council &amp; Literary Societies, GCET
+        </p>
+
+        <div class="invitation-actions">
+          <button type="button" class="invitation-primary-btn" onclick="window.closeScrollModal(true)">
+            Open the Book →
+          </button>
+          <button type="button" class="invitation-ics-btn" onclick="window.downloadFestICS()">
+            Add dates to calendar (.ics)
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Modular Scripts -->
-  <script src="js/page-flip.min.js?v=2.1"></script>
-  <script src="js/audio.js?v=2.1"></script>
-  <script src="js/glitter.js?v=2.1"></script>
-  <script src="js/book-controller.js?v=2.1"></script>
-  <script src="js/app.js?v=2.1"></script>
+  <!-- Competition Event Charter Detail Modal -->
+  <div class="charter-overlay" id="eventCharterModal" role="dialog" aria-modal="true" aria-labelledby="charterTitle" aria-hidden="true">
+    <div class="charter-card">
+      <button type="button" class="invitation-close-btn" onclick="window.closeEventCharter()" aria-label="Close event charter">✕</button>
+      <p id="charterKicker" class="page-kicker">Competition Charter</p>
+      <h2 id="charterTitle" class="page-title">Competition Title</h2>
+      <p id="charterSummary" class="page-subtitle"></p>
 
+      <div class="charter-meta-grid">
+        <div>
+          <span class="fact-label">Schedule</span>
+          <span id="charterDay" class="fact-val"></span>
+        </div>
+        <div>
+          <span class="fact-label">Venue</span>
+          <span id="charterVenue" class="fact-val"></span>
+        </div>
+        <div>
+          <span class="fact-label">Format &amp; Fee</span>
+          <span id="charterTeam" class="fact-val"></span>
+        </div>
+        <div>
+          <span class="fact-label">Registration Deadline</span>
+          <span id="charterDeadline" class="fact-val"></span>
+        </div>
+      </div>
+
+      <p style="font-size:0.84rem; margin:0 0 0.45rem;"><strong>Prizes:</strong> <span id="charterPrize"></span></p>
+      <h3 class="section-heading" style="margin-top:0.2rem;">Key Rules</h3>
+      <ul id="charterRules" class="clean-list"></ul>
+
+      <div class="action-row" style="margin-top:0.75rem; justify-content:space-between;">
+        <a class="btn-royal" data-link="unstop">Register on Unstop ↗</a>
+        <button type="button" class="btn-outline" onclick="window.closeEventCharter()">Close Charter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/page-flip.min.js?v=3.0"></script>
+  <script src="js/audio.js?v=3.0"></script>
+  <script src="js/glitter.js?v=3.0"></script>
+  <script src="js/book-controller.js?v=3.0"></script>
+  <script type="module" src="js/app.js?v=3.0"></script>
 </body>
 </html>

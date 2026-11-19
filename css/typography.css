@@ -1,192 +1,161 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — EDITORIAL TYPOGRAPHY & HIGH-CONTRAST PALETTE
-   Inspired by Jaipur Literature Fest, Oxford Lit Press & Classical Manuscripts
+   ANHAD '26 — EDITORIAL TYPOGRAPHY & COLOR SYSTEM (DAY + NIGHT MEHFIL)
    ═════════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap');
 
-:root {
-  /* Fonts */
-  --font-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', Georgia, serif;
-  --font-heading: 'Cormorant Garamond', Georgia, serif;
-  --font-hindi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif;
-  --font-ui: 'Outfit', -apple-system, sans-serif;
+:root,
+[data-theme="light"] {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'EB Garamond', Georgia, serif;
+  --font-dev: 'Noto Serif Devanagari', 'EB Garamond', serif;
 
-  /* Desk Environment — WARM DAYTIME SCHOLAR'S DESK (DEFAULT) */
-  --desk-dark: #3b2214;
-  --desk-mid: #56331e;
-  --desk-grain: #452817;
-  --desk-light: #6d4228;
+  /* Cotton Paper & Literary Ink Tokens */
+  --paper-bg: #f6eedc;
+  --paper-highlight: #fbf6ea;
+  --paper-edge: #e9dcc0;
+  --paper-rule: rgba(122, 87, 40, 0.24);
+  --paper-rule-strong: rgba(122, 87, 40, 0.42);
+  --paper-surface: rgba(255, 251, 242, 0.62);
 
-  /* Authentic Parchment / Paper Shades (Crisp & High Contrast Day Mode) */
-  --paper-cream: #faf5e8;
-  --paper-vellum: #f3e9d2;
-  --paper-edge: #dac7aa;
-  --paper-dark: #e8d7b7;
+  --ink-primary: #22170e;
+  --ink-secondary: #4e3b28;
+  --ink-muted: #765e44;
 
-  /* High-Contrast Inks (Sharp Readability, Zero Washed-Out Muddy Text) */
-  --ink-primary: #120a05;       /* Deepest black-brown ink for crystal clarity */
-  --ink-secondary: #22140a;     /* Rich body ink */
-  --ink-muted: #543f2c;         /* Legible secondary captions */
-  --ink-accent: #8b1328;        /* Imperial Sindoor Crimson */
-  --head-teal: #083b35;         /* Deep Forest Emerald for titles */
-  --head-crimson: #841223;      /* Royal Crimson */
+  --accent-crimson: #7f2121;
+  --accent-crimson-deep: #5c1616;
+  --accent-gold: #9a6c1d;
+  --accent-gold-bright: #d4a64a;
+  --accent-emerald: #0e332c;
 
-  /* Gold Tooling & Brass Accents */
-  --gold-antique: #b8861e;
-  --gold-leaf: #cf9c34;
-  --gold-bright: #f5c542;
-  --gold-glow: rgba(245, 197, 66, 0.45);
-
-  /* Leather Cover Palette (Imperial Emerald / Morocco Binding) */
-  --morocco-teal: #082924;
-  --morocco-deep: #041613;
-  --morocco-light: #0d3d36;
-  --morocco-edge: #020c0a;
-  --ribbon-ruby: #9c1532;
-
-  color-scheme: light;
+  --focus-ring: #9a6c1d;
 }
 
 [data-theme="dark"] {
-  --desk-dark: #080503;
-  --desk-mid: #140b07;
-  --desk-grain: #0e0704;
-  --desk-light: #1c100a;
-  --paper-cream: #14231f;
-  --paper-vellum: #1a2c27;
-  --paper-edge: #233d36;
-  --paper-dark: #101c18;
-  --ink-primary: #fbf5e6;
-  --ink-secondary: #ebdcb9;
-  --ink-muted: #b8a684;
-  --ink-accent: #f472b6;
-  --head-teal: #ecc86f;
-  --head-crimson: #f59e0b;
-  --gold-antique: #e5b342;
-  --gold-leaf: #f5d378;
-  --morocco-teal: #061e1b;
-  --morocco-deep: #03110f;
-  color-scheme: dark;
+  --paper-bg: #1e1812;
+  --paper-highlight: #272017;
+  --paper-edge: #15100c;
+  --paper-rule: rgba(218, 179, 102, 0.22);
+  --paper-rule-strong: rgba(218, 179, 102, 0.42);
+  --paper-surface: rgba(42, 33, 24, 0.7);
+
+  --ink-primary: #efe4ce;
+  --ink-secondary: #cbb99b;
+  --ink-muted: #9d8b70;
+
+  --accent-crimson: #d9826c;
+  --accent-crimson-deep: #b85b47;
+  --accent-gold: #dfb359;
+  --accent-gold-bright: #f0cb7a;
+  --accent-emerald: #133c33;
+
+  --focus-ring: #e8be66;
 }
 
-/* Global Font Classes */
-.font-display { font-family: var(--font-display); }
-.font-heading { font-family: var(--font-heading); }
-.font-serif { font-family: var(--font-serif); }
-.font-hindi { font-family: var(--font-hindi); }
-.font-ui { font-family: var(--font-ui); }
-
-/* ── 24K HOT-STAMPED GOLD FOIL TEXT (REAL EMBOSSED LUSTER) ── */
-.gold-foil-text {
-  background: linear-gradient(135deg, #fff2be 0%, #f7c948 25%, #cb9426 50%, #fff0ad 75%, #a67215 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.85));
-  display: inline-block;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.gold-foil-sub {
-  color: #f7e6c4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 10px rgba(247, 201, 72, 0.35);
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-body);
+  color: var(--ink-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Editorial Drop Cap */
-.drop-cap::first-letter {
-  float: left;
-  font-family: var(--font-heading);
-  font-size: 3.8rem;
-  line-height: 0.78;
-  padding: 0.08em 0.14em 0.02em;
-  margin: 0.05em 0.16em 0 0;
-  font-weight: 700;
-  color: var(--head-crimson);
-  background: var(--paper-vellum);
-  border: 1.5px solid var(--gold-antique);
-  border-radius: 4px;
-  box-shadow: 2px 2px 0 var(--gold-glow);
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
-[data-theme="dark"] .drop-cap::first-letter {
-  text-shadow: none;
-  background: rgba(236, 200, 111, 0.1);
-  color: #ecc86f;
-  border-color: #ecc86f;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
-/* Chapter Label / Running Header */
-.ch-label {
-  font-family: var(--font-ui);
+.dev-text {
+  font-family: var(--font-dev);
+}
+
+.page-kicker {
+  font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-accent);
-  text-align: center;
-  margin: 0 0 0.25rem 0;
+  color: var(--accent-crimson);
+  margin: 0 0 0.2rem;
 }
 
-/* Page Titles */
 .page-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  font-family: var(--font-display);
+  font-size: 1.52rem;
   font-weight: 700;
   line-height: 1.12;
-  color: var(--head-teal);
-  text-align: center;
-  margin: 0 0 0.4rem 0;
+  color: var(--ink-primary);
+  margin: 0 0 0.22rem;
 }
 
-/* Ornate Literary Divider */
-.ornament-divider {
+.page-subtitle {
+  font-size: 0.87rem;
+  line-height: 1.38;
+  color: var(--ink-secondary);
+  margin: 0 0 0.55rem;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-crimson);
+  margin: 0.55rem 0 0.3rem;
+  padding-bottom: 0.18rem;
+  border-bottom: 1px solid var(--paper-rule);
+}
+
+.editorial-quote {
+  margin: 0.45rem 0;
+  padding: 0.35rem 0.65rem;
+  border-left: 2px solid var(--accent-crimson);
+  font-style: italic;
+  font-size: 0.86rem;
+  line-height: 1.42;
+  color: var(--ink-secondary);
+  background: var(--paper-surface);
+}
+
+.editorial-quote cite {
+  display: block;
+  margin-top: 0.16rem;
+  font-style: normal;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+.page-footer-folio {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  margin: 0.45rem auto 0.85rem;
-  color: var(--gold-antique);
-  font-size: 0.9rem;
-  user-select: none;
-}
-.ornament-divider::before,
-.ornament-divider::after {
-  content: "";
-  height: 1px;
-  width: 2.8rem;
-  background: linear-gradient(90deg, transparent, var(--gold-antique), transparent);
-}
-
-/* Roman Folio Page Number */
-.folio-number {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.65rem;
-  text-align: center;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-style: italic;
-  letter-spacing: 0.12em;
+  justify-content: space-between;
+  padding-top: 0.35rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--paper-rule);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
   color: var(--ink-muted);
-  user-select: none;
-}
-
-/* Quotation Styling */
-.literary-quote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--ink-secondary);
-  border-left: 3px solid var(--ink-accent);
-  padding-left: 0.85rem;
-  margin: 0.6rem 0;
-}
-
-/* Text Selection */
-::selection {
-  background-color: var(--head-crimson);
-  color: #ffffff;
 }

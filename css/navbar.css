@@ -1,294 +1,190 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — ROYAL BRASS NAVIGATION & DOCK CONTROLS (PIXEL PERFECT)
+   ANHAD '26 — TOP EDITORIAL BRASS NAVIGATION BAR
    ═════════════════════════════════════════════════════════════════════ */
 
-/* Top Royal Brass Navigation Bar */
 .brass-nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 80;
-  background: linear-gradient(180deg, rgba(6, 28, 25, 0.98) 0%, rgba(4, 18, 16, 0.95) 100%);
-  border-bottom: 2px solid var(--gold-leaf);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(240, 206, 122, 0.25);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 0.42rem 1.25rem;
+  height: 50px;
+  z-index: 50;
+  background: linear-gradient(180deg, #0d2b24 0%, #081e19 100%);
+  border-bottom: 1px solid rgba(212, 166, 74, 0.35);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.42);
 }
 
-/* Flex layout with ample breathing room and robust anti-collision */
 .brass-nav-inner {
-  max-width: 1440px;
+  max-width: 1420px;
+  height: 100%;
   margin: 0 auto;
+  padding: 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.85rem;
-  width: 100%;
-  box-sizing: border-box;
+  gap: 12px;
 }
 
-/* Brand Emblem */
+/* ── Brand Logo Link ─────────────────────────────────────────────── */
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  text-decoration: none;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  padding: 2px 4px;
   cursor: pointer;
+  text-decoration: none;
+  color: #f3e4be;
   flex-shrink: 0;
-  min-width: max-content;
-  z-index: 2;
-}
-.brand-crest {
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 50%;
-  border: 1.5px solid var(--gold-leaf);
-  background: radial-gradient(circle at 35% 30%, #11544a 0%, #05211c 80%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold-bright);
-  font-family: var(--font-hindi);
-  font-size: 1.15rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-.brand-title {
-  font-family: var(--font-hindi);
-  font-size: 1.6rem;
-  line-height: 1;
-  color: var(--gold-bright);
-  text-shadow: 0 2px 10px rgba(240, 206, 122, 0.35);
-  margin: 0;
-}
-.brand-sub {
-  font-family: var(--font-ui);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold-antique);
-  display: block;
 }
 
-/* Center Navigation Ribbon */
+.brand-logo-img {
+  height: 29px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+.brand-sub {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d8b56b;
+}
+
+.brand-dates {
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: rgba(243, 228, 190, 0.72);
+}
+
+/* ── Center Navigation Ribbon ────────────────────────────────────── */
 .nav-ribbon {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  padding: 0.1rem 0.2rem;
-  flex: 0 1 auto;
+  gap: 4px;
   min-width: 0;
-  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-@media (max-width: 1023px) {
-  .nav-ribbon {
-    display: none; /* Seamlessly collapses on tablets & mobile to guarantee zero overlap */
-  }
+.nav-ribbon::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.32rem;
-  padding: 0.28rem 0.62rem;
-  border-radius: 999px;
-  border: 1px solid rgba(207, 156, 52, 0.28);
-  background: rgba(6, 33, 29, 0.45);
-  color: #ebdcb9;
-  font-family: var(--font-ui);
-  font-size: 0.76rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(243, 228, 190, 0.8);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
-  user-select: none;
-  transition: all 0.22s ease;
-  flex-shrink: 0;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
 }
-.nav-tab .tab-icon {
-  width: 14px;
-  height: 14px;
-  stroke: var(--gold-leaf);
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 0.2s ease, stroke 0.2s ease;
-  flex-shrink: 0;
-}
+
 .nav-tab:hover {
-  color: #ffffff;
-  border-color: var(--gold-bright);
-  background: rgba(207, 156, 52, 0.2);
-  transform: translateY(-1px);
+  color: #fff4d6;
+  background: rgba(212, 166, 74, 0.12);
 }
-.nav-tab:hover .tab-icon {
-  stroke: var(--gold-bright);
-  transform: scale(1.1);
-}
+
 .nav-tab.active-tab {
-  color: #1a1106 !important;
-  background: linear-gradient(180deg, #f7e096 0%, #cf9c34 100%) !important;
-  border-color: #ffea9f !important;
-  box-shadow: 0 3px 12px rgba(207, 156, 52, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-  font-weight: 700;
-}
-.nav-tab.active-tab .tab-icon {
-  stroke: #1a1106 !important;
-}
-.nav-tab .tab-sub {
-  font-family: var(--font-hindi);
-  font-size: 0.7rem;
-  opacity: 0.85;
+  color: #f7d98b;
+  background: rgba(212, 166, 74, 0.16);
+  border-color: rgba(212, 166, 74, 0.45);
 }
 
-@media (max-width: 1280px) {
-  .nav-tab .tab-sub {
-    display: none; /* Hide Hindi sub-labels on medium screens to keep tabs compact */
-  }
-  .nav-fleuron {
-    display: none;
-  }
-}
-
-.nav-fleuron {
-  color: rgba(207, 156, 52, 0.35);
-  font-size: 0.55rem;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-/* Desk Controls (Right Side) — Uncluttered, Fixed Sizes, Zero Squeeze */
+/* ── Right Desk Controls ─────────────────────────────────────────── */
 .desk-controls {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 8px;
   flex-shrink: 0;
-  min-width: max-content;
 }
 
 .control-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.36rem 0.78rem;
-  border-radius: 999px;
-  border: 1.5px solid rgba(207, 156, 52, 0.45);
-  background: rgba(4, 23, 20, 0.85);
-  color: var(--gold-bright);
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 166, 74, 0.34);
+  color: #e9d5a6;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
+
 .control-btn:hover {
-  border-color: var(--gold-bright);
-  background: rgba(10, 51, 45, 0.95);
-  transform: translateY(-1px);
+  background: rgba(212, 166, 74, 0.16);
+  border-color: #e6c270;
+  color: #fff6dc;
 }
 
-.proclamation-nav-btn {
-  border-color: var(--gold-bright);
-  background: linear-gradient(180deg, rgba(207, 156, 52, 0.25) 0%, rgba(139, 19, 40, 0.25) 100%);
-}
-.proclamation-nav-btn:hover {
-  background: linear-gradient(180deg, rgba(207, 156, 52, 0.45) 0%, rgba(139, 19, 40, 0.45) 100%);
-}
-
-/* Diya Flame Flicker Animation */
-@keyframes flameFlicker {
-  0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
-  50% { transform: scale(1.12, 0.92) rotate(2deg); opacity: 1; }
-}
-.diya-flame {
-  transform-origin: bottom center;
-  animation: flameFlicker 1.8s infinite ease-in-out;
-}
-
-/* Audio Equalizer Bars */
-@keyframes eqPulse {
-  0%, 100% { height: 3px; }
-  50% { height: 12px; }
-}
-.eq-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 13px;
-}
-.eq-bar {
-  width: 2.2px;
-  height: 3px;
-  background: var(--gold-bright);
-  border-radius: 2px;
-}
-.audio-playing .eq-bar:nth-child(1) { animation: eqPulse 0.7s infinite 0.1s; }
-.audio-playing .eq-bar:nth-child(2) { animation: eqPulse 0.55s infinite 0.25s; }
-.audio-playing .eq-bar:nth-child(3) { animation: eqPulse 0.8s infinite 0.05s; }
-.audio-playing .eq-bar:nth-child(4) { animation: eqPulse 0.65s infinite 0.35s; }
-
-/* ── BOTTOM DOCK CONTROLS ── */
-.bottom-dock {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 70;
-  background: linear-gradient(0deg, rgba(5, 23, 20, 0.97) 0%, rgba(7, 33, 29, 0.92) 100%);
-  border-top: 1.5px solid var(--gold-antique);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1rem;
-}
-
-.bottom-dock-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.dock-btn {
+.nav-register-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 1.1rem;
-  border-radius: 999px;
-  border: 1.5px solid var(--gold-antique);
-  background: rgba(6, 33, 29, 0.6);
-  color: var(--gold-bright);
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
+  gap: 4px;
+  background: linear-gradient(180deg, #cf9d3b 0%, #a87822 100%);
+  color: #16100a;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.dock-btn:hover:not(:disabled) {
-  background: var(--gold-leaf);
-  color: #120c06;
-  border-color: var(--gold-leaf);
-  transform: translateY(-1px);
-}
-.dock-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid #e6c06c;
+  white-space: nowrap;
+  transition: filter 0.18s ease;
 }
 
-.folio-tracker {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-style: italic;
-  letter-spacing: 0.08em;
-  color: var(--gold-bright);
-  text-align: center;
+.nav-register-btn:hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 1020px) {
+  .brand-meta {
+    display: none;
+  }
+
+  .nav-tab {
+    padding: 4px 7px;
+    font-size: 0.8rem;
+  }
+
+  .control-btn {
+    padding: 4px 8px;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .brass-nav-inner {
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .nav-ribbon {
+    display: none;
+  }
 }

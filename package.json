@@ -1,0 +1,16 @@
+{
+  "name": "anhad-26-literature-fest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ANHAD '26 (अनहद) — Interactive 3D royal book experience for Galgotias Literature Fest at GCET, Greater Noida.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node -e \"console.log('Static site ready for deployment')\"",
+    "lint": "node --check server.js && node --check js/fest-logic.js && node --check js/app.js && node --check js/audio.js && node --check js/book-controller.js && node --check js/glitter.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

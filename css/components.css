@@ -1,280 +1,654 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — EDITORIAL COMPONENTS & REAL FESTIVAL EXHIBITS
+   ANHAD '26 — EDITORIAL LITERARY COMPONENTS (UNBOXED PRINT AESTHETIC)
    ═════════════════════════════════════════════════════════════════════ */
 
-/* ── 3-DAY SAGA CARDS (AARAMBH, SAMVAAD, NAAD) ── */
-.day-saga-card {
-  border: 1.5px solid var(--gold-antique);
-  border-radius: 12px;
-  background: var(--paper-vellum);
-  padding: 1rem 1.15rem;
-  margin-bottom: 0.75rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-}
-.day-saga-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--head-crimson);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.day-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.65rem;
-  border-radius: 999px;
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #ffffff;
-  background: var(--head-crimson);
-  margin-bottom: 0.35rem;
-}
-
-.day-title {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--head-teal);
-  margin: 0.15rem 0 0.35rem 0;
-}
-
-.day-desc {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--ink-secondary);
-  margin: 0;
-}
-
-/* ── BHAGAT SINGH REVOLUTIONARY EXHIBIT ── */
-.revolutionary-box {
-  border: 2px solid var(--head-crimson);
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(132, 18, 35, 0.05) 0%, rgba(207, 156, 52, 0.08) 100%), var(--paper-cream);
-  padding: 1.15rem;
-  margin: 0.85rem 0;
-  position: relative;
-}
-.revolutionary-box::before {
-  content: "★";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--paper-cream);
-  color: var(--head-crimson);
-  padding: 0 0.5rem;
-  font-size: 1.1rem;
-}
-
-/* ── SUFI & DASTANGOI HIGHLIGHT ── */
-.sufi-verse-card {
-  background: radial-gradient(circle at 50% 30%, rgba(10, 51, 45, 0.07) 0%, transparent 70%), var(--paper-vellum);
-  border: 1.5px solid var(--head-teal);
-  border-radius: 12px;
-  padding: 1rem 1.2rem;
-  text-align: center;
-  margin: 0.8rem 0;
-}
-
-/* ── NAVARASA INTERACTIVE WHEEL (SPREAD 1) ── */
-.rasa-pill {
-  padding: 0.32rem 0.75rem;
-  border-radius: 999px;
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  border: 1.5px solid var(--gold-antique);
-  background: var(--paper-cream);
-  color: var(--ink-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.rasa-pill:hover {
-  border-color: var(--head-crimson);
-  background: var(--paper-vellum);
-}
-.rasa-pill.active {
-  background: var(--head-teal);
-  color: #ffffff;
-  border-color: var(--head-teal);
-  box-shadow: 0 2px 8px rgba(8, 59, 53, 0.35);
-}
-
-/* ── PERFORATED TICKET PASSES (SPREAD 4) ── */
-.ticket-pass {
-  position: relative;
-  padding: 1.25rem 1.4rem;
-  border: 2px dashed var(--gold-antique);
-  border-radius: 12px;
-  background: 
-    radial-gradient(circle at 0 50%, var(--paper-cream) 12px, transparent 13px),
-    radial-gradient(circle at 100% 50%, var(--paper-cream) 12px, transparent 13px),
-    var(--paper-vellum);
-  text-align: center;
-  margin-bottom: 0.9rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-}
-
-/* ── BUTTONS (HIGH CONTRAST & ROYAL BRASS) ── */
+/* ── Primary & Secondary Editorial Buttons ───────────────────────── */
 .btn-royal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
-  border-radius: 999px;
-  border: 1.5px solid var(--gold-leaf);
-  background: linear-gradient(180deg, #f7e096 0%, #cf9c34 100%);
-  color: #1e1305 !important;
-  font-family: var(--font-ui);
-  font-size: 0.92rem;
+  gap: 6px;
+  background: linear-gradient(180deg, #8b2424 0%, #651717 100%);
+  color: #faf0da;
+  border: 1px solid #571313;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-decoration: none;
+  padding: 0.42rem 0.95rem;
+  border-radius: 3px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition: filter 0.18s ease, transform 0.15s ease;
 }
+
 .btn-royal:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow: 0 6px 18px rgba(184, 134, 30, 0.38);
+  filter: brightness(1.09);
 }
-.btn-royal:active {
-  transform: translateY(0);
+
+.btn-cover-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(180deg, #d7a846 0%, #ad7d23 100%);
+  color: #151009;
+  border: 1px solid #eed086;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: filter 0.18s ease;
+}
+
+.btn-cover-gold:hover {
+  filter: brightness(1.08);
 }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.3rem;
-  border-radius: 999px;
-  border: 1.5px solid var(--head-teal);
+  gap: 5px;
   background: transparent;
-  color: var(--head-teal) !important;
-  font-family: var(--font-ui);
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.btn-outline:hover {
-  background: var(--head-teal);
-  color: #ffffff !important;
-}
-
-/* ── WAX SEAL BADGE ── */
-.wax-seal {
-  display: inline-grid;
-  place-items: center;
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #b81d45 0%, #6e0b24 85%);
-  color: #fff1f4;
+  color: var(--accent-crimson);
+  border: 1px solid var(--paper-rule-strong);
   font-family: var(--font-display);
   font-size: 0.8rem;
   font-weight: 700;
-  border: 1.5px dashed rgba(240, 206, 122, 0.7);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), inset 0 0 5px rgba(0,0,0,0.6);
-  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.36rem 0.82rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
 }
 
-/* ── INK YOUR VERSE MARGINALIA FEED ── */
-.verse-entry {
-  padding: 0.65rem 0.85rem;
-  border-radius: 8px;
-  border: 1px solid var(--paper-edge);
-  background: var(--paper-cream);
-  margin-bottom: 0.5rem;
+.btn-outline:hover {
+  background: var(--paper-surface);
+  border-color: var(--accent-crimson);
+}
+
+/* ── Masthead & Page 1 Metadata ──────────────────────────────────── */
+.page1-masthead {
+  text-align: center;
+  padding-bottom: 0.42rem;
+  margin-bottom: 0.48rem;
+  border-bottom: 1px solid var(--paper-rule);
+}
+
+.meta-inline-strip {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  margin-top: 0.16rem;
+}
+
+.countdown-line {
+  margin-top: 0.28rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent-crimson);
+  white-space: nowrap;
+}
+
+.countdown-value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── Unboxed Three-Day Pillar List ───────────────────────────────── */
+.pillar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  margin: 0.42rem 0 0.5rem;
+}
+
+.pillar-row {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 0.55rem;
+  padding-bottom: 0.38rem;
+  border-bottom: 1px dotted var(--paper-rule);
+  align-items: baseline;
+}
+
+.pillar-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.pillar-day {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-crimson);
+}
+
+.pillar-copy {
+  font-size: 0.84rem;
+  line-height: 1.34;
+  color: var(--ink-secondary);
+}
+
+.pillar-copy strong {
+  color: var(--ink-primary);
+}
+
+/* ── Printed Table of Contents (Page 2) ──────────────────────────── */
+.toc-list {
+  list-style: none;
+  margin: 0.3rem 0 0.48rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
+}
+
+.toc-btn {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dotted var(--paper-rule);
+  padding: 0.24rem 0.12rem;
+  text-align: left;
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: color 0.16s ease, padding-left 0.16s ease;
+}
+
+.toc-btn:hover {
+  color: var(--accent-crimson);
+  padding-left: 4px;
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.toc-desc {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+
+.toc-folio {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  white-space: nowrap;
+}
+
+/* ── Filter Tabs (Competitions, Schedule, FAQ) ───────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+  margin: 0.35rem 0 0.55rem;
+}
+
+.filter-tab {
+  background: transparent;
+  border: 1px solid var(--paper-rule-strong);
+  color: var(--ink-secondary);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.22rem 0.58rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.filter-tab:hover {
+  border-color: var(--accent-crimson);
+  color: var(--accent-crimson);
+}
+
+.filter-tab.active {
+  background: var(--accent-crimson);
+  border-color: var(--accent-crimson);
+  color: #faf0da;
+}
+
+/* ── Competitions List (Page 3) ──────────────────────────────────── */
+.comp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+}
+
+.comp-row {
+  padding: 0.48rem 0.62rem;
+  border: 1px solid var(--paper-rule);
+  border-left: 3px solid var(--accent-crimson);
+  background: var(--paper-surface);
+  border-radius: 2px;
+}
+
+.comp-row-top {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 0.5rem;
 }
 
-/* ── TOC DOTTED LIST ── */
-.toc-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.toc-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  padding: 0.45rem 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-.toc-item:hover {
-  background: var(--paper-vellum);
-}
-.toc-num {
-  font-family: var(--font-heading);
+.comp-title {
+  font-family: var(--font-display);
+  font-size: 0.96rem;
   font-weight: 700;
-  color: var(--head-crimson);
-  min-width: 2.2rem;
-}
-.toc-name {
-  font-weight: 600;
   color: var(--ink-primary);
+  margin: 0;
 }
-.toc-dots {
-  flex: 1;
-  border-bottom: 2px dotted var(--gold-antique);
-  opacity: 0.45;
-  min-width: 1rem;
-}
-.toc-sub {
-  font-family: var(--font-ui);
+
+.comp-fee {
+  font-family: var(--font-display);
   font-size: 0.75rem;
-  color: var(--head-crimson);
   font-weight: 700;
+  color: var(--accent-crimson);
+  white-space: nowrap;
 }
 
-/* ── CAMPUS CARTOGRAPHY SCHEMATIC ── */
-.map-container {
-  border: 2px solid var(--gold-antique);
-  border-radius: 12px;
-  background: var(--paper-vellum);
-  padding: 0.75rem;
-  margin: 0.6rem 0;
+.comp-meta {
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  margin: 0.12rem 0 0.24rem;
 }
 
-/* ── ACCORDION FAQ ── */
-details {
-  border-bottom: 1px solid var(--paper-edge);
-  padding: 0.6rem 0;
+.comp-summary {
+  font-size: 0.82rem;
+  line-height: 1.34;
+  color: var(--ink-secondary);
+  margin: 0 0 0.34rem;
 }
-summary {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--head-teal);
-  cursor: pointer;
-  list-style: none;
+
+.comp-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
 }
-summary::-webkit-details-marker { display: none; }
-summary::after {
-  content: "▾";
-  color: var(--gold-antique);
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
+
+.comp-prize {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-gold);
 }
-details[open] summary::after {
-  transform: rotate(180deg);
+
+.text-link-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--accent-crimson);
+  font-family: var(--font-display);
+  font-size: 0.79rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ── Exhibitions & Feature Cards (Page 4) ────────────────────────── */
+.feature-entry {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--paper-rule);
+}
+
+.feature-entry:last-child {
+  border-bottom: 0;
+}
+
+.feature-entry h3 {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin: 0 0 0.12rem;
+}
+
+.feature-meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  margin: 0 0 0.22rem;
+}
+
+.feature-entry p {
+  font-size: 0.83rem;
+  line-height: 1.38;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+/* ── Schedule Controls & Timeline (Page 5) ───────────────────────── */
+.schedule-search-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.48rem;
+}
+
+.editorial-input,
+.editorial-select,
+.editorial-textarea {
+  width: 100%;
+  background: var(--paper-surface);
+  border: 1px solid var(--paper-rule-strong);
+  color: var(--ink-primary);
+  font-size: 0.82rem;
+  padding: 0.32rem 0.52rem;
+  border-radius: 2px;
+}
+
+.editorial-select {
+  width: auto;
+  min-width: 120px;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+}
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 0.55rem;
+  padding: 0.34rem 0;
+  border-bottom: 1px dotted var(--paper-rule);
+}
+
+.schedule-time {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+  line-height: 1.25;
+}
+
+.schedule-day-tag {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.69rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.schedule-title {
+  font-family: var(--font-display);
+  font-size: 0.91rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin: 0;
+}
+
+.schedule-sub {
+  font-size: 0.77rem;
+  color: var(--ink-secondary);
+  margin: 0.08rem 0 0;
+  line-height: 1.32;
+}
+
+/* ── Pass Tiers & Guidelines (Page 7) ────────────────────────────── */
+.pass-tier {
+  padding: 0.52rem 0.68rem;
+  border: 1px solid var(--paper-rule-strong);
+  background: var(--paper-surface);
+  margin-bottom: 0.5rem;
+  border-radius: 2px;
+}
+
+.pass-tier-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.18rem;
+}
+
+.pass-tier h3 {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pass-price {
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+}
+
+.clean-list {
+  margin: 0.22rem 0 0.4rem;
+  padding-left: 1.05rem;
+  font-size: 0.81rem;
+  line-height: 1.38;
+  color: var(--ink-secondary);
+}
+
+.clean-list li {
+  margin-bottom: 0.14rem;
+}
+
+/* ── Interactive GCET Campus Map (Page 8) ────────────────────────── */
+.campus-map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.36rem;
+  margin: 0.35rem 0 0.48rem;
+}
+
+.map-pin-btn {
+  text-align: left;
+  padding: 0.38rem 0.52rem;
+  border: 1px solid var(--paper-rule-strong);
+  background: var(--paper-surface);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.map-pin-btn:hover,
+.map-pin-btn.active {
+  border-color: var(--accent-crimson);
+  background: rgba(127, 33, 33, 0.1);
+  color: var(--accent-crimson);
+}
+
+.map-detail-box {
+  padding: 0.5rem 0.65rem;
+  border-left: 3px solid var(--accent-gold);
+  background: var(--paper-surface);
+  margin-bottom: 0.5rem;
+}
+
+.map-detail-box h4 {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  margin: 0 0 0.1rem;
+  color: var(--ink-primary);
+}
+
+.map-detail-meta {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  margin: 0 0 0.2rem;
+}
+
+.map-detail-box p {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+/* ── Navarasa Wheel & Ink Your Verse (Page 9) ────────────────────── */
+.rasa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.32rem;
+  margin: 0.3rem 0 0.42rem;
+}
+
+.rasa-btn {
+  padding: 0.3rem 0.35rem;
+  border: 1px solid var(--paper-rule-strong);
+  background: var(--paper-surface);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.rasa-btn.active {
+  background: var(--accent-crimson);
+  border-color: var(--accent-crimson);
+  color: #faf0da;
+}
+
+.rasa-readout {
+  padding: 0.44rem 0.6rem;
+  border-left: 2px solid var(--accent-crimson);
+  background: var(--paper-surface);
+  margin-bottom: 0.55rem;
+  font-size: 0.81rem;
+  line-height: 1.36;
+}
+
+.verse-wall-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+}
+
+.verse-wall-entries {
+  margin-top: 0.42rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.verse-slip {
+  padding: 0.34rem 0.5rem;
+  border-left: 2px solid var(--accent-gold);
+  background: var(--paper-surface);
+  font-size: 0.78rem;
+  line-height: 1.32;
+}
+
+.verse-slip strong {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  margin-top: 0.1rem;
+}
+
+/* ── FAQ Items & Feedback Form (Pages 11–12) ─────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.46rem;
+}
+
+.faq-entry {
+  padding-bottom: 0.42rem;
+  border-bottom: 1px solid var(--paper-rule);
+}
+
+.faq-entry:last-child {
+  border-bottom: 0;
+}
+
+.faq-q {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin: 0 0 0.14rem;
+}
+
+.faq-a {
+  font-size: 0.81rem;
+  line-height: 1.38;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+  margin-top: 0.32rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  margin-bottom: 0.12rem;
+}
+
+.form-status {
+  font-size: 0.78rem;
+  min-height: 1.1em;
+  margin: 0.12rem 0 0;
+}
+
+.form-status.error {
+  color: #a12020;
+}
+
+.form-status.success {
+  color: #1d643b;
+}
+
+[data-theme="dark"] .form-status.error {
+  color: #f08a7e;
+}
+
+[data-theme="dark"] .form-status.success {
+  color: #82d1a0;
+}
+
+/* ── Action Row Helper ───────────────────────────────────────────── */
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
 }

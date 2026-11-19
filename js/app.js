@@ -1,381 +1,518 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — FESTIVAL INTERACTIVE FEATURES, SCROLL MODAL & LOGIC
+   ANHAD '26 — INTERACTIVE APPLICATION ENGINE (ES MODULE)
    ═════════════════════════════════════════════════════════════════════ */
 
-/* ✏️ EDIT HERE: Real Registration Links & Fest Dates */
-const ANHAD_LINKS = {
-  luma: "https://lu.ma/your-anhad-event",
-  unstop: "https://unstop.com/your-anhad-event"
+import {
+  ANHAD_LINKS,
+  COMPETITIONS,
+  MAP_PINS,
+  RASA_DATA,
+  filterCompetitions,
+  filterSchedule,
+  formatCountdown,
+  getFaqsByTopic,
+  validateFeedback
+} from './fest-logic.js';
+
+let activeScheduleDay = 'all';
+let activeScheduleCategory = 'all';
+let activeScheduleQuery = '';
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function hydrateLinks() {
+  document.querySelectorAll('[data-link]').forEach((el) => {
+    const key = el.getAttribute('data-link');
+    if (key && ANHAD_LINKS[key]) {
+      el.setAttribute('href', ANHAD_LINKS[key]);
+      if (ANHAD_LINKS[key].startsWith('http')) {
+        el.setAttribute('target', '_blank');
+        el.setAttribute('rel', 'noopener noreferrer');
+      }
+    }
+  });
+}
+
+function startCountdown() {
+  const update = () => {
+    const text = formatCountdown(new Date());
+    const el = document.getElementById('pageCountdown');
+    if (el) el.textContent = text;
+  };
+  update();
+  setInterval(update, 60000);
+}
+
+/* ── Printed Invitation Note Modal & ICS Export ──────────────────── */
+window.openScrollModal = function () {
+  const overlay = document.getElementById('scrollModalOverlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  if (window.anhadAudio) window.anhadAudio.playScrollUnroll?.();
 };
 
-const FEST_START_DATE = "2026-11-26T09:00:00+05:30"; // 26 November 2026
+window.closeScrollModal = function (thenOpenBook = false) {
+  const overlay = document.getElementById('scrollModalOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (thenOpenBook && window.anhadBook && window.anhadBook.currentPage === 0) {
+    window.anhadBook.turnToPage(1);
+  }
+};
+
+window.downloadFestICS = function () {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//GCET Student Council//ANHAD 26//EN',
+    'BEGIN:VEVENT',
+    'UID:anhad-2026-gcet@galgotiacollege.edu',
+    'DTSTAMP:20261001T000000Z',
+    'DTSTART:20261126T043000Z',
+    'DTEND:20261128T133000Z',
+    "SUMMARY:ANHAD '26 — Galgotias Literature Fest (GCET)",
+    'LOCATION:Galgotias College of Engineering & Technology, Knowledge Park II, Greater Noida',
+    'DESCRIPTION:Three-day celebration of literature, debate, poetry, Dastangoi, and Sufi music — Aarambh, Samvaad, and Naad.',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ANHAD-26-GCET-Dates.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
+/* ── Event Charter Modal ─────────────────────────────────────────── */
+window.openEventCharter = function (compId) {
+  const comp = COMPETITIONS.find((c) => c.id === compId);
+  const modal = document.getElementById('eventCharterModal');
+  if (!comp || !modal) return;
+
+  document.getElementById('charterKicker').textContent = comp.categoryLabel;
+  document.getElementById('charterTitle').textContent = comp.title;
+  document.getElementById('charterSummary').textContent = comp.summary;
+  document.getElementById('charterDay').textContent = comp.day;
+  document.getElementById('charterVenue').textContent = comp.venue;
+  document.getElementById('charterTeam').textContent = `${comp.teamSize} · ${comp.fee}`;
+  document.getElementById('charterDeadline').textContent = comp.deadline;
+  document.getElementById('charterPrize').textContent = comp.prize;
+
+  const rulesList = document.getElementById('charterRules');
+  rulesList.innerHTML = comp.rules.map((r) => `<li>${escapeHtml(r)}</li>`).join('');
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+};
+
+window.closeEventCharter = function () {
+  const modal = document.getElementById('eventCharterModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+};
+
+/* ── Competitions Filtering (Page 3) ─────────────────────────────── */
+function renderCompetitions(category = 'all') {
+  const container = document.getElementById('competitionsList');
+  if (!container) return;
+
+  const list = filterCompetitions(category);
+  container.innerHTML = list
+    .map(
+      (c) => `
+      <article class="comp-row">
+        <div class="comp-row-top">
+          <h3 class="comp-title">${escapeHtml(c.title)}</h3>
+          <span class="comp-fee">${escapeHtml(c.fee)}</span>
+        </div>
+        <div class="comp-meta">${escapeHtml(c.day)} · ${escapeHtml(c.venue)} · ${escapeHtml(c.teamSize)}</div>
+        <p class="comp-summary">${escapeHtml(c.summary)}</p>
+        <div class="comp-actions">
+          <span class="comp-prize">${escapeHtml(c.prize)}</span>
+          <button type="button" class="text-link-btn" onclick="window.openEventCharter('${c.id}')">Rules &amp; Charter →</button>
+        </div>
+      </article>`
+    )
+    .join('');
+}
+
+window.filterCompetitionCategory = function (category) {
+  document.querySelectorAll('[data-comp-filter]').forEach((btn) => {
+    const active = btn.getAttribute('data-comp-filter') === category;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  renderCompetitions(category);
+};
+
+/* ── Three-Day Schedule Filtering (Page 5) ───────────────────────── */
+function renderSchedule() {
+  const container = document.getElementById('scheduleList');
+  if (!container) return;
+
+  const items = filterSchedule({
+    day: activeScheduleDay,
+    category: activeScheduleCategory,
+    query: activeScheduleQuery
+  });
+
+  if (items.length === 0) {
+    container.innerHTML =
+      '<p class="page-subtitle" style="margin-top:0.5rem;">No sessions match this filter. Clear the search box or switch days to see all 15 sessions.</p>';
+    return;
+  }
+
+  container.innerHTML = items
+    .map(
+      (item) => `
+      <div class="schedule-item">
+        <div class="schedule-time">
+          ${escapeHtml(item.time)}
+          <span class="schedule-day-tag">${escapeHtml(item.dayLabel)}</span>
+        </div>
+        <div>
+          <h4 class="schedule-title">${escapeHtml(item.title)}</h4>
+          <p class="schedule-sub">${escapeHtml(item.venue)} — ${escapeHtml(item.note)}</p>
+        </div>
+      </div>`
+    )
+    .join('');
+}
+
+window.setScheduleDay = function (day) {
+  activeScheduleDay = day;
+  document.querySelectorAll('[data-day-filter]').forEach((btn) => {
+    const active = btn.getAttribute('data-day-filter') === day;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  renderSchedule();
+};
+
+function bindScheduleInputs() {
+  const searchInput = document.getElementById('scheduleSearchInput');
+  const categorySelect = document.getElementById('scheduleCategorySelect');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      activeScheduleQuery = e.target.value || '';
+      renderSchedule();
+    });
+  }
+  if (categorySelect) {
+    categorySelect.addEventListener('change', (e) => {
+      activeScheduleCategory = e.target.value || 'all';
+      renderSchedule();
+    });
+  }
+}
+
+/* ── Campus Map Pins (Page 8) ────────────────────────────────────── */
+window.selectMapPin = function (pinKey) {
+  const pin = MAP_PINS[pinKey] || MAP_PINS.auditorium;
+  document.querySelectorAll('[data-map-pin]').forEach((btn) => {
+    const active = btn.getAttribute('data-map-pin') === pinKey;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const titleEl = document.getElementById('mapPinTitle');
+  const metaEl = document.getElementById('mapPinMeta');
+  const detailEl = document.getElementById('mapPinDetail');
+  if (titleEl) titleEl.textContent = pin.title;
+  if (metaEl) metaEl.textContent = pin.meta;
+  if (detailEl) detailEl.textContent = pin.detail;
+};
+
+/* ── Navarasa Mood Selector (Page 9) ─────────────────────────────── */
+window.selectRasa = function (rasaKey) {
+  const rasa = RASA_DATA[rasaKey] || RASA_DATA.shringara;
+  document.querySelectorAll('[data-rasa]').forEach((btn) => {
+    const active = btn.getAttribute('data-rasa') === rasaKey;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const out = document.getElementById('rasaReadout');
+  if (out) {
+    out.innerHTML = `
+      <strong>${escapeHtml(rasa.name)}</strong> — <em>${escapeHtml(rasa.mood)}</em><br>
+      <span class="dev-text">${escapeHtml(rasa.quote)}</span><br>
+      <span style="color:var(--accent-crimson);font-weight:600;">${escapeHtml(rasa.pick)}</span>
+    `;
+  }
+};
+
+/* ── Ink Your Verse Wall & Printable Bookmark (Page 9) ───────────── */
+const INITIAL_VERSES = [
+  { author: 'Aarav · GCET', text: 'Some books finish on the last page; others only begin once you close the cover.' },
+  { author: 'Meera · DU', text: 'Bringing two notebooks and an old Bashir Badr paperback to Kitab Ghar.' }
+];
+
+function loadVerses() {
+  try {
+    const raw = localStorage.getItem('anhad26_verses');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // Ignore storage errors
+  }
+  return INITIAL_VERSES;
+}
+
+function renderVerses() {
+  const listEl = document.getElementById('verseWallEntries');
+  if (!listEl) return;
+  const verses = loadVerses().slice(0, 3);
+  listEl.innerHTML = verses
+    .map(
+      (v) => `
+      <div class="verse-slip">
+        “${escapeHtml(v.text)}”
+        <strong>— ${escapeHtml(v.author)}</strong>
+      </div>`
+    )
+    .join('');
+}
+
+function bindVerseForm() {
+  const form = document.getElementById('verseWallForm');
+  const status = document.getElementById('verseStatus');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const authorInput = document.getElementById('verseAuthorInput');
+    const textInput = document.getElementById('verseTextInput');
+    const author = (authorInput?.value || '').trim();
+    const text = (textInput?.value || '').trim();
+
+    if (author.length < 2 || text.length < 6) {
+      if (status) {
+        status.textContent = 'Enter your name and at least a short line of verse (6+ characters).';
+        status.className = 'form-status error';
+      }
+      return;
+    }
+
+    const updated = [{ author, text }, ...loadVerses()].slice(0, 12);
+    try {
+      localStorage.setItem('anhad26_verses', JSON.stringify(updated));
+    } catch {
+      // Ignore storage quota issues
+    }
+    if (authorInput) authorInput.value = '';
+    if (textInput) textInput.value = '';
+    if (status) {
+      status.textContent = 'Pinned to the reader wall.';
+      status.className = 'form-status success';
+    }
+    renderVerses();
+  });
+}
+
+window.downloadBookmarkPNG = function () {
+  const author = (document.getElementById('verseAuthorInput')?.value || '').trim() || 'Reader at ANHAD ’26';
+  const line =
+    (document.getElementById('verseTextInput')?.value || '').trim() ||
+    'Where literature meets imagination and every expression finds its stage.';
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 480;
+  canvas.height = 840;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  ctx.fillStyle = '#0c2e27';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.strokeStyle = '#d4a64a';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
+
+  ctx.fillStyle = '#e7c572';
+  ctx.font = 'bold 34px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText("ANHAD '26", canvas.width / 2, 120);
+
+  ctx.font = '18px Georgia, serif';
+  ctx.fillStyle = '#f3e4be';
+  ctx.fillText('Galgotias Literature Fest · GCET', canvas.width / 2, 160);
+  ctx.fillText('26–28 November 2026', canvas.width / 2, 192);
+
+  // Wrap reader verse
+  ctx.font = 'italic 24px Georgia, serif';
+  ctx.fillStyle = '#fbf4e2';
+  const words = `“${line}”`.split(' ');
+  let row = '';
+  let y = 360;
+  for (const w of words) {
+    const test = row ? `${row} ${w}` : w;
+    if (ctx.measureText(test).width > 360) {
+      ctx.fillText(row, canvas.width / 2, y);
+      row = w;
+      y += 36;
+    } else {
+      row = test;
+    }
+  }
+  if (row) ctx.fillText(row, canvas.width / 2, y);
+
+  ctx.font = '18px Georgia, serif';
+  ctx.fillStyle = '#d8b56b';
+  ctx.fillText(`— ${author}`, canvas.width / 2, y + 60);
+
+  ctx.font = '15px Georgia, serif';
+  ctx.fillStyle = 'rgba(243, 228, 190, 0.75)';
+  ctx.fillText('Knowledge Park II · Greater Noida', canvas.width / 2, 760);
+
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'ANHAD-26-Bookmark.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+/* ── Topic-Grouped FAQ Help Centre (Page 11) ─────────────────────── */
+window.selectFaqTopic = function (topicKey) {
+  document.querySelectorAll('[data-faq-topic]').forEach((btn) => {
+    const active = btn.getAttribute('data-faq-topic') === topicKey;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const data = getFaqsByTopic(topicKey);
+  const listEl = document.getElementById('faqList');
+  if (!listEl) return;
+
+  listEl.innerHTML = data.items
+    .map(
+      (item) => `
+      <div class="faq-entry">
+        <h4 class="faq-q">${escapeHtml(item.q)}</h4>
+        <p class="faq-a">${escapeHtml(item.a)}</p>
+      </div>`
+    )
+    .join('');
+};
+
+/* ── Visitor Query & Feedback Form (Page 12) ─────────────────────── */
+function bindFeedbackForm() {
+  const form = document.getElementById('feedbackForm');
+  const status = document.getElementById('feedbackStatus');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameEl = document.getElementById('fbName');
+    const emailEl = document.getElementById('fbEmail');
+    const msgEl = document.getElementById('fbMessage');
+
+    const result = validateFeedback({
+      name: nameEl?.value,
+      email: emailEl?.value,
+      message: msgEl?.value
+    });
+
+    if (!result.valid) {
+      if (status) {
+        status.textContent = result.error;
+        status.className = 'form-status error';
+      }
+      return;
+    }
+
+    if (nameEl) nameEl.value = '';
+    if (emailEl) emailEl.value = '';
+    if (msgEl) msgEl.value = '';
+    if (status) {
+      status.textContent = 'Note recorded for the GCET Student Council Help Desk. We reply within 24 hours.';
+      status.className = 'form-status success';
+    }
+  });
+}
+
+/* ── Day / Night Reading Theme Toggle ────────────────────────────── */
+window.toggleDiyaMode = function () {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+
+  const label = document.getElementById('diyaLabel');
+  if (label) {
+    label.textContent = next === 'dark' ? 'Day Paper' : 'Night Mehfil';
+  }
+  try {
+    localStorage.setItem('anhad26_theme', next);
+  } catch {
+    // Ignore storage issues
+  }
+};
+
+function bindModalDismiss() {
+  const inviteModal = document.getElementById('scrollModalOverlay');
+  const charterModal = document.getElementById('eventCharterModal');
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeScrollModal(false);
+      window.closeEventCharter();
+    }
+  });
+
+  if (inviteModal) {
+    inviteModal.addEventListener('click', (e) => {
+      if (e.target === inviteModal) window.closeScrollModal(false);
+    });
+  }
+
+  if (charterModal) {
+    charterModal.addEventListener('click', (e) => {
+      if (e.target === charterModal) window.closeEventCharter();
+    });
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  initCountdown();
-  bindRegistrationLinks();
-  initNavarasa();
-  initQuillWall();
-  initDiyaTheme();
-  initScrollModal();
+  try {
+    const savedTheme = localStorage.getItem('anhad26_theme');
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const label = document.getElementById('diyaLabel');
+      if (label) label.textContent = savedTheme === 'dark' ? 'Day Paper' : 'Night Mehfil';
+    }
+  } catch {
+    // Ignore storage issues
+  }
+
+  hydrateLinks();
+  startCountdown();
+  renderCompetitions('all');
+  renderSchedule();
+  bindScheduleInputs();
+  window.selectMapPin('auditorium');
+  window.selectRasa('shringara');
+  renderVerses();
+  bindVerseForm();
+  window.selectFaqTopic('registration');
+  bindFeedbackForm();
+  bindModalDismiss();
 });
-
-/* Countdown Timer */
-function initCountdown() {
-  const cd = document.getElementById('festCountdown');
-  if (!cd) return;
-
-  function update() {
-    const diff = new Date(FEST_START_DATE) - Date.now();
-    if (diff <= 0) {
-      cd.textContent = "The festival is now live!";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / 1000 / 60) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
-    cd.textContent = `${days}d ${hours}h ${mins}m ${secs}s to go`;
-  }
-  update();
-  setInterval(update, 1000);
-}
-
-/* Bind Registration Links */
-function bindRegistrationLinks() {
-  document.querySelectorAll('[data-link]').forEach(el => {
-    const key = el.getAttribute('data-link');
-    if (ANHAD_LINKS[key]) {
-      el.href = ANHAD_LINKS[key];
-      el.target = "_blank";
-      el.rel = "noopener";
-    }
-  });
-}
-
-/* ── ROYAL EVENT PROCLAMATION (शाही फ़रमान) SCROLL MODAL ── */
-function initScrollModal() {
-  const modal = document.getElementById('royalScrollModal');
-  if (!modal) return;
-
-  // Physical unrolling after page loads
-  setTimeout(() => {
-    openScrollModal();
-  }, 500);
-
-  // Close on Escape Key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeScrollModal(false);
-  });
-
-  // Close when clicking overlay backdrop
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeScrollModal(false);
-  });
-}
-
-window.openScrollModal = function() {
-  const modal = document.getElementById('royalScrollModal');
-  if (modal) {
-    modal.classList.add('active');
-    // Authentic paper friction rustle as the scroll physically unrolls
-    if (window.anhadAudio) {
-      window.anhadAudio.playPageRustle('forward');
-      setTimeout(() => window.anhadAudio.playChime(432), 400);
-    }
-    if (window.anhadGlitter) {
-      const rect = modal.getBoundingClientRect();
-      window.anhadGlitter.emitPageTurnGlitter(rect.left + rect.width / 2, rect.top + 80);
-    }
-  }
-};
-
-window.closeScrollModal = function(thenOpenBook = false) {
-  const modal = document.getElementById('royalScrollModal');
-  if (modal) {
-    // Gracefully roll up the scroll
-    modal.classList.remove('active');
-    if (window.anhadAudio) window.anhadAudio.playPageRustle('backward');
-    if (thenOpenBook && window.anhadBook) {
-      setTimeout(() => {
-        window.anhadBook.turnToPage(1);
-      }, 500);
-    }
-  }
-};
-
-/* Add to Calendar (.ics File Generator) */
-window.addToCalendar = function() {
-  const icsData = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//ANHAD 2026//Galgotias Literature Fest//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VEVENT",
-    "SUMMARY:ANHAD '26 — Galgotias Literature Fest",
-    "DESCRIPTION:The grand 3-day literature festival at GCET Greater Noida: Aarambh, Samvaad, and Naad featuring authors, debates, Sufi night and poetry battles.",
-    "LOCATION:Galgotias College of Engineering & Technology, Knowledge Park II, Greater Noida",
-    "DTSTART:20261126T033000Z",
-    "DTEND:20261128T133000Z",
-    "STATUS:CONFIRMED",
-    "END:VEVENT",
-    "END:VCALENDAR"
-  ].join("\r\n");
-
-  const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "ANHAD-2026-Calendar.ics";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  if (window.anhadAudio) window.anhadAudio.playChime(528);
-};
-
-/* ── NAVARASA POETIC WHEEL ── */
-const RASA_DATA = {
-  shanta: {
-    title: "शान्त · Mystic Peace",
-    hindi: "“हद चले सो मानवा, बेहद चले सो साध। हद बेहद दोनों तजे, ताकर मता अगाध॥”",
-    trans: "“Within limits walks the mortal; beyond limits walks the seeker. In the boundless unstruck sound (Anhad) lies infinite wisdom.” — Kabir",
-    freq: 432
-  },
-  shringara: {
-    title: "शृंगार · Lyric Romance",
-    hindi: "“हज़ारों ख़्वाहिशें ऐसी कि हर ख़्वाहिश पे दम निकले, बहुत निकले मेरे अरमान लेकिन फिर भी कम निकले।”",
-    trans: "“Thousands of desires, each worth dying for; many of my longings were fulfilled, yet still they felt too few.” — Mirza Ghalib",
-    freq: 528
-  },
-  veera: {
-    title: "वीर · Valour & Revolution",
-    hindi: "“कलम आज उनकी जय बोल, जला अस्थियाँ बारी-बारी, चिटकायी जिनमें चिंगारी!”",
-    trans: "“Let the pen sing victory today to those fearless minds whose sparks of courage illuminated history.” — Ramdhari Singh Dinkar",
-    freq: 594
-  },
-  adbhuta: {
-    title: "अद्भुत · Cosmic Wonder",
-    hindi: "“किताबें झाँकती हैं बंद अलमारी के शीशों से, बड़ी हसरत से तकती हैं।”",
-    trans: "“Books peer through the glass doors of locked shelves, gazing with deep, tender longing for a reader’s touch.” — Gulzar",
-    freq: 640
-  }
-};
-
-function initNavarasa() {
-  window.selectRasa = function(key) {
-    const data = RASA_DATA[key];
-    if (!data) return;
-
-    const hindiEl = document.getElementById('rasaHindi');
-    const transEl = document.getElementById('rasaTrans');
-    if (hindiEl) hindiEl.textContent = data.hindi;
-    if (transEl) transEl.textContent = data.trans;
-
-    document.querySelectorAll('.rasa-pill').forEach(btn => {
-      if (btn.getAttribute('data-rasa') === key) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    if (window.anhadAudio) {
-      window.anhadAudio.playChime(data.freq);
-    }
-  };
-}
-
-/* ── INK YOUR VERSE MARGINALIA WALL & BOOKMARK GENERATOR ── */
-let currentInk = '#8b1328';
-const PROMPT_VERSES = [
-  "शब्दों की इस महफ़िल में एक पन्ना हमारा भी हो, अनहद की इस गूँज में एक नग़्मा तुम्हारा भी हो।",
-  "Where engineering meets elegy, circuits pause to listen to Kabir's unstruck melody.",
-  "काग़ज़ की कश्ती पर कलम का सफ़र, अनहद के आँगन में शब्दों का घर।",
-  "Because the sharpest weapon against any empire is a mind that dares to read and a pen that dares to write."
-];
-let promptIdx = 0;
-
-const defaultVerses = [
-  {
-    verse: "गुलों में रंग भरे बाद-ए-नौ-बहार चले, चले भी आओ कि गुलशन का कारोबार चले।",
-    poet: "Faiz Ahmed Faiz · Sufi Night",
-    ink: "#8b1328"
-  },
-  {
-    verse: "Because the sharpest weapon against any empire is a mind that dares to read and a pen that dares to write.",
-    poet: "Bhagat Singh · The Revolutionary Pen",
-    ink: "#083b35"
-  }
-];
-
-function initQuillWall() {
-  const feed = document.getElementById('marginaliaFeed');
-  if (!feed) return;
-
-  function render() {
-    feed.innerHTML = '';
-    defaultVerses.forEach(item => {
-      const el = document.createElement('div');
-      el.className = 'verse-entry';
-      el.innerHTML = `
-        <div>
-          <p style="margin:0; font-size:0.92rem; font-style:italic; font-weight:600; color:${item.ink}; line-height:1.45;">“${item.verse}”</p>
-          <span style="font-size:0.75rem; color:var(--ink-muted); display:block; margin-top:0.25rem;">— ${item.poet}</span>
-        </div>
-        <span class="wax-seal" style="width:1.8rem; height:1.8rem; font-size:0.65rem;" title="Wax Sealed">अन</span>
-      `;
-      feed.appendChild(el);
-    });
-  }
-  render();
-
-  window.setQuillInk = function(color) {
-    currentInk = color;
-    const input = document.getElementById('verseInput');
-    if (input) input.style.color = color;
-  };
-
-  window.fillInspireVerse = function() {
-    const input = document.getElementById('verseInput');
-    if (input) {
-      input.value = PROMPT_VERSES[promptIdx % PROMPT_VERSES.length];
-      promptIdx++;
-      if (window.anhadAudio) window.anhadAudio.playPageRustle();
-    }
-  };
-
-  window.stampVerse = function() {
-    const input = document.getElementById('verseInput');
-    const nameInput = document.getElementById('poetInput');
-    const text = input ? input.value.trim() : '';
-    const poet = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Anonymous Seeker';
-
-    if (!text) {
-      window.fillInspireVerse();
-      return;
-    }
-
-    defaultVerses.unshift({ verse: text, poet: poet, ink: currentInk });
-    if (input) input.value = '';
-    render();
-    if (window.anhadAudio) window.anhadAudio.playChime(528);
-    if (window.anhadGlitter) {
-      const rect = document.getElementById('marginaliaFeed').getBoundingClientRect();
-      window.anhadGlitter.emitPageTurnGlitter(rect.left + rect.width / 2, rect.top + 30);
-    }
-  };
-
-  /* Bookmark PNG Canvas Generator */
-  window.downloadBookmark = function() {
-    const input = document.getElementById('verseInput');
-    const nameInput = document.getElementById('poetInput');
-    const verseText = (input && input.value.trim()) ? input.value.trim() : defaultVerses[0].verse;
-    const poetText = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : defaultVerses[0].poet;
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 440;
-    canvas.height = 980;
-    const ctx = canvas.getContext('2d');
-
-    // Emerald Gradient Background
-    const grad = ctx.createLinearGradient(0, 0, 0, 980);
-    grad.addColorStop(0, '#0a332d');
-    grad.addColorStop(1, '#051d19');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 440, 980);
-
-    // Gold Double Border
-    ctx.strokeStyle = '#f0ce7a';
-    ctx.lineWidth = 4;
-    ctx.strokeRect(20, 20, 400, 940);
-    ctx.strokeStyle = '#cf9c34';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(30, 30, 380, 920);
-
-    // Header Text
-    ctx.fillStyle = '#f0ce7a';
-    ctx.font = 'bold 18px Georgia';
-    ctx.textAlign = 'center';
-    ctx.fillText('GCET PRESENTS', 220, 90);
-
-    ctx.font = 'bold 64px serif';
-    ctx.fillText('अनहद', 220, 175);
-
-    ctx.font = 'bold 20px Georgia';
-    ctx.fillText('A N H A D · 2026', 220, 215);
-
-    ctx.font = 'italic 16px Georgia';
-    ctx.fillStyle = '#cfe3da';
-    ctx.fillText('Galgotias Literature Fest', 220, 248);
-
-    // Parchment Inset Box
-    ctx.fillStyle = '#faf5e8';
-    ctx.fillRect(48, 300, 344, 430);
-    ctx.strokeStyle = '#cf9c34';
-    ctx.strokeRect(54, 306, 332, 418);
-
-    // Wrapped Verse
-    ctx.fillStyle = '#120c06';
-    ctx.font = 'italic 20px Georgia';
-    const words = ("“" + verseText + "”").split(' ');
-    let line = '';
-    let y = 400;
-    for (let i = 0; i < words.length; i++) {
-      const test = line + words[i] + ' ';
-      if (ctx.measureText(test).width > 280 && i > 0) {
-        ctx.fillText(line, 220, y);
-        line = words[i] + ' ';
-        y += 32;
-      } else {
-        line = test;
-      }
-    }
-    ctx.fillText(line, 220, y);
-
-    // Poet Signature
-    ctx.fillStyle = '#8b1328';
-    ctx.font = 'bold 16px Georgia';
-    ctx.fillText('— ' + poetText, 220, 680);
-
-    // Footer
-    ctx.fillStyle = '#f0ce7a';
-    ctx.font = 'italic 16px Georgia';
-    ctx.fillText('26–28 November 2026 · Greater Noida', 220, 880);
-
-    const link = document.createElement('a');
-    link.download = 'ANHAD-2026-Bookmark.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  };
-}
-
-/* ── CAMPUS CARTOGRAPHY PINS ── */
-window.inspectMapPin = function(id) {
-  const descEl = document.getElementById('mapPinDesc');
-  const details = {
-    metro: "🚇 Knowledge Park II Metro Station (Aqua Line) — Right across the boulevard from the GCET Main Campus Gate.",
-    gate: "🏛️ GCET Gate 1 & Welcome Pavilion — Registration validation, festival booklet, and badge collection desk.",
-    stage: "🎭 Main Literary Amphitheatre — Host to the Opening Ceremony, Author Samvaad, and Sufi Night.",
-    kitab: "📚 Kitab Ghar & Reader's Courtyard — Book fair, Bhagat Singh exhibit, and art installations."
-  };
-  if (descEl) descEl.innerHTML = details[id] || details.metro;
-  if (window.anhadAudio) window.anhadAudio.playChime(528);
-};
-
-/* ── BRASS DIYA THEME TOGGLE (DAY MODE DEFAULT) ── */
-function initDiyaTheme() {
-  const root = document.documentElement;
-  // Always default to Day Mode (light theme) when starting
-  root.setAttribute('data-theme', 'light');
-
-  const lbl = document.getElementById('diyaLabel');
-  if (lbl) lbl.textContent = '🌙 Mehfil Night';
-
-  window.toggleDiyaMode = function() {
-    const current = root.getAttribute('data-theme') || 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-
-    if (lbl) lbl.textContent = next === 'dark' ? '☀️ Day Mode' : '🌙 Mehfil Night';
-    if (window.anhadAudio) window.anhadAudio.playChime(next === 'dark' ? 330 : 528);
-  };
-}

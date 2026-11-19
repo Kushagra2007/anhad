@@ -42,11 +42,11 @@ class AnhadAudioEngine {
     
     if (this.enabled) {
       if (eq) eq.classList.add('audio-playing');
-      if (label) label.textContent = 'Naad On';
+      if (label) label.textContent = 'Sound: On';
       this.playChime(432);
     } else {
       if (eq) eq.classList.remove('audio-playing');
-      if (label) label.textContent = 'Mute';
+      if (label) label.textContent = 'Sound: Off';
     }
     return this.enabled;
   }

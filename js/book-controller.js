@@ -1,21 +1,23 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — STPAGEFLIP CONTROLLER & SYNCHRONIZATION ENGINE
+   ANHAD '26 — TWO-PAGE OPEN-BOOK CONTROLLER & SPINE SYNCHRONIZATION
    ═════════════════════════════════════════════════════════════════════ */
 
 class BookController {
   constructor() {
     this.pageFlip = null;
     this.totalPageCount = 0;
-    this.currentPage = 0;
-    this.isMobile = window.innerWidth < 768;
+    this.currentPage = 1;
+    this.twoPageBreakpoint = 680;
+    this.isMobile = window.innerWidth < this.twoPageBreakpoint;
 
     this.folioNames = [
-      'Front Cover · अनहद',
-      'Endpaper & Preface · आमुख',
-      'Folios i–ii · Three-Day Saga (Aarambh, Samvaad, Naad)',
-      'Folios iii–iv · The Revolutionary Pen & Mehfil-e-Sukhan',
-      'Folios v–vi · Registration Passes & Campus Map',
-      'Folios vii–viii · Patrons & Help Centre',
+      'Front Cover · अनहद ’26',
+      'Pages 1–2 · About ANHAD & Festival Index',
+      'Pages 3–4 · Explore Competitions, Exhibits & Workshops',
+      'Pages 5–6 · Three-Day Schedule & Performers',
+      'Pages 7–8 · Passes, Registration & Plan Your Visit',
+      'Pages 9–10 · Community, Ink Your Verse & Partners',
+      'Pages 11–12 · FAQ Help Centre & Contact Desk',
       'Back Cover · Colophon'
     ];
 
@@ -26,39 +28,42 @@ class BookController {
     const bookEl = document.getElementById('flipbook');
     if (!bookEl) return;
 
-    // Calculate dimensions based on viewport & authentic book aspect ratio (1 : 1.4)
-    const isMobile = window.innerWidth < 1024;
-    let pageWidth, pageHeight;
+    const isMobile = window.innerWidth < this.twoPageBreakpoint;
+    this.isMobile = isMobile;
+    let pageWidth;
+    let pageHeight;
 
     if (!isMobile) {
-      // Desktop: Available height between top navbar and bottom dock
-      const availHeight = Math.min(window.innerHeight - 140, 740);
-      pageHeight = Math.max(availHeight, 480);
-      pageWidth = Math.floor(pageHeight / 1.38);
+      const availHeight = Math.min(window.innerHeight - 134, 720);
+      pageHeight = Math.max(availHeight, 500);
+      pageWidth = Math.floor(pageHeight / 1.34);
 
-      // Verify two-page spread fits viewport width comfortably
-      if (pageWidth * 2 > window.innerWidth - 40) {
-        pageWidth = Math.floor((window.innerWidth - 60) / 2);
-        pageHeight = Math.floor(pageWidth * 1.38);
+      if (pageWidth * 2 > window.innerWidth - 56) {
+        pageWidth = Math.floor((window.innerWidth - 56) / 2);
+        pageHeight = Math.floor(pageWidth * 1.34);
       }
 
-      // Constrain wrapper width to exact two-page spread for 100% pixel-perfect centering
       const wrapper = document.querySelector('.book-wrapper');
       if (wrapper) {
+        wrapper.style.width = `${pageWidth * 2}px`;
+        wrapper.style.height = `${pageHeight}px`;
         wrapper.style.maxWidth = `${pageWidth * 2}px`;
       }
     } else {
-      // Mobile: Single portrait page fitted to phone screen
-      const availHeight = window.innerHeight - 130;
+      const availHeight = window.innerHeight - 126;
       const maxW = Math.min(window.innerWidth - 24, 460);
-      pageHeight = Math.min(availHeight, Math.floor(maxW * 1.45));
-      pageWidth = Math.floor(pageHeight / 1.45);
+      pageHeight = Math.min(availHeight, Math.floor(maxW * 1.42));
+      pageWidth = Math.floor(pageHeight / 1.42);
 
       const wrapper = document.querySelector('.book-wrapper');
       if (wrapper) {
+        wrapper.style.width = `${pageWidth}px`;
+        wrapper.style.height = `${pageHeight}px`;
         wrapper.style.maxWidth = `${pageWidth}px`;
       }
     }
+
+    const initialPage = isMobile ? 0 : 1;
 
     try {
       this.pageFlip = new St.PageFlip(bookEl, {
@@ -69,13 +74,13 @@ class BookController {
         maxWidth: 620,
         minHeight: 380,
         maxHeight: 820,
-        maxShadowOpacity: 0.6,
+        maxShadowOpacity: 0.55,
         showCover: true,
         mobileScrollSupport: false,
         usePortrait: isMobile,
-        startPage: 0,
+        startPage: initialPage,
         drawShadow: true,
-        flippingTime: 750,
+        flippingTime: 650,
         useMouseEvents: true,
         swipeDistance: 35
       });
@@ -84,8 +89,14 @@ class BookController {
       this.totalPageCount = pages.length;
       this.pageFlip.loadFromHTML(pages);
 
+      // Ensure frame 0 opens directly onto the two-page spread on desktop/tablet
+      if (!isMobile && typeof this.pageFlip.turnToPage === 'function') {
+        this.pageFlip.turnToPage(initialPage);
+      }
+
+      this.currentPage = initialPage;
       this.setupEvents();
-      this.updateUI(0);
+      this.updateUI(initialPage);
     } catch (e) {
       console.error('StPageFlip init error:', e);
     }
@@ -94,45 +105,42 @@ class BookController {
   setupEvents() {
     if (!this.pageFlip) return;
 
-    // Trigger Audio & Glitter on Flip State Change
     this.pageFlip.on('changeState', (e) => {
       if (e.data === 'flipping') {
         const nextTarget = this.pageFlip.getCurrentPageIndex();
         const direction = nextTarget >= this.currentPage ? 'forward' : 'backward';
-        
-        // Dynamic Desktop Smooth Unfold: Start moving book to center as cover opens
+
         const wrapper = document.querySelector('.book-wrapper');
-        if (wrapper && window.innerWidth >= 1024) {
+        if (wrapper && !this.isMobile) {
           if (this.currentPage === 0 && direction === 'forward') {
             wrapper.className = 'book-wrapper book-open';
           }
         }
 
-        // 1. Play Multi-Layer Paper Rustle Audio
         if (window.anhadAudio) {
           window.anhadAudio.playPageRustle(direction);
         }
 
-        // 2. Emit Golden Glitter Fountain along the turning edge
         if (window.anhadGlitter) {
           const rect = document.getElementById('flipbook').getBoundingClientRect();
-          const originX = direction === 'forward' ? rect.right - 40 : rect.left + 40;
-          const originY = rect.top + (rect.height * 0.45);
+          const originX = direction === 'forward' ? rect.right - 36 : rect.left + 36;
+          const originY = rect.top + rect.height * 0.45;
           window.anhadGlitter.emitPageTurnGlitter(originX, originY, direction);
         }
       }
     });
 
-    // Page Landed Event
     this.pageFlip.on('flip', (e) => {
       this.currentPage = e.data;
       this.updateUI(this.currentPage);
     });
 
-    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
-      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
-      if (tag === 'input' || tag === 'textarea') return;
+      const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+      if (document.getElementById('scrollModalOverlay')?.classList.contains('open')) return;
+      if (document.getElementById('eventCharterModal')?.classList.contains('open')) return;
+
       if (e.key === 'ArrowRight' || e.key === 'PageDown') {
         e.preventDefault();
         this.turnNext();
@@ -143,16 +151,15 @@ class BookController {
       }
     });
 
-    // Window Resize Handling
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const isNowMobile = window.innerWidth < 768;
+        const isNowMobile = window.innerWidth < this.twoPageBreakpoint;
         if (isNowMobile !== this.isMobile) {
           location.reload();
         }
-      }, 400);
+      }, 350);
     });
   }
 
@@ -172,19 +179,24 @@ class BookController {
   }
 
   updateUI(pageIndex) {
-    // 1. Desktop Center Lock: Front Cover Centered, Two-Page Spread Centered, Back Cover Centered
     const wrapper = document.querySelector('.book-wrapper');
-    if (wrapper && window.innerWidth >= 1024) {
-      if (pageIndex === 0) {
-        wrapper.className = 'book-wrapper book-closed-front';
-      } else if (pageIndex >= this.totalPageCount - 2) {
-        wrapper.className = 'book-wrapper book-closed-back';
+    const isClosedFront = pageIndex === 0;
+    const isClosedBack = pageIndex >= this.totalPageCount - 1;
+
+    if (wrapper) {
+      if (!this.isMobile) {
+        if (isClosedFront) {
+          wrapper.className = 'book-wrapper book-closed-front';
+        } else if (isClosedBack) {
+          wrapper.className = 'book-wrapper book-closed-back';
+        } else {
+          wrapper.className = 'book-wrapper book-open';
+        }
       } else {
-        wrapper.className = 'book-wrapper book-open';
+        wrapper.className = 'book-wrapper book-mobile';
       }
     }
 
-    // 2. Update Bottom Dock Buttons
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
     const folioTracker = document.getElementById('folioTracker');
@@ -192,20 +204,19 @@ class BookController {
     if (prevBtn) prevBtn.disabled = pageIndex === 0;
     if (nextBtn) nextBtn.disabled = pageIndex >= this.totalPageCount - 1;
 
-    // 3. Update Folio Tracker Text
     if (folioTracker) {
-      if (pageIndex === 0) {
-        folioTracker.textContent = 'Front Cover · मुख्य पृष्ठ';
-      } else if (pageIndex >= this.totalPageCount - 2) {
-        folioTracker.textContent = 'Back Cover · Colophon';
+      if (isClosedFront) {
+        folioTracker.textContent = this.folioNames[0];
+      } else if (isClosedBack) {
+        folioTracker.textContent = this.folioNames[this.folioNames.length - 1];
       } else {
         const spreadNum = Math.ceil(pageIndex / 2);
-        folioTracker.textContent = this.folioNames[spreadNum] || `Page ${pageIndex} of ${this.totalPageCount}`;
+        folioTracker.textContent =
+          this.folioNames[spreadNum] || `Pages ${pageIndex}–${pageIndex + 1} of ${this.totalPageCount}`;
       }
     }
 
-    // 4. Update Top Brass Navigation Tabs
-    const spreadIndex = (pageIndex === 0) ? 0 : Math.min(5, Math.ceil(pageIndex / 2));
+    const spreadIndex = isClosedFront ? 0 : isClosedBack ? 6 : Math.min(6, Math.ceil(pageIndex / 2));
     document.querySelectorAll('.nav-tab').forEach((tab) => {
       const targetSpread = parseInt(tab.getAttribute('data-spread'), 10);
       if (targetSpread === spreadIndex) {

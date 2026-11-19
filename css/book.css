@@ -1,447 +1,578 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — 3D PHYSICAL BOOK SHELL & REALISTIC STPAGEFLIP STYLES
+   ANHAD '26 — REALISTIC HARDCOVER TWO-PAGE BOOK, COTTON PAPER & CREASE
    ═════════════════════════════════════════════════════════════════════ */
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #8c5d38;
-  color: var(--ink-primary);
-  font-family: var(--font-serif);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Scholar's Warm Daytime Library Desk (Default Day Mode) */
 body {
-  background-color: #8c5d38;
-  background-image:
-    radial-gradient(ellipse 75% 65% at 50% 30%, rgba(255, 248, 230, 0.35) 0%, rgba(255, 235, 190, 0.15) 50%, transparent 80%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 2px, transparent 2px, transparent 14px),
-    repeating-linear-gradient(0deg, #7c4f2c 0px, #9a683e 18px, #7c4f2c 36px);
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  /* Warm walnut library desk with soft reading lamp pool */
+  background:
+    radial-gradient(ellipse 72% 62% at 50% 48%, rgba(92, 64, 39, 0.38) 0%, rgba(28, 19, 13, 0.86) 72%, #120b07 100%),
+    linear-gradient(180deg, #271b13 0%, #1d140e 52%, #150e09 100%);
 }
 
-/* Midnight Mehfil Night Mode (When Toggled) */
 [data-theme="dark"] body {
-  background-color: #0d0805;
-  background-image:
-    radial-gradient(ellipse 65% 55% at 50% 40%, rgba(240, 206, 122, 0.08) 0%, transparent 70%),
-    radial-gradient(circle at 85% 15%, rgba(255, 170, 50, 0.12) 0%, transparent 45%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 10px),
-    repeating-linear-gradient(0deg, #0a0604 0px, #180e08 18px, #0a0604 36px);
+  background:
+    radial-gradient(ellipse 68% 60% at 50% 48%, rgba(74, 52, 26, 0.25) 0%, rgba(12, 10, 9, 0.94) 74%, #090706 100%),
+    linear-gradient(180deg, #120e0b 0%, #0b0907 100%);
 }
 
-/* Main Book Stage */
+/* ── Main Desk Stage ─────────────────────────────────────────────── */
 .book-stage {
   flex: 1;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4.2rem 1rem 4rem;
-  perspective: 2500px;
-  position: relative;
-  height: calc(100vh - 4.2rem);
-  box-sizing: border-box;
+  padding: 58px 20px 52px;
+  min-height: 0;
   overflow: hidden;
 }
 
-/* Container holding the physical book with smooth centering transitions */
+/* ── Physical Book Wrapper & Centering States ────────────────────── */
 .book-wrapper {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 1180px;
-  width: 100%;
   margin: 0 auto;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
 }
 
-/* StPageFlip Host Element — Transparent background so closed covers don't leak empty boxes */
-#flipbook {
-  margin: 0 auto;
-  background-color: transparent !important;
-  transition: transform 0.4s ease;
+.book-wrapper.book-open {
+  transform: translateX(0);
 }
 
-/* ── DESKTOP CENTER-LOCK FOR COVERS & 3D CENTER SPINE CREASE ──
-   When on Page 0 (Front Cover), only the front cover is shown and centered horizontally.
-   When open, the two-page spread is centered with a realistic 3D spine gutter crease down the fold.
-   When on Back Cover, the back cover is centered. */
-@media (min-width: 1024px) {
-  .book-wrapper.book-closed-front {
-    transform: translateX(-25%);
-  }
-
-  .book-wrapper.book-open {
-    transform: translateX(0);
-  }
-
-  /* 3D Physical Spine Valley Crease running right down the center fold */
-  .book-wrapper.book-open::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 36px;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 25;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(20, 10, 4, 0.08) 20%, 
-      rgba(20, 10, 4, 0.35) 42%, 
-      rgba(5, 2, 1, 0.75) 50%, 
-      rgba(20, 10, 4, 0.35) 58%, 
-      rgba(20, 10, 4, 0.08) 80%, 
-      transparent 100%
-    );
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
-  }
-
-  .book-wrapper.book-closed-back {
-    transform: translateX(25%);
-  }
+.book-wrapper.book-closed-front {
+  transform: translateX(-25%);
 }
 
-/* Mobile & Tablet Optimizations — Natural Folio Look (Zero Bars, Natural Proportions) */
-@media (max-width: 1023px) {
-  .book-stage {
-    padding: 4.2rem 0.5rem 4.5rem;
-    min-height: calc(100vh - 4.2rem);
-    perspective: 1200px;
-  }
-  .book-wrapper {
-    max-width: 100%;
-    width: 100%;
-    transform: none !important;
-  }
-  .page-content {
-    padding: 1.4rem 1.1rem 2rem;
-  }
-  .page-cover {
-    border-radius: 8px !important;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6) !important;
-  }
+.book-wrapper.book-closed-back {
+  transform: translateX(25%);
 }
 
-/* Each Page Leaf in StPageFlip */
-.page {
-  background-color: var(--paper-cream);
-  color: var(--ink-primary);
-  overflow: hidden;
-  box-sizing: border-box;
+.book-wrapper.book-mobile {
+  transform: translateX(0);
 }
 
-/* Page inner content container */
-.page-content {
-  width: 100%;
-  height: 100%;
-  padding: 2.2rem 2.2rem 2.8rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  background-color: var(--paper-cream);
-  background-image:
-    radial-gradient(circle at 50% 50%, transparent 70%, rgba(184, 134, 30, 0.06) 100%),
-    repeating-linear-gradient(0deg, transparent 0px, transparent 29px, rgba(207, 156, 52, 0.04) 30px);
-}
-
-@media (max-width: 640px) {
-  .page-content {
-    padding: 1.4rem 1.1rem 2.2rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════
-   AUTHENTIC PHYSICAL BOOK SPINE VALLEY CREASE
-   Left Page vs Right Page Deep Binding Curvature
-   ═══════════════════════════════════════════════════ */
-.page.-left .page-content {
-  border-right: 1px solid rgba(40, 20, 10, 0.45);
-  box-shadow: 
-    inset 0 0 20px rgba(220, 200, 170, 0.15),
-    inset -50px 0 35px -20px rgba(18, 10, 4, 0.22),
-    inset -25px 0 18px -6px rgba(18, 10, 4, 0.45),
-    inset -8px 0 10px rgba(10, 5, 2, 0.6),
-    inset -2px 0 3px rgba(0, 0, 0, 0.85);
-  position: relative;
-}
-
-/* Hand-bound thread stitch perforation along left gutter */
-.page.-left .page-content::after {
-  content: "";
+/* ── Physical Hardcover Boards & Layered Paper-Edge Stack ────────── */
+.book-boards-backdrop {
   position: absolute;
-  top: 14px;
-  bottom: 14px;
-  right: 5px;
-  width: 1px;
-  border-right: 1px dashed rgba(70, 40, 15, 0.35);
+  inset: -8px -11px -11px -11px;
+  border-radius: 6px;
   pointer-events: none;
-}
-
-.page.-right .page-content {
-  box-shadow: 
-    inset 0 0 20px rgba(220, 200, 170, 0.15),
-    inset 50px 0 35px -20px rgba(18, 10, 4, 0.22),
-    inset 25px 0 18px -6px rgba(18, 10, 4, 0.45),
-    inset 8px 0 10px rgba(10, 5, 2, 0.6),
-    inset 2px 0 3px rgba(0, 0, 0, 0.85);
-  position: relative;
-}
-
-/* Hand-bound thread stitch perforation along right gutter */
-.page.-right .page-content::after {
-  content: "";
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  left: 5px;
-  width: 1px;
-  border-left: 1px dashed rgba(70, 40, 15, 0.35);
-  pointer-events: none;
-}
-
-/* ═══════════════════════════════════════════════════
-   HARDCOVER LEATHERS (FRONT & BACK COVERS)
-   Authentic Moroccan Emerald Leather with 24K Tooling
-   ═══════════════════════════════════════════════════ */
-.page-cover {
-  background-color: #072520 !important;
-  background-image:
-    radial-gradient(110% 70% at 50% 12%, rgba(20, 95, 84, 0.95) 0%, rgba(7, 37, 32, 0.98) 60%, rgba(3, 18, 15, 1) 100%),
-    radial-gradient(circle at 50% 50%, rgba(245, 197, 66, 0.06) 0%, transparent 65%),
-    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 3px) !important;
-  color: #f7e6c4;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background:
+    linear-gradient(
+      90deg,
+      #092620 0%,
+      #0d352d 1.4%,
+      #dfd2b5 1.5%,
+      #cfc09e 1.85%,
+      #ece1c7 2.15%,
+      #d6c7a7 2.5%,
+      #efe5cd 2.8%,
+      transparent 3.2%,
+      transparent 96.8%,
+      #efe5cd 97.2%,
+      #d6c7a7 97.5%,
+      #ece1c7 97.85%,
+      #cfc09e 98.15%,
+      #dfd2b5 98.5%,
+      #0d352d 98.6%,
+      #092620 100%
+    ),
+    linear-gradient(180deg, #0b2d26 0%, #071f1a 100%);
+  border: 1px solid rgba(199, 158, 72, 0.35);
   box-shadow:
-    inset 0 0 0 2px rgba(255, 235, 160, 0.45),
-    inset 0 0 0 8px var(--morocco-deep),
-    inset 0 0 0 10px var(--gold-bright),
-    inset 0 0 0 13px var(--morocco-teal),
-    inset 0 0 0 14px rgba(0, 0, 0, 0.6),
-    inset 26px 0 35px -12px rgba(0, 0, 0, 0.9),
-    -10px 25px 50px rgba(0, 0, 0, 0.7),
-    0 35px 80px rgba(0, 0, 0, 0.6);
-  border-radius: 6px 14px 14px 6px;
-  position: relative;
+    0 24px 48px rgba(0, 0, 0, 0.68),
+    0 8px 18px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 232, 179, 0.16);
 }
 
-/* 3D Spine Hinge on Left Edge of Front Cover */
-.page-cover:not(.-left)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 24px;
-  background: linear-gradient(90deg, 
-    rgba(2, 10, 8, 0.95) 0%, 
-    rgba(18, 84, 74, 0.65) 25%, 
-    rgba(2, 10, 8, 0.85) 65%, 
-    rgba(245, 197, 66, 0.22) 75%, 
-    transparent 100%
-  );
-  border-right: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-  z-index: 20;
+[data-theme="dark"] .book-boards-backdrop {
+  background:
+    linear-gradient(
+      90deg,
+      #071b17 0%,
+      #0c2a24 1.4%,
+      #3a3127 1.5%,
+      #2b241c 1.85%,
+      #453a2e 2.15%,
+      #2e261d 2.5%,
+      #4a3e31 2.8%,
+      transparent 3.2%,
+      transparent 96.8%,
+      #4a3e31 97.2%,
+      #2e261d 97.5%,
+      #453a2e 97.85%,
+      #2b241c 98.15%,
+      #3a3127 98.5%,
+      #0c2a24 98.6%,
+      #071b17 100%
+    ),
+    linear-gradient(180deg, #09211c 0%, #051512 100%);
 }
 
-.page-cover.-left {
-  border-radius: 14px 6px 6px 14px;
-}
-
-/* 3D Spine Hinge on Right Edge of Back Cover */
-.page-cover.-left::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 24px;
-  background: linear-gradient(270deg, 
-    rgba(2, 10, 8, 0.95) 0%, 
-    rgba(18, 84, 74, 0.65) 25%, 
-    rgba(2, 10, 8, 0.85) 65%, 
-    rgba(245, 197, 66, 0.22) 75%, 
-    transparent 100%
-  );
-  border-left: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-  z-index: 20;
-}
-
-/* Antique Brass Corner Mounts */
-.cover-corner {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  pointer-events: none;
-  z-index: 15;
-  border: 2px solid var(--gold-bright);
-  box-shadow: inset 0 0 5px rgba(245, 197, 66, 0.6);
-}
-.cover-corner.corner-tl { top: 16px; left: 16px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
-.cover-corner.corner-tr { top: 16px; right: 16px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
-.cover-corner.corner-bl { bottom: 16px; left: 16px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
-.cover-corner.corner-br { bottom: 16px; right: 16px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
-
-/* Official Stamped Seal */
-.gcet-seal-wrapper {
-  position: absolute;
-  top: 24px;
-  left: 28px;
-  width: 58px;
-  height: 58px;
-  pointer-events: none;
-  z-index: 15;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-.gcet-seal-wrapper:hover {
+.book-wrapper.book-open .book-boards-backdrop {
   opacity: 1;
 }
 
-.cover-content {
-  width: 100%;
-  height: 100%;
-  padding: 2.2rem 1.8rem 2rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Geometric Indian Textile Weave Band */
-.band-border {
-  width: calc(100% - 20px);
-  height: 14px;
-  border-block: 2px solid var(--gold-bright);
-  background: repeating-conic-gradient(from 45deg, #8b1328 0 25%, #e8a33a 0 50%, #0a332d 0 75%, #1c1b4a 0 100%) 0 0 / 14px 14px;
-}
-
-/* Silk Bookmark Ribbon */
-.silk-ribbon {
-  position: absolute;
-  top: -6px;
-  right: 14%;
-  width: 28px;
-  height: 82px;
-  background: linear-gradient(180deg, #d41e69 0%, #850f38 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
-  z-index: 25;
-  cursor: pointer;
-  transition: height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.silk-ribbon:hover {
-  height: 96px;
-}
-.silk-ribbon::after {
-  content: "❦";
-  position: absolute;
-  bottom: 18px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--gold-bright);
-}
-
-/* Rotating Sacred Mandala Watermark */
-@keyframes slowSpin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-.mandala-watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  height: 320px;
-  pointer-events: none;
-  opacity: 0.08;
-  color: var(--gold-bright);
-  animation: slowSpin 90s linear infinite;
-}
-
-/* Marbled Endpapers for Inside Cover */
-.page-endpaper {
-  background:
-    radial-gradient(ellipse at 25% 45%, rgba(139, 19, 40, 0.12) 0, transparent 65%),
-    radial-gradient(ellipse at 75% 30%, rgba(207, 156, 52, 0.14) 0, transparent 55%),
-    radial-gradient(ellipse at 50% 80%, rgba(10, 51, 45, 0.12) 0, transparent 60%),
-    repeating-linear-gradient(45deg, transparent 0 8px, rgba(207, 156, 52, 0.05) 8px 9px),
-    repeating-linear-gradient(-45deg, transparent 0 10px, rgba(139, 19, 40, 0.04) 10px 11px),
-    var(--paper-vellum) !important;
-}
-
-/* Custom Scrollable Area inside Page — Clean Literary Aesthetic (Zero Ugly Bars) */
-.page-scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
-  flex: 1;
-  padding-right: 0.2rem;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-.page-scroll::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* 3D Physical Center Spine Valley Crease Overlay (Fold Crease) */
+/* ── Photorealistic Center Sewn Binding Crease Overlay ───────────── */
 .spine-crease-overlay {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 44px;
+  width: 78px;
   transform: translateX(-50%);
   pointer-events: none;
-  z-index: 50;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(15, 8, 3, 0.08) 22%, 
-    rgba(15, 8, 3, 0.45) 44%, 
-    rgba(5, 2, 1, 0.88) 50%, 
-    rgba(15, 8, 3, 0.45) 56%, 
-    rgba(15, 8, 3, 0.08) 78%, 
-    transparent 100%
-  );
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.35);
+  z-index: 35;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
+  /* Realistic concave valley shadow across the left/right binding fold */
+  background: linear-gradient(
+    90deg,
+    rgba(38, 24, 12, 0) 0%,
+    rgba(46, 29, 14, 0.05) 16%,
+    rgba(44, 26, 11, 0.14) 32%,
+    rgba(34, 19, 8, 0.30) 43%,
+    rgba(22, 12, 4, 0.50) 48.2%,
+    rgba(12, 6, 2, 0.66) 50%,
+    rgba(255, 248, 232, 0.24) 51.3%,
+    rgba(26, 15, 6, 0.44) 52.8%,
+    rgba(40, 24, 10, 0.24) 59%,
+    rgba(46, 29, 14, 0.11) 70%,
+    rgba(46, 29, 14, 0.04) 84%,
+    rgba(38, 24, 12, 0) 100%
+  );
 }
 
-@media (min-width: 1024px) {
-  .book-wrapper.book-open .spine-crease-overlay {
-    opacity: 1;
+[data-theme="dark"] .spine-crease-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.12) 20%,
+    rgba(0, 0, 0, 0.28) 38%,
+    rgba(0, 0, 0, 0.56) 47.5%,
+    rgba(0, 0, 0, 0.78) 50%,
+    rgba(235, 206, 148, 0.08) 51.2%,
+    rgba(0, 0, 0, 0.54) 53%,
+    rgba(0, 0, 0, 0.26) 63%,
+    rgba(0, 0, 0, 0.09) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Woven crimson-gold silk headband & top arched gutter pinch */
+.spine-crease-overlay::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 16px;
+  border-radius: 0 0 50% 50%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(14, 8, 3, 0.72) 0%, rgba(14, 8, 3, 0.25) 58%, transparent 100%),
+    repeating-linear-gradient(
+      90deg,
+      #7c1d1d 0px,
+      #7c1d1d 2px,
+      #d6aa4c 2px,
+      #d6aa4c 4px
+    );
+  background-size: 100% 100%, 20px 4px;
+  background-position: center top, center 2px;
+  background-repeat: no-repeat;
+}
+
+/* Woven silk tailband & bottom arched gutter pinch */
+.spine-crease-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 18px;
+  border-radius: 50% 50% 0 0;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(14, 8, 3, 0.75) 0%, rgba(14, 8, 3, 0.28) 58%, transparent 100%),
+    repeating-linear-gradient(
+      90deg,
+      #7c1d1d 0px,
+      #7c1d1d 2px,
+      #d6aa4c 2px,
+      #d6aa4c 4px
+    );
+  background-size: 100% 100%, 20px 4px;
+  background-position: center bottom, center calc(100% - 2px);
+  background-repeat: no-repeat;
+}
+
+.book-wrapper.book-open .spine-crease-overlay {
+  opacity: 1;
+}
+
+/* ── StPageFlip Root ─────────────────────────────────────────────── */
+#flipbook {
+  position: relative;
+  z-index: 5;
+  margin: 0 auto;
+}
+
+/* ── Realistic Cotton Paper Pages ────────────────────────────────── */
+.page {
+  background-color: var(--paper-bg);
+  color: var(--ink-primary);
+  overflow: hidden;
+  position: relative;
+  user-select: text;
+}
+
+/* Left page realistic dome lighting curving down toward right gutter */
+.page.--left {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(128, 97, 56, 0.14) 0%,
+      rgba(255, 252, 244, 0.34) 14%,
+      rgba(255, 252, 244, 0.16) 56%,
+      rgba(130, 96, 52, 0.08) 84%,
+      rgba(74, 48, 22, 0.22) 96%,
+      rgba(44, 26, 10, 0.36) 100%
+    ),
+    radial-gradient(ellipse 90% 90% at 35% 42%, var(--paper-highlight) 0%, var(--paper-bg) 72%, var(--paper-edge) 100%);
+  border-right: 1px solid rgba(56, 34, 14, 0.24);
+  box-shadow: inset -10px 0 18px -10px rgba(48, 28, 10, 0.32);
+}
+
+/* Right page realistic dome lighting curving away from left gutter */
+.page.--right {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(44, 26, 10, 0.34) 0%,
+      rgba(74, 48, 22, 0.20) 4%,
+      rgba(130, 96, 52, 0.07) 16%,
+      rgba(255, 252, 244, 0.20) 44%,
+      rgba(255, 252, 244, 0.32) 84%,
+      rgba(128, 97, 56, 0.15) 100%
+    ),
+    radial-gradient(ellipse 90% 90% at 65% 42%, var(--paper-highlight) 0%, var(--paper-bg) 72%, var(--paper-edge) 100%);
+  border-left: 1px solid rgba(255, 250, 236, 0.42);
+  box-shadow: inset 10px 0 18px -10px rgba(48, 28, 10, 0.28);
+}
+
+[data-theme="dark"] .page.--left {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.26) 0%,
+      rgba(255, 235, 196, 0.04) 22%,
+      rgba(0, 0, 0, 0.08) 78%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    radial-gradient(ellipse 90% 90% at 35% 42%, var(--paper-highlight) 0%, var(--paper-bg) 75%, var(--paper-edge) 100%);
+  border-right: 1px solid rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .page.--right {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.46) 0%,
+      rgba(0, 0, 0, 0.10) 20%,
+      rgba(255, 235, 196, 0.04) 76%,
+      rgba(0, 0, 0, 0.26) 100%
+    ),
+    radial-gradient(ellipse 90% 90% at 65% 42%, var(--paper-highlight) 0%, var(--paper-bg) 75%, var(--paper-edge) 100%);
+  border-left: 1px solid rgba(255, 224, 160, 0.08);
+}
+
+/* Inner Page Frame & Scrollable Body */
+.page-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 26px 14px;
+  position: relative;
+}
+
+.page.--left .page-inner {
+  padding-right: 32px;
+}
+
+.page.--right .page-inner {
+  padding-left: 32px;
+}
+
+/* Hairline printed book margin border */
+.page-inner::before {
+  content: '';
+  position: absolute;
+  inset: 10px 12px 10px 12px;
+  border: 1px solid var(--paper-rule);
+  pointer-events: none;
+}
+
+.page-scroll-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--paper-rule-strong) transparent;
+}
+
+.page-scroll-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.page-scroll-body::-webkit-scrollbar-thumb {
+  background: var(--paper-rule-strong);
+  border-radius: 3px;
+}
+
+/* ── Front & Back Emerald Leather Hardcovers ─────────────────────── */
+.page.page-cover {
+  background:
+    radial-gradient(ellipse 80% 72% at 50% 42%, #134a3f 0%, #0b3029 58%, #061c18 100%);
+  color: #f3e4be;
+  box-shadow:
+    inset 0 0 0 1px rgba(212, 166, 74, 0.35),
+    inset 16px 0 28px rgba(0, 0, 0, 0.42);
+}
+
+.cover-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 28px 24px;
+  position: relative;
+  text-align: center;
+}
+
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid rgba(212, 166, 74, 0.5);
+  pointer-events: none;
+}
+
+.cover-frame::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 166, 74, 0.24);
+}
+
+/* Subtle static heritage mandala watermark (no infinite spin) */
+.mandala-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.cover-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: #d4a64a;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.corner-tl { top: 10px; left: 10px; border-width: 2.5px 0 0 2.5px; }
+.corner-tr { top: 10px; right: 10px; border-width: 2.5px 2.5px 0 0; }
+.corner-bl { bottom: 10px; left: 10px; border-width: 0 0 2.5px 2.5px; }
+.corner-br { bottom: 10px; right: 10px; border-width: 0 2.5px 2.5px 0; }
+
+.cover-overline {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #dfc078;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.cover-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Official ANHAD Calligraphic Logos */
+.anhad-cover-logo {
+  width: min(86%, 310px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.anhad-page-logo {
+  width: min(74%, 224px);
+  height: auto;
+  display: block;
+  margin: 0.12rem auto 0.22rem;
+  object-fit: contain;
+}
+
+.anhad-back-logo {
+  width: min(64%, 210px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.logo-dark-only {
+  display: none;
+}
+
+[data-theme="dark"] .logo-light-only {
+  display: none;
+}
+
+[data-theme="dark"] .logo-dark-only {
+  display: block;
+}
+
+.cover-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f3e0b2;
+  margin: 0;
+}
+
+.cover-tagline {
+  font-style: italic;
+  font-size: 0.94rem;
+  color: rgba(243, 228, 190, 0.84);
+  max-width: 290px;
+  margin: 0.1rem 0 0;
+  line-height: 1.45;
+}
+
+.cover-dates-line {
+  font-family: var(--font-display);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #e8c46c;
+  padding: 0.32rem 0.9rem;
+  border-top: 1px solid rgba(212, 166, 74, 0.4);
+  border-bottom: 1px solid rgba(212, 166, 74, 0.4);
+  margin-top: 0.35rem;
+}
+
+.cover-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.cover-host {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: rgba(243, 228, 190, 0.78);
+  margin: 0;
+}
+
+/* ── Bottom Folio Dock ───────────────────────────────────────────── */
+.bottom-dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(16, 11, 8, 0.92) 0%, #0d0906 100%);
+  border-top: 1px solid rgba(212, 166, 74, 0.25);
+}
+
+.dock-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 0 16px;
+}
+
+.dock-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 166, 74, 0.38);
+  color: #e8d2a0;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.24rem 0.75rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.dock-btn:hover:not(:disabled) {
+  background: rgba(212, 166, 74, 0.16);
+  border-color: #e2bc6b;
+  color: #fff3d2;
+}
+
+.dock-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.folio-tracker {
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+  color: #d9bf86;
+  min-width: 240px;
+  text-align: center;
+}
+
+@media (max-width: 679px) {
+  .book-stage {
+    padding: 56px 10px 48px;
   }
-}
 
-/* Completely Suppress Any Artificial Side Bars Across All Viewports */
-.book-wrapper::before,
-.book-wrapper::after {
-  display: none !important;
-  content: none !important;
-}
+  .book-boards-backdrop,
+  .spine-crease-overlay {
+    display: none;
+  }
 
-/* Natural Table Contact Drop Shadow for the Real Book Volume */
-.book-wrapper {
-  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45));
+  .page-inner {
+    padding: 16px 18px 12px !important;
+  }
+
+  .folio-tracker {
+    min-width: auto;
+    font-size: 0.76rem;
+  }
 }

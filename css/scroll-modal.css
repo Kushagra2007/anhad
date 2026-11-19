@@ -1,6 +1,7 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — STARTUP PROCLAMATION SCROLL & EVENT CHARTER MODAL
-   Ornate crimson-and-gold rolled scroll frame with smooth unroll motion
+   ANHAD '26 — REALISTIC PHYSICAL UNROLLING PROCLAMATION SCROLL & CHARTER
+   Zero AI background image: real turned wood-and-brass rollers physically
+   separate as cotton parchment unfurls, and roll back together on close
    ═════════════════════════════════════════════════════════════════════ */
 
 .invitation-overlay,
@@ -11,12 +12,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  background: rgba(8, 4, 3, 0.8);
+  padding: 20px 16px;
+  background: rgba(7, 5, 3, 0.78);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .invitation-overlay.open,
@@ -26,88 +27,245 @@
   pointer-events: auto;
 }
 
-/* ── Ornate Crimson & Gold Proclamation Scroll Frame ─────────────── */
-.proclamation-scroll-card {
+/* ── Physical Scroll Assembly (Top Roller + Parchment + Bottom Roller) ── */
+.scroll-assembly {
   position: relative;
-  width: min(92vw, 575px);
-  aspect-ratio: 896 / 1200;
-  max-height: calc(100vh - 28px);
-  background:
-    radial-gradient(ellipse 56% 58% at 50% 50%, rgba(56, 7, 14, 0.34) 0%, rgba(36, 4, 9, 0.14) 68%, transparent 100%),
-    url('../assets/scroll-frame.jpg') center center / 100% 100% no-repeat;
-  border-radius: 6px;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
+  width: min(92vw, 520px);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  /* Unroll animation state */
-  transform: scale(0.95);
-  clip-path: inset(44% 0 44% 0);
-  transition:
-    clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 26px 46px rgba(0, 0, 0, 0.72));
+  transform: translateY(10px) scale(0.97);
+  opacity: 1;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
 }
 
-.invitation-overlay.open .proclamation-scroll-card {
-  transform: scale(1);
-  clip-path: inset(0 0 0 0);
+.invitation-overlay.unrolled .scroll-assembly {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.invitation-overlay.rolling-up .scroll-assembly {
+  transform: translateY(6px) scale(0.96);
+  opacity: 0;
+  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s ease 0.35s;
+}
+
+/* Turned Sandalwood & Antique Brass Rollers */
+.scroll-roller {
+  position: relative;
+  z-index: 4;
+  width: 106%;
+  height: 30px;
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      90deg,
+      #7c5419 0%,
+      #e6c36c 3.2%,
+      #9e6e22 5.2%,
+      #593616 6.2%,
+      #7a4c22 14%,
+      #643c1a 50%,
+      #7a4c22 86%,
+      #593616 93.8%,
+      #9e6e22 94.8%,
+      #e6c36c 96.8%,
+      #7c5419 100%
+    );
+  box-shadow:
+    inset 0 6px 8px rgba(255, 232, 178, 0.42),
+    inset 0 -8px 11px rgba(18, 8, 2, 0.78),
+    0 6px 14px rgba(0, 0, 0, 0.58);
+  border: 1px solid rgba(220, 178, 92, 0.45);
+  overflow: visible;
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Ivory paper wrap peeking cleanly around the center of each cylinder */
+.scroll-roller::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 7%;
+  right: 7%;
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      180deg,
+      #d8c298 0%,
+      #faf1db 26%,
+      #f2e2bf 55%,
+      #bfa374 86%,
+      #7d6138 100%
+    );
+  box-shadow:
+    inset 4px 0 6px rgba(84, 48, 16, 0.35),
+    inset -4px 0 6px rgba(84, 48, 16, 0.35);
+}
+
+/* Turned Brass End Finials extending past each roller */
+.scroll-roller-finial {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #fff0b8 0%, #d49f3a 45%, #6e4810 100%);
+  border: 1px solid rgba(255, 230, 160, 0.5);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+.scroll-roller-finial.left {
+  left: -13px;
+}
+
+.scroll-roller-finial.right {
+  right: -13px;
+}
+
+/* Subtle metallic decorative collar bands on the rolled paper */
+.scroll-roller-band {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 10px;
+  z-index: 2;
+  background: linear-gradient(180deg, #9a6d1f 0%, #f5d888 32%, #a6741e 68%, #58380b 100%);
+  border-left: 1px solid rgba(90, 30, 18, 0.55);
+  border-right: 1px solid rgba(90, 30, 18, 0.55);
+}
+
+.scroll-roller-band.left {
+  left: 11%;
+}
+
+.scroll-roller-band.right {
+  right: 11%;
+}
+
+.scroll-roller-top {
+  margin-bottom: -8px;
+}
+
+.scroll-roller-bottom {
+  margin-top: -8px;
+}
+
+/* ── Realistic Expanding/Collapsing Parchment Container ──────────── */
+.scroll-parchment-wrap {
+  width: 92%;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.78s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.invitation-overlay.unrolled .scroll-parchment-wrap {
+  grid-template-rows: 1fr;
+}
+
+/* Closing roll-up uses crisp reverse ease */
+.invitation-overlay.rolling-up .scroll-parchment-wrap {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.44s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-parchment-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Authentic Woven Archival Cotton-Cream Parchment Sheet */
+.scroll-parchment-sheet {
+  position: relative;
+  padding: 26px 28px 24px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(126, 90, 44, 0.24) 0%,
+      rgba(255, 250, 238, 0.32) 7%,
+      rgba(255, 251, 241, 0.14) 50%,
+      rgba(255, 250, 238, 0.32) 93%,
+      rgba(126, 90, 44, 0.24) 100%
+    ),
+    radial-gradient(ellipse 86% 78% at 50% 44%, #fbf4e3 0%, #f3e6ca 68%, #e4d1aa 100%);
+  color: #24170d;
+  border-left: 2px solid #9f7533;
+  border-right: 2px solid #9f7533;
+  /* Realistic concave shadow tucked directly underneath top & bottom rollers */
+  box-shadow:
+    inset 0 24px 26px -14px rgba(48, 22, 6, 0.52),
+    inset 0 -24px 26px -14px rgba(48, 22, 6, 0.52);
+  text-align: center;
+  opacity: 1;
+}
+
+/* Inner printed crimson-and-gold double hairline rule */
+.scroll-parchment-sheet::before {
+  content: '';
+  position: absolute;
+  inset: 12px 14px;
+  border: 1.5px solid rgba(127, 33, 33, 0.38);
+  pointer-events: none;
+}
+
+.scroll-parchment-sheet::after {
+  content: '';
+  position: absolute;
+  inset: 16px 18px;
+  border: 1px solid rgba(154, 108, 29, 0.32);
+  pointer-events: none;
 }
 
 .scroll-close-btn {
   position: absolute;
-  top: 15.8%;
-  right: 15.8%;
-  z-index: 10;
+  top: 20px;
+  right: 22px;
+  z-index: 6;
   width: 28px;
   height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(24, 5, 8, 0.82);
-  border: 1px solid rgba(232, 193, 108, 0.72);
+  background: rgba(251, 244, 227, 0.85);
+  border: 1px solid rgba(127, 33, 33, 0.4);
   border-radius: 50%;
-  color: #f6dfa5;
+  color: #5e1d18;
   font-size: 0.82rem;
   cursor: pointer;
   transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
 .scroll-close-btn:hover {
-  background: #d8a642;
-  border-color: #ffe29a;
-  color: #1c080a;
+  background: #7f2121;
+  border-color: #7f2121;
+  color: #faf0da;
 }
 
-/* Safe interior burgundy velvet panel tucked well inside the carved gold peacock arch */
-.scroll-velvet-body {
-  width: 56%;
-  height: 56%;
-  margin-top: 6px;
+.scroll-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  padding: 6px 4px 4px;
-  color: #f7e9c7;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.scroll-velvet-body::-webkit-scrollbar {
-  display: none;
+  gap: 8px;
+  padding: 2px 10px 0;
 }
 
 .scroll-brand-cluster {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
 }
 
 .scroll-sc-logo {
-  width: 46px;
+  width: 52px;
   height: auto;
   display: block;
   object-fit: contain;
@@ -115,46 +273,64 @@
 
 .scroll-kicker {
   font-family: var(--font-display);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #e8c474;
+  color: #7f2121;
   margin: 0;
 }
 
 .scroll-event-logo {
-  width: min(84%, 184px);
+  width: min(74%, 218px);
   height: auto;
   display: block;
-  margin: 1px auto 0;
+  margin: 2px auto 0;
   object-fit: contain;
 }
 
 .scroll-event-sub {
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #f5dfb0;
-  margin: 1px 0 0;
+  color: #4a3520;
+  margin: 0;
+}
+
+.scroll-rule-ornament {
+  width: 68%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9a6c1d;
+  font-size: 0.74rem;
+}
+
+.scroll-rule-ornament::before,
+.scroll-rule-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(154, 108, 29, 0.6), transparent);
 }
 
 .scroll-invite-copy {
   font-style: italic;
-  font-size: 0.77rem;
-  line-height: 1.32;
-  color: rgba(250, 238, 210, 0.9);
-  margin: 2px 0;
-  max-width: 268px;
+  font-size: 0.88rem;
+  line-height: 1.42;
+  color: #3d2c1b;
+  margin: 0;
+  max-width: 360px;
 }
 
 .scroll-facts-stack {
   width: 100%;
+  max-width: 376px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   margin: 2px 0;
 }
 
@@ -162,29 +338,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 4px 8px;
-  background: rgba(26, 4, 8, 0.64);
-  border: 1px solid rgba(224, 182, 96, 0.48);
-  border-radius: 4px;
+  gap: 7px;
+  padding: 5px 12px;
+  background: rgba(255, 251, 241, 0.7);
+  border: 1px solid rgba(154, 108, 29, 0.36);
+  border-radius: 3px;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.84rem;
+  font-weight: 700;
   letter-spacing: 0.03em;
-  color: #f9ebc8;
+  color: #2b1c10;
 }
 
 .scroll-fact-icon {
-  color: #e8be62;
-  font-size: 0.74rem;
+  color: #7f2121;
+  font-size: 0.82rem;
 }
 
 .scroll-cta-stack {
   width: 100%;
+  max-width: 376px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 2px;
+  gap: 7px;
+  margin-top: 3px;
 }
 
 .scroll-register-cta {
@@ -193,31 +370,31 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 12px;
-  background: linear-gradient(180deg, #f0be4f 0%, #c88d22 100%);
-  color: #1d0c08;
-  border: 1px solid #ffe298;
-  border-radius: 4px;
+  padding: 9px 16px;
+  background: linear-gradient(180deg, #8b2323 0%, #641515 100%);
+  color: #fbf0d8;
+  border: 1px solid #4e1010;
+  border-radius: 3px;
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.42);
+  box-shadow: 0 4px 12px rgba(72, 18, 14, 0.28);
   transition: filter 0.18s ease, transform 0.16s ease;
 }
 
 .scroll-register-cta:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.1);
   transform: translateY(-1px);
 }
 
 .scroll-secondary-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 7px;
 }
 
 .scroll-secondary-btn {
@@ -225,37 +402,38 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 5px 6px;
-  background: rgba(24, 4, 8, 0.65);
-  border: 1px solid rgba(224, 182, 96, 0.5);
-  border-radius: 4px;
-  color: #f3dfb3;
+  padding: 6px 10px;
+  background: rgba(255, 250, 238, 0.65);
+  border: 1px solid rgba(122, 87, 40, 0.45);
+  border-radius: 3px;
+  color: #3a2716;
   font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.79rem;
+  font-weight: 700;
   letter-spacing: 0.03em;
   cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
 .scroll-secondary-btn:hover {
-  background: rgba(216, 166, 66, 0.24);
-  border-color: #f2cc78;
+  background: rgba(127, 33, 33, 0.1);
+  border-color: #7f2121;
+  color: #7f2121;
 }
 
 .scroll-hint {
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   letter-spacing: 0.03em;
-  color: rgba(245, 224, 179, 0.78);
+  color: #6d563c;
   margin: 1px 0 0;
 }
 
 .scroll-hint kbd {
   font-family: inherit;
   padding: 0 4px;
-  border: 1px solid rgba(224, 182, 96, 0.45);
+  border: 1px solid rgba(122, 87, 40, 0.45);
   border-radius: 2px;
-  color: #f7dfaa;
+  color: #3a2716;
 }
 
 /* ── Event Charter Detail Modal (Cotton Paper) ───────────────────── */
@@ -331,31 +509,21 @@
 }
 
 @media (max-width: 600px) {
-  .proclamation-scroll-card {
+  .scroll-assembly {
     width: 94vw;
   }
 
-  .scroll-velvet-body {
-    width: 66%;
-    height: 66%;
-    padding: 6px 4px;
+  .scroll-roller {
+    width: 102%;
+    height: 24px;
   }
 
-  .scroll-sc-logo {
-    width: 44px;
+  .scroll-parchment-sheet {
+    padding: 20px 18px 18px;
   }
 
   .scroll-event-logo {
-    width: 165px;
-  }
-
-  .scroll-invite-copy {
-    font-size: 0.74rem;
-  }
-
-  .scroll-fact-pill {
-    font-size: 0.72rem;
-    padding: 4px 6px;
+    width: 175px;
   }
 
   .charter-card {

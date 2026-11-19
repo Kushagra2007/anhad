@@ -50,26 +50,49 @@ function startCountdown() {
   setInterval(update, 60000);
 }
 
-/* ── Proclamation Scroll Modal & ICS Export ──────────────────────── */
+/* ── Realistic Physical Unrolling / Rolling-Up Proclamation Scroll ─── */
+let scrollCloseTimer = null;
+
 window.openScrollModal = function (withGlitter = true) {
   const overlay = document.getElementById('scrollModalOverlay');
   if (!overlay) return;
+  if (scrollCloseTimer) {
+    clearTimeout(scrollCloseTimer);
+    scrollCloseTimer = null;
+  }
+  overlay.classList.remove('rolling-up', 'unrolled');
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
+
+  // Force one layout frame with rollers closed together, then physically unroll apart
+  void overlay.offsetHeight;
+  requestAnimationFrame(() => {
+    overlay.classList.add('unrolled');
+  });
+
   if (window.anhadAudio) window.anhadAudio.playScrollUnroll?.();
   if (withGlitter && window.anhadGlitter) {
-    window.anhadGlitter.emitScrollUnrollGlitter?.();
+    setTimeout(() => window.anhadGlitter.emitScrollUnrollGlitter?.(), 180);
   }
 };
 
 window.closeScrollModal = function (thenOpenBook = false) {
   const overlay = document.getElementById('scrollModalOverlay');
-  if (!overlay) return;
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden', 'true');
-  if (thenOpenBook && window.anhadBook && window.anhadBook.currentPage === 0) {
-    window.anhadBook.turnToPage(1);
-  }
+  if (!overlay || !overlay.classList.contains('open')) return;
+
+  // Stage 1: Roll parchment smoothly back inside the converging wood-and-brass rollers
+  overlay.classList.remove('unrolled');
+  overlay.classList.add('rolling-up');
+
+  if (scrollCloseTimer) clearTimeout(scrollCloseTimer);
+  scrollCloseTimer = setTimeout(() => {
+    overlay.classList.remove('open', 'rolling-up');
+    overlay.setAttribute('aria-hidden', 'true');
+    scrollCloseTimer = null;
+    if (thenOpenBook && window.anhadBook && window.anhadBook.currentPage === 0) {
+      window.anhadBook.turnToPage(1);
+    }
+  }, 540);
 };
 
 window.downloadFestICS = function () {
@@ -519,11 +542,85 @@ document.addEventListener('DOMContentLoaded', () => {
   bindFeedbackForm();
   bindModalDismiss();
 
-  // Auto-open the proclamation scroll on startup unless ?autostart=1 skips intro
+  // Creative asset-aware literary preloader before unrolling the proclamation scroll
   const params = new URLSearchParams(window.location.search);
-  if (params.get('autostart') !== '1') {
-    setTimeout(() => {
-      window.openScrollModal(true);
-    }, 220);
+  const skipIntro = params.get('autostart') === '1';
+  const loader = document.getElementById('anhadLoader');
+  const barFill = document.getElementById('loaderBarFill');
+  const statusText = document.getElementById('loaderStatusText');
+
+  if (!loader || skipIntro) {
+    if (loader) {
+      loader.classList.add('loader-done');
+      loader.style.display = 'none';
+    }
+    return;
   }
+
+  const criticalAssets = [
+    'assets/student-council-logo.png',
+    'assets/anhad-logo.png',
+    'assets/anhad-logo-parchment.png',
+    'assets/desk-backdrop.jpg'
+  ];
+  const captions = [
+    'Dipping the quill & preparing parchment…',
+    'Pressing archival cotton sheets…',
+    'Binding the ANHAD ’26 chronicle…',
+    'Unrolling the invitation scroll…'
+  ];
+
+  let completed = 0;
+  const totalSteps = criticalAssets.length + 1; // +1 for document.fonts
+  const startedAt = performance.now();
+  let dismissed = false;
+
+  const updateProgress = () => {
+    const pct = Math.min(100, Math.round((completed / totalSteps) * 100));
+    if (barFill) barFill.style.width = `${Math.max(20, pct)}%`;
+    const idx = Math.min(captions.length - 1, Math.floor((pct / 100) * captions.length));
+    if (statusText) statusText.textContent = captions[idx];
+  };
+
+  const finishLoading = () => {
+    if (dismissed) return;
+    dismissed = true;
+    if (barFill) barFill.style.width = '100%';
+    if (statusText) statusText.textContent = captions[captions.length - 1];
+
+    const elapsed = performance.now() - startedAt;
+    const minBeat = Math.max(0, 520 - elapsed);
+
+    setTimeout(() => {
+      loader.classList.add('loader-done');
+      setTimeout(() => {
+        loader.style.display = 'none';
+        window.openScrollModal(true);
+      }, 420);
+    }, minBeat);
+  };
+
+  const stepDone = () => {
+    completed += 1;
+    updateProgress();
+    if (completed >= totalSteps) finishLoading();
+  };
+
+  updateProgress();
+
+  criticalAssets.forEach((src) => {
+    const img = new Image();
+    img.onload = stepDone;
+    img.onerror = stepDone;
+    img.src = src;
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(stepDone).catch(stepDone);
+  } else {
+    stepDone();
+  }
+
+  // Safety ceiling so slow networks never stall on the loader
+  setTimeout(finishLoading, 2600);
 });

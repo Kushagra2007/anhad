@@ -11,20 +11,151 @@
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
 
-  <link rel="stylesheet" href="css/typography.css?v=3.0">
-  <link rel="stylesheet" href="css/book.css?v=3.0">
-  <link rel="stylesheet" href="css/components.css?v=3.0">
-  <link rel="stylesheet" href="css/navbar.css?v=3.0">
-  <link rel="stylesheet" href="css/scroll-modal.css?v=3.0">
+  <!-- Preload core visual assets for fast first paint on GitHub Pages -->
+  <link rel="preload" as="image" href="assets/student-council-logo.png">
+  <link rel="preload" as="image" href="assets/anhad-logo.png">
+  <link rel="preload" as="image" href="assets/anhad-logo-parchment.png">
+  <link rel="preload" as="image" href="assets/desk-backdrop.jpg">
+
+  <!-- Critical Inline Preloader Curtain (renders instantaneously before external CSS downloads) -->
+  <style>
+    #anhadLoader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(ellipse 68% 62% at 50% 45%, #113a31 0%, #071e19 64%, #030e0c 100%);
+      color: #f3e4be;
+      font-family: Georgia, 'Times New Roman', serif;
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.55s ease;
+    }
+    #anhadLoader.loader-done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-plate {
+      position: relative;
+      width: min(88vw, 390px);
+      padding: 34px 28px 30px;
+      text-align: center;
+      border: 1px solid rgba(212, 166, 74, 0.45);
+      background: rgba(6, 24, 20, 0.72);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.65), inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(212, 166, 74, 0.18);
+    }
+    .loader-crest-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .loader-monogram {
+      font-size: 2.3rem;
+      line-height: 1;
+      color: #ecc86c;
+      letter-spacing: 0.04em;
+    }
+    .loader-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #d8b56b;
+      margin: 0 0 10px;
+    }
+    .loader-quill-stage {
+      width: 220px;
+      height: 46px;
+      margin: 0 auto 12px;
+    }
+    .loader-ink-path {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: loaderInkDraw 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .loader-quill-nib {
+      transform-origin: center;
+      animation: loaderQuillGlide 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes loaderInkDraw {
+      0% { stroke-dashoffset: 260; opacity: 0.3; }
+      65% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0.85; }
+    }
+    @keyframes loaderQuillGlide {
+      0% { transform: translate(-84px, 4px) rotate(-14deg); }
+      65% { transform: translate(84px, -2px) rotate(-6deg); }
+      100% { transform: translate(84px, -2px) rotate(-6deg); }
+    }
+    .loader-bar-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(212, 166, 74, 0.2);
+      overflow: hidden;
+      border-radius: 2px;
+      margin: 8px 0 10px;
+    }
+    .loader-bar-fill {
+      width: 18%;
+      height: 100%;
+      background: linear-gradient(90deg, #b88524, #f7d982, #d4a64a);
+      transition: width 0.25s ease-out;
+    }
+    .loader-status {
+      font-style: italic;
+      font-size: 0.84rem;
+      color: rgba(243, 228, 190, 0.82);
+      margin: 0;
+    }
+    .loader-couplet {
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: rgba(216, 181, 107, 0.68);
+      margin: 12px 0 0;
+    }
+  </style>
+
+  <link rel="stylesheet" href="css/typography.css?v=4.0">
+  <link rel="stylesheet" href="css/book.css?v=4.0">
+  <link rel="stylesheet" href="css/components.css?v=4.0">
+  <link rel="stylesheet" href="css/navbar.css?v=4.0">
+  <link rel="stylesheet" href="css/scroll-modal.css?v=4.0">
 </head>
 <body class="stage-book-closed">
+
+  <!-- Creative Literary Quill Preloader (dismissed automatically once core assets load) -->
+  <div id="anhadLoader" role="status" aria-live="polite" aria-label="Loading ANHAD '26 Literature Fest">
+    <div class="loader-plate">
+      <p class="loader-kicker">GCET Student Council · 26–28 Nov 2026</p>
+      <div class="loader-crest-row">
+        <span class="loader-monogram">अनहद ’26</span>
+      </div>
+
+      <svg class="loader-quill-stage" viewBox="0 0 220 46" fill="none" aria-hidden="true">
+        <path class="loader-ink-path" d="M 16 34 C 52 16, 86 42, 118 26 C 148 12, 178 36, 204 22" stroke="#e8c36c" stroke-width="2" stroke-linecap="round"/>
+        <g class="loader-quill-nib">
+          <path d="M 110 25 L 126 6 C 122 14, 118 20, 112 26 Z" fill="#f3d485"/>
+          <path d="M 110 25 L 114 21 M 115 19 C 119 11, 127 5, 134 4 C 131 12, 124 19, 114 23" stroke="#d4a33a" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+      </svg>
+
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loaderBarFill"></div>
+      </div>
+      <p class="loader-status" id="loaderStatusText">Dipping the quill &amp; preparing parchment…</p>
+      <p class="loader-couplet">GALGOTIAS LITERATURE FEST · GREATER NOIDA</p>
+    </div>
+  </div>
 
   <!-- Top Editorial Brass Navigation Bar -->
   <header class="brass-nav">
     <div class="brass-nav-inner">
       <button type="button" class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(0)" aria-label="ANHAD '26 Home">
-        <img src="assets/student-council-logo.png" alt="GCET Student Council Crest" class="brand-sc-img" referrerpolicy="no-referrer">
-        <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="brand-logo-img" referrerpolicy="no-referrer">
+        <img src="assets/student-council-logo.png" alt="GCET Student Council Crest" class="brand-sc-img" width="33" height="30" referrerpolicy="no-referrer">
+        <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="brand-logo-img" width="75" height="28" referrerpolicy="no-referrer">
         <span class="brand-meta">
           <span class="brand-sub">Galgotias Literature Fest</span>
           <span class="brand-dates">26–28 Nov 2026 · GCET</span>
@@ -90,12 +221,12 @@
             </svg>
 
             <div class="cover-top-brand">
-              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" referrerpolicy="no-referrer">
+              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" width="96" height="87" referrerpolicy="no-referrer">
               <p class="cover-overline">GCET Student Council Presents</p>
             </div>
 
             <div class="cover-center">
-              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26 Official Calligraphic Logo" class="anhad-cover-logo" referrerpolicy="no-referrer">
+              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26 Official Calligraphic Logo" class="anhad-cover-logo" width="380" height="143" referrerpolicy="no-referrer">
               <h1 class="cover-subtitle">Galgotias Literature Fest</h1>
               <p class="cover-tagline">Where literature meets imagination and every expression finds its stage.</p>
               <div class="cover-dates-line">26 · 27 · 28 NOVEMBER 2026</div>
@@ -117,10 +248,10 @@
           <div class="page-inner">
             <div class="page-scroll-body">
               <div class="page1-masthead">
-                <img src="assets/student-council-logo.png" alt="GCET Student Council" class="sc-page-logo" referrerpolicy="no-referrer">
+                <img src="assets/student-council-logo.png" alt="GCET Student Council" class="sc-page-logo" width="44" height="40" referrerpolicy="no-referrer">
                 <p class="page-kicker">GCET Student Council · Greater Noida</p>
-                <img src="assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-light-only" referrerpolicy="no-referrer">
-                <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-dark-only" referrerpolicy="no-referrer">
+                <img src="assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-light-only" width="205" height="77" referrerpolicy="no-referrer">
+                <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-dark-only" width="205" height="77" referrerpolicy="no-referrer">
                 <div class="meta-inline-strip">
                   <span>26–28 Nov 2026</span>
                   <span>·</span>
@@ -698,12 +829,12 @@
             <div class="cover-corner corner-br"></div>
 
             <div class="cover-top-brand">
-              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" style="width:76px;" referrerpolicy="no-referrer">
+              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" width="76" height="69" style="width:76px;" referrerpolicy="no-referrer">
               <p class="cover-overline">Colophon · 2026 Edition</p>
             </div>
 
             <div class="cover-center">
-              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-back-logo" referrerpolicy="no-referrer">
+              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-back-logo" width="270" height="101" referrerpolicy="no-referrer">
               <p class="cover-tagline">
                 “Bring your words, unleash your creativity, and be a part of something unforgettable. Let the stories unfold.”
               </p>
@@ -732,52 +863,77 @@
     </div>
   </footer>
 
-  <!-- Startup Proclamation Scroll Modal (Council Logo · Event Logo · Registration) -->
+  <!-- Realistic Physical Unrolling Proclamation Scroll Modal -->
   <div class="invitation-overlay" id="scrollModalOverlay" role="dialog" aria-modal="true" aria-labelledby="invitationHeading" aria-hidden="true">
-    <div class="proclamation-scroll-card">
-      <button type="button" class="scroll-close-btn" onclick="window.closeScrollModal(false)" aria-label="Close proclamation scroll">✕</button>
+    <div class="scroll-assembly">
+      <!-- Top Physical Wood & Brass Scroll Roller -->
+      <div class="scroll-roller scroll-roller-top" aria-hidden="true">
+        <span class="scroll-roller-finial left"></span>
+        <span class="scroll-roller-band left"></span>
+        <span class="scroll-roller-band right"></span>
+        <span class="scroll-roller-finial right"></span>
+      </div>
 
-      <div class="scroll-velvet-body">
-        <div class="scroll-brand-cluster">
-          <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="scroll-sc-logo" referrerpolicy="no-referrer">
-          <p class="scroll-kicker">GCET Student Council Presents</p>
-          <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="scroll-event-logo" referrerpolicy="no-referrer">
-          <h2 id="invitationHeading" class="scroll-event-sub">Galgotias Literature Fest</h2>
+      <!-- Unfurling Archival Parchment Sheet -->
+      <div class="scroll-parchment-wrap">
+        <div class="scroll-parchment-inner">
+          <div class="scroll-parchment-sheet">
+            <button type="button" class="scroll-close-btn" onclick="window.closeScrollModal(false)" aria-label="Close proclamation scroll">✕</button>
+
+            <div class="scroll-content">
+              <div class="scroll-brand-cluster">
+                <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="scroll-sc-logo" width="52" height="47" referrerpolicy="no-referrer">
+                <p class="scroll-kicker">GCET Student Council Presents</p>
+                <img src="assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="scroll-event-logo" width="218" height="82" referrerpolicy="no-referrer">
+                <h2 id="invitationHeading" class="scroll-event-sub">Galgotias Literature Fest</h2>
+              </div>
+
+              <div class="scroll-rule-ornament" aria-hidden="true">✦</div>
+
+              <p class="scroll-invite-copy">
+                Three days of books, debates, poetry, Dastangoi &amp; Sufi music — Aarambh, Samvaad &amp; Naad.
+              </p>
+
+              <div class="scroll-facts-stack">
+                <div class="scroll-fact-pill">
+                  <span class="scroll-fact-icon" aria-hidden="true">✦</span>
+                  <span>26, 27 &amp; 28 November 2026</span>
+                </div>
+                <div class="scroll-fact-pill">
+                  <span class="scroll-fact-icon" aria-hidden="true">◷</span>
+                  <span>10:00 AM – 7:00 PM IST</span>
+                </div>
+                <div class="scroll-fact-pill">
+                  <span class="scroll-fact-icon" aria-hidden="true">◈</span>
+                  <span>GCET Campus, Knowledge Park II, Greater Noida</span>
+                </div>
+              </div>
+
+              <div class="scroll-cta-stack">
+                <a class="scroll-register-cta" data-link="luma">
+                  Register Now →
+                </a>
+                <div class="scroll-secondary-row">
+                  <button type="button" class="scroll-secondary-btn" onclick="window.downloadFestICS()">
+                    Add to Calendar
+                  </button>
+                  <button type="button" class="scroll-secondary-btn" onclick="window.closeScrollModal(false)">
+                    Enter Website
+                  </button>
+                </div>
+                <p class="scroll-hint">Press <kbd>Esc</kbd> or click ✕ to roll up scroll</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <p class="scroll-invite-copy">
-          Three days of literature, debates, poetry, Dastangoi &amp; Sufi music — Aarambh, Samvaad &amp; Naad.
-        </p>
-
-        <div class="scroll-facts-stack">
-          <div class="scroll-fact-pill">
-            <span class="scroll-fact-icon" aria-hidden="true">✦</span>
-            <span>26, 27 &amp; 28 November 2026</span>
-          </div>
-          <div class="scroll-fact-pill">
-            <span class="scroll-fact-icon" aria-hidden="true">◷</span>
-            <span>10:00 AM – 7:00 PM IST</span>
-          </div>
-          <div class="scroll-fact-pill">
-            <span class="scroll-fact-icon" aria-hidden="true">◈</span>
-            <span>GCET Campus, Knowledge Park II, Greater Noida</span>
-          </div>
-        </div>
-
-        <div class="scroll-cta-stack">
-          <a class="scroll-register-cta" data-link="luma">
-            Register Now →
-          </a>
-          <div class="scroll-secondary-row">
-            <button type="button" class="scroll-secondary-btn" onclick="window.downloadFestICS()">
-              Add to Calendar
-            </button>
-            <button type="button" class="scroll-secondary-btn" onclick="window.closeScrollModal(false)">
-              Enter Website
-            </button>
-          </div>
-          <p class="scroll-hint">Press <kbd>Esc</kbd> or click ✕ to enter website</p>
-        </div>
+      <!-- Bottom Physical Wood & Brass Scroll Roller -->
+      <div class="scroll-roller scroll-roller-bottom" aria-hidden="true">
+        <span class="scroll-roller-finial left"></span>
+        <span class="scroll-roller-band left"></span>
+        <span class="scroll-roller-band right"></span>
+        <span class="scroll-roller-finial right"></span>
       </div>
     </div>
   </div>
@@ -821,10 +977,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/page-flip.min.js?v=3.0"></script>
-  <script src="js/audio.js?v=3.0"></script>
-  <script src="js/glitter.js?v=3.0"></script>
-  <script src="js/book-controller.js?v=3.0"></script>
-  <script type="module" src="js/app.js?v=3.0"></script>
+  <script src="js/page-flip.min.js?v=4.0"></script>
+  <script src="js/audio.js?v=4.0"></script>
+  <script src="js/glitter.js?v=4.0"></script>
+  <script src="js/book-controller.js?v=4.0"></script>
+  <script type="module" src="js/app.js?v=4.0"></script>
 </body>
 </html>

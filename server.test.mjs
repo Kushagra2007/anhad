@@ -41,7 +41,9 @@ test('Express static server serves index.html, styles, scripts, ANHAD logo PNGs,
     assert.equal(home.status, 200);
     const html = home.body.toString('utf8');
     assert.match(html, /ANHAD '26/);
-    assert.match(html, /anhad-logo\.png/);
+    assert.match(html, /src="assets\/anhad-logo\.png"/);
+    assert.match(html, /src="assets\/student-council-logo\.png"/);
+    assert.match(html, /desk-art-backdrop/);
     assert.match(html, /spine-crease-overlay/);
     assert.equal(html.includes('gcet-seal-wrapper'), false);
     assert.equal(html.includes('farman-seal'), false);
@@ -54,6 +56,22 @@ test('Express static server serves index.html, styles, scripts, ANHAD logo PNGs,
     const logoParchment = await request(port, '/assets/anhad-logo-parchment.png');
     assert.equal(logoParchment.status, 200);
     assert.match(logoParchment.headers['content-type'] || '', /image\/png/);
+
+    const logoCouncil = await request(port, '/assets/student-council-logo.png');
+    assert.equal(logoCouncil.status, 200);
+    assert.match(logoCouncil.headers['content-type'] || '', /image\/png/);
+    assert.ok(logoCouncil.body.length > 10000);
+
+    const deskBg = await request(port, '/assets/desk-backdrop.jpg');
+    assert.equal(deskBg.status, 200);
+    assert.match(deskBg.headers['content-type'] || '', /image\/jpeg/);
+    assert.ok(deskBg.body.length > 20000);
+
+    const scrollFrame = await request(port, '/assets/scroll-frame.jpg');
+    assert.equal(scrollFrame.status, 200);
+    assert.match(scrollFrame.headers['content-type'] || '', /image\/jpeg/);
+    assert.ok(scrollFrame.body.length > 20000);
+    assert.equal(html.includes('src="/assets/'), false);
 
     const logic = await request(port, '/js/fest-logic.js');
     assert.equal(logic.status, 200);

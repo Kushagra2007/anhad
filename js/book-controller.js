@@ -1,12 +1,13 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — TWO-PAGE OPEN-BOOK CONTROLLER & SPINE SYNCHRONIZATION
+   ANHAD '26 — FULL-SCREEN TWO-PAGE BOOK CONTROLLER & SMOOTH OPEN STAGE
    ═════════════════════════════════════════════════════════════════════ */
 
 class BookController {
   constructor() {
     this.pageFlip = null;
     this.totalPageCount = 0;
-    this.currentPage = 1;
+    this.currentPage = 0;
+    this.isTurning = false;
     this.twoPageBreakpoint = 680;
     this.isMobile = window.innerWidth < this.twoPageBreakpoint;
 
@@ -34,14 +35,11 @@ class BookController {
     let pageHeight;
 
     if (!isMobile) {
-      const availHeight = Math.min(window.innerHeight - 134, 720);
-      pageHeight = Math.max(availHeight, 500);
-      pageWidth = Math.floor(pageHeight / 1.34);
-
-      if (pageWidth * 2 > window.innerWidth - 56) {
-        pageWidth = Math.floor((window.innerWidth - 56) / 2);
-        pageHeight = Math.floor(pageWidth * 1.34);
-      }
+      // Full-screen open two-page spread filling the reading viewport side-to-side
+      const stageHeight = Math.max(window.innerHeight - 108, 520);
+      const stageWidth = Math.max(window.innerWidth - 28, 640);
+      pageHeight = stageHeight;
+      pageWidth = Math.floor(stageWidth / 2);
 
       const wrapper = document.querySelector('.book-wrapper');
       if (wrapper) {
@@ -50,8 +48,8 @@ class BookController {
         wrapper.style.maxWidth = `${pageWidth * 2}px`;
       }
     } else {
-      const availHeight = window.innerHeight - 126;
-      const maxW = Math.min(window.innerWidth - 24, 460);
+      const availHeight = window.innerHeight - 118;
+      const maxW = Math.min(window.innerWidth - 20, 460);
       pageHeight = Math.min(availHeight, Math.floor(maxW * 1.42));
       pageWidth = Math.floor(pageHeight / 1.42);
 
@@ -63,7 +61,10 @@ class BookController {
       }
     }
 
-    const initialPage = isMobile ? 0 : 1;
+    // Start closed on Front Cover (Page 0) framed by the scholar's desk backdrop;
+    // support ?autostart=1 to jump directly to the open two-page spread if requested.
+    const params = new URLSearchParams(window.location.search);
+    const initialPage = params.get('autostart') === '1' && !isMobile ? 1 : 0;
 
     try {
       this.pageFlip = new St.PageFlip(bookEl, {
@@ -71,16 +72,16 @@ class BookController {
         height: pageHeight,
         size: 'fixed',
         minWidth: 260,
-        maxWidth: 620,
+        maxWidth: 1200,
         minHeight: 380,
-        maxHeight: 820,
-        maxShadowOpacity: 0.55,
+        maxHeight: 1200,
+        maxShadowOpacity: 0.5,
         showCover: true,
         mobileScrollSupport: false,
         usePortrait: isMobile,
         startPage: initialPage,
         drawShadow: true,
-        flippingTime: 650,
+        flippingTime: 680,
         useMouseEvents: true,
         swipeDistance: 35
       });
@@ -89,16 +90,51 @@ class BookController {
       this.totalPageCount = pages.length;
       this.pageFlip.loadFromHTML(pages);
 
-      // Ensure frame 0 opens directly onto the two-page spread on desktop/tablet
-      if (!isMobile && typeof this.pageFlip.turnToPage === 'function') {
+      if (initialPage > 0 && typeof this.pageFlip.turnToPage === 'function') {
         this.pageFlip.turnToPage(initialPage);
       }
 
       this.currentPage = initialPage;
       this.setupEvents();
-      this.updateUI(initialPage);
+      this.updateUI(initialPage, false);
     } catch (e) {
       console.error('StPageFlip init error:', e);
+    }
+  }
+
+  setTurningState(turning, targetHint = null) {
+    this.isTurning = turning;
+    const wrapper = document.querySelector('.book-wrapper');
+    if (!wrapper) return;
+
+    if (turning) {
+      wrapper.classList.add('is-turning');
+
+      if (!this.isMobile) {
+        // Opening from Front Cover -> smoothly expand to full-screen without revealing boards early
+        if (this.currentPage === 0 && (targetHint === null || targetHint > 0)) {
+          wrapper.classList.remove('book-closed-front', 'book-closed-back', 'book-open');
+          wrapper.classList.add('book-opening');
+          document.body.classList.remove('stage-book-closed');
+          document.body.classList.add('stage-book-open');
+        }
+        // Closing back to Front Cover -> hide boards immediately and smoothly glide back onto desk
+        else if (targetHint === 0) {
+          wrapper.classList.remove('book-open', 'book-opening', 'book-closed-back');
+          wrapper.classList.add('book-closed-front');
+          document.body.classList.remove('stage-book-open');
+          document.body.classList.add('stage-book-closed');
+        }
+        // Closing to Back Cover -> hide boards immediately and smoothly glide back onto desk
+        else if (targetHint !== null && targetHint >= this.totalPageCount - 1) {
+          wrapper.classList.remove('book-open', 'book-opening', 'book-closed-front');
+          wrapper.classList.add('book-closed-back');
+          document.body.classList.remove('stage-book-open');
+          document.body.classList.add('stage-book-closed');
+        }
+      }
+    } else {
+      wrapper.classList.remove('is-turning');
     }
   }
 
@@ -106,33 +142,44 @@ class BookController {
     if (!this.pageFlip) return;
 
     this.pageFlip.on('changeState', (e) => {
-      if (e.data === 'flipping') {
-        const nextTarget = this.pageFlip.getCurrentPageIndex();
-        const direction = nextTarget >= this.currentPage ? 'forward' : 'backward';
+      const state = e.data;
 
-        const wrapper = document.querySelector('.book-wrapper');
-        if (wrapper && !this.isMobile) {
-          if (this.currentPage === 0 && direction === 'forward') {
-            wrapper.className = 'book-wrapper book-open';
+      if (state === 'user_fold' || state === 'flipping') {
+        const idx = this.pageFlip.getCurrentPageIndex();
+        const direction = idx >= this.currentPage ? 'forward' : 'backward';
+
+        // Detect cover transition even when user drags a corner manually
+        let targetHint = null;
+        if (this.currentPage === 0 && direction === 'forward') {
+          targetHint = 1;
+        } else if (this.currentPage <= 2 && direction === 'backward') {
+          targetHint = 0;
+        } else if (this.currentPage >= this.totalPageCount - 3 && direction === 'forward') {
+          targetHint = this.totalPageCount - 1;
+        }
+
+        this.setTurningState(true, targetHint);
+
+        if (state === 'flipping') {
+          if (window.anhadAudio) {
+            window.anhadAudio.playPageRustle(direction);
+          }
+
+          if (window.anhadGlitter) {
+            const rect = document.getElementById('flipbook').getBoundingClientRect();
+            window.anhadGlitter.emitPageTurnGlitter(rect, direction);
           }
         }
-
-        if (window.anhadAudio) {
-          window.anhadAudio.playPageRustle(direction);
-        }
-
-        if (window.anhadGlitter) {
-          const rect = document.getElementById('flipbook').getBoundingClientRect();
-          const originX = direction === 'forward' ? rect.right - 36 : rect.left + 36;
-          const originY = rect.top + rect.height * 0.45;
-          window.anhadGlitter.emitPageTurnGlitter(originX, originY, direction);
-        }
+      } else if (state === 'read') {
+        this.currentPage = this.pageFlip.getCurrentPageIndex();
+        this.setTurningState(false);
+        this.updateUI(this.currentPage, false);
       }
     });
 
     this.pageFlip.on('flip', (e) => {
       this.currentPage = e.data;
-      this.updateUI(this.currentPage);
+      this.updateUI(this.currentPage, this.isTurning);
     });
 
     window.addEventListener('keydown', (e) => {
@@ -155,45 +202,59 @@ class BookController {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const isNowMobile = window.innerWidth < this.twoPageBreakpoint;
-        if (isNowMobile !== this.isMobile) {
-          location.reload();
-        }
+        location.reload();
       }, 350);
     });
   }
 
   turnNext() {
     if (!this.pageFlip) return;
+    const nextHint = this.currentPage === 0 ? 1 : Math.min(this.totalPageCount - 1, this.currentPage + 2);
+    this.setTurningState(true, nextHint);
     this.pageFlip.flipNext();
   }
 
   turnPrev() {
     if (!this.pageFlip) return;
+    const prevHint = this.currentPage <= 2 ? 0 : Math.max(0, this.currentPage - 2);
+    this.setTurningState(true, prevHint);
     this.pageFlip.flipPrev();
   }
 
   turnToPage(pageIndex) {
     if (!this.pageFlip) return;
+    if (pageIndex === this.currentPage) return;
+    this.setTurningState(true, pageIndex);
     this.pageFlip.flip(pageIndex);
   }
 
-  updateUI(pageIndex) {
+  updateUI(pageIndex, keepTurning = false) {
     const wrapper = document.querySelector('.book-wrapper');
     const isClosedFront = pageIndex === 0;
     const isClosedBack = pageIndex >= this.totalPageCount - 1;
+    const isClosed = isClosedFront || isClosedBack;
+
+    document.body.classList.toggle('stage-book-closed', isClosed && !this.isMobile);
+    document.body.classList.toggle('stage-book-open', !isClosed || this.isMobile);
 
     if (wrapper) {
+      wrapper.classList.remove('book-closed-front', 'book-closed-back', 'book-open', 'book-opening', 'book-mobile');
       if (!this.isMobile) {
         if (isClosedFront) {
-          wrapper.className = 'book-wrapper book-closed-front';
+          wrapper.classList.add('book-closed-front');
         } else if (isClosedBack) {
-          wrapper.className = 'book-wrapper book-closed-back';
+          wrapper.classList.add('book-closed-back');
+        } else if (keepTurning) {
+          wrapper.classList.add('book-opening');
         } else {
-          wrapper.className = 'book-wrapper book-open';
+          wrapper.classList.add('book-open');
         }
       } else {
-        wrapper.className = 'book-wrapper book-mobile';
+        wrapper.classList.add('book-mobile');
+      }
+
+      if (!keepTurning) {
+        wrapper.classList.remove('is-turning');
       }
     }
 

@@ -8,9 +8,10 @@ const __dirname = path.dirname(__filename);
 export function createApp() {
   const app = express();
 
-  // Serve static stylesheet, script, and public asset directories
+  // Serve static stylesheet, script, root assets (GitHub Pages compatible), and public directories
   app.use('/css', express.static(path.join(__dirname, 'css')));
   app.use('/js', express.static(path.join(__dirname, 'js')));
+  app.use('/assets', express.static(path.join(__dirname, 'assets')));
   app.use(express.static(path.join(__dirname, 'public')));
 
   // Serve root index.html for the home route and direct /index.html requests

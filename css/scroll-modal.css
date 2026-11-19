@@ -1,6 +1,6 @@
 /* ═════════════════════════════════════════════════════════════════════
-   ANHAD '26 — HUMAN PRINTED LETTERPRESS INVITATION & EVENT CHARTER MODAL
-   Zero royal seals, zero wooden scroll rollers, authentic editorial card
+   ANHAD '26 — STARTUP PROCLAMATION SCROLL & EVENT CHARTER MODAL
+   Ornate crimson-and-gold rolled scroll frame with smooth unroll motion
    ═════════════════════════════════════════════════════════════════════ */
 
 .invitation-overlay,
@@ -11,12 +11,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: rgba(12, 8, 5, 0.76);
+  padding: 16px;
+  background: rgba(8, 4, 3, 0.8);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.22s ease, visibility 0.22s ease;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
 }
 
 .invitation-overlay.open,
@@ -26,7 +26,239 @@
   pointer-events: auto;
 }
 
-.invitation-card,
+/* ── Ornate Crimson & Gold Proclamation Scroll Frame ─────────────── */
+.proclamation-scroll-card {
+  position: relative;
+  width: min(92vw, 575px);
+  aspect-ratio: 896 / 1200;
+  max-height: calc(100vh - 28px);
+  background:
+    radial-gradient(ellipse 56% 58% at 50% 50%, rgba(56, 7, 14, 0.34) 0%, rgba(36, 4, 9, 0.14) 68%, transparent 100%),
+    url('../assets/scroll-frame.jpg') center center / 100% 100% no-repeat;
+  border-radius: 6px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Unroll animation state */
+  transform: scale(0.95);
+  clip-path: inset(44% 0 44% 0);
+  transition:
+    clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.invitation-overlay.open .proclamation-scroll-card {
+  transform: scale(1);
+  clip-path: inset(0 0 0 0);
+}
+
+.scroll-close-btn {
+  position: absolute;
+  top: 15.8%;
+  right: 15.8%;
+  z-index: 10;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(24, 5, 8, 0.82);
+  border: 1px solid rgba(232, 193, 108, 0.72);
+  border-radius: 50%;
+  color: #f6dfa5;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.scroll-close-btn:hover {
+  background: #d8a642;
+  border-color: #ffe29a;
+  color: #1c080a;
+}
+
+/* Safe interior burgundy velvet panel tucked well inside the carved gold peacock arch */
+.scroll-velvet-body {
+  width: 56%;
+  height: 56%;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 6px 4px 4px;
+  color: #f7e9c7;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.scroll-velvet-body::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-brand-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.scroll-sc-logo {
+  width: 46px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.scroll-kicker {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #e8c474;
+  margin: 0;
+}
+
+.scroll-event-logo {
+  width: min(84%, 184px);
+  height: auto;
+  display: block;
+  margin: 1px auto 0;
+  object-fit: contain;
+}
+
+.scroll-event-sub {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f5dfb0;
+  margin: 1px 0 0;
+}
+
+.scroll-invite-copy {
+  font-style: italic;
+  font-size: 0.77rem;
+  line-height: 1.32;
+  color: rgba(250, 238, 210, 0.9);
+  margin: 2px 0;
+  max-width: 268px;
+}
+
+.scroll-facts-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 2px 0;
+}
+
+.scroll-fact-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px 8px;
+  background: rgba(26, 4, 8, 0.64);
+  border: 1px solid rgba(224, 182, 96, 0.48);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #f9ebc8;
+}
+
+.scroll-fact-icon {
+  color: #e8be62;
+  font-size: 0.74rem;
+}
+
+.scroll-cta-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.scroll-register-cta {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #f0be4f 0%, #c88d22 100%);
+  color: #1d0c08;
+  border: 1px solid #ffe298;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.42);
+  transition: filter 0.18s ease, transform 0.16s ease;
+}
+
+.scroll-register-cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.scroll-secondary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.scroll-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 6px;
+  background: rgba(24, 4, 8, 0.65);
+  border: 1px solid rgba(224, 182, 96, 0.5);
+  border-radius: 4px;
+  color: #f3dfb3;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.scroll-secondary-btn:hover {
+  background: rgba(216, 166, 66, 0.24);
+  border-color: #f2cc78;
+}
+
+.scroll-hint {
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  color: rgba(245, 224, 179, 0.78);
+  margin: 1px 0 0;
+}
+
+.scroll-hint kbd {
+  font-family: inherit;
+  padding: 0 4px;
+  border: 1px solid rgba(224, 182, 96, 0.45);
+  border-radius: 2px;
+  color: #f7dfaa;
+}
+
+/* ── Event Charter Detail Modal (Cotton Paper) ───────────────────── */
 .charter-card {
   position: relative;
   width: 100%;
@@ -60,77 +292,12 @@
   color: var(--ink-secondary);
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
 }
 
 .invitation-close-btn:hover {
   background: var(--accent-crimson);
   border-color: var(--accent-crimson);
   color: #faf0da;
-}
-
-.invitation-header {
-  text-align: center;
-  padding-bottom: 0.55rem;
-  margin-bottom: 0.7rem;
-  border-bottom: 1px solid var(--paper-rule);
-}
-
-.invitation-kicker {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-crimson);
-  margin: 0 0 0.25rem;
-  padding-inline: 2.1rem;
-}
-
-.invitation-logo {
-  width: min(58%, 215px);
-  height: auto;
-  display: block;
-  margin: 0 auto 0.22rem;
-  object-fit: contain;
-}
-
-.invitation-sub {
-  font-family: var(--font-display);
-  font-size: 0.94rem;
-  font-weight: 600;
-  color: var(--ink-secondary);
-  margin: 0;
-}
-
-.invitation-letter {
-  font-size: 0.91rem;
-  line-height: 1.48;
-  color: var(--ink-primary);
-}
-
-.invitation-letter p {
-  margin: 0 0 0.52rem;
-}
-
-.invitation-couplet {
-  margin: 0.55rem 0;
-  padding: 0.42rem 0.75rem;
-  border-left: 2px solid var(--accent-crimson);
-  background: var(--paper-surface);
-  font-size: 0.88rem;
-  line-height: 1.44;
-  color: var(--ink-secondary);
-}
-
-.invitation-facts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-  margin: 0.65rem 0;
-  padding: 0.55rem 0;
-  border-top: 1px solid var(--paper-rule);
-  border-bottom: 1px solid var(--paper-rule);
 }
 
 .fact-label {
@@ -152,73 +319,6 @@
   color: var(--ink-primary);
 }
 
-.invitation-days {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  margin: 0.55rem 0 0.65rem;
-  font-size: 0.79rem;
-  line-height: 1.32;
-  color: var(--ink-secondary);
-}
-
-.invitation-days strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.84rem;
-  color: var(--ink-primary);
-}
-
-.invitation-signoff {
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--ink-secondary);
-  margin: 0 0 0.75rem;
-}
-
-.invitation-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-}
-
-.invitation-primary-btn {
-  background: linear-gradient(180deg, #8b2424 0%, #651717 100%);
-  color: #faf0da;
-  border: 1px solid #571313;
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 0.48rem 1.15rem;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.invitation-primary-btn:hover {
-  filter: brightness(1.08);
-}
-
-.invitation-ics-btn {
-  background: transparent;
-  border: 1px solid var(--paper-rule-strong);
-  color: var(--ink-secondary);
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.44rem 0.85rem;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.invitation-ics-btn:hover {
-  border-color: var(--accent-crimson);
-  color: var(--accent-crimson);
-}
-
-/* ── Event Charter Detail Modal ──────────────────────────────────── */
 .charter-meta-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -231,13 +331,37 @@
 }
 
 @media (max-width: 600px) {
-  .invitation-card,
+  .proclamation-scroll-card {
+    width: 94vw;
+  }
+
+  .scroll-velvet-body {
+    width: 66%;
+    height: 66%;
+    padding: 6px 4px;
+  }
+
+  .scroll-sc-logo {
+    width: 44px;
+  }
+
+  .scroll-event-logo {
+    width: 165px;
+  }
+
+  .scroll-invite-copy {
+    font-size: 0.74rem;
+  }
+
+  .scroll-fact-pill {
+    font-size: 0.72rem;
+    padding: 4px 6px;
+  }
+
   .charter-card {
     padding: 20px 18px 18px;
   }
 
-  .invitation-facts,
-  .invitation-days,
   .charter-meta-grid {
     grid-template-columns: 1fr;
   }

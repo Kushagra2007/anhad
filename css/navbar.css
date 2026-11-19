@@ -39,8 +39,15 @@
   flex-shrink: 0;
 }
 
+.brand-sc-img {
+  height: 30px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
 .brand-logo-img {
-  height: 29px;
+  height: 28px;
   width: auto;
   display: block;
   object-fit: contain;

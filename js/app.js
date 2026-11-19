@@ -50,13 +50,16 @@ function startCountdown() {
   setInterval(update, 60000);
 }
 
-/* ── Printed Invitation Note Modal & ICS Export ──────────────────── */
-window.openScrollModal = function () {
+/* ── Proclamation Scroll Modal & ICS Export ──────────────────────── */
+window.openScrollModal = function (withGlitter = true) {
   const overlay = document.getElementById('scrollModalOverlay');
   if (!overlay) return;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
   if (window.anhadAudio) window.anhadAudio.playScrollUnroll?.();
+  if (withGlitter && window.anhadGlitter) {
+    window.anhadGlitter.emitScrollUnrollGlitter?.();
+  }
 };
 
 window.closeScrollModal = function (thenOpenBook = false) {
@@ -515,4 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.selectFaqTopic('registration');
   bindFeedbackForm();
   bindModalDismiss();
+
+  // Auto-open the proclamation scroll on startup unless ?autostart=1 skips intro
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('autostart') !== '1') {
+    setTimeout(() => {
+      window.openScrollModal(true);
+    }, 220);
+  }
 });

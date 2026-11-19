@@ -17,13 +17,14 @@
   <link rel="stylesheet" href="css/navbar.css?v=3.0">
   <link rel="stylesheet" href="css/scroll-modal.css?v=3.0">
 </head>
-<body>
+<body class="stage-book-closed">
 
   <!-- Top Editorial Brass Navigation Bar -->
   <header class="brass-nav">
     <div class="brass-nav-inner">
-      <button type="button" class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(1)" aria-label="ANHAD '26 Home">
-        <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="brand-logo-img">
+      <button type="button" class="brand-link" onclick="window.anhadBook && window.anhadBook.turnToPage(0)" aria-label="ANHAD '26 Home">
+        <img src="assets/student-council-logo.png" alt="GCET Student Council Crest" class="brand-sc-img" referrerpolicy="no-referrer">
+        <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="brand-logo-img" referrerpolicy="no-referrer">
         <span class="brand-meta">
           <span class="brand-sub">Galgotias Literature Fest</span>
           <span class="brand-dates">26–28 Nov 2026 · GCET</span>
@@ -31,8 +32,8 @@
       </button>
 
       <nav class="nav-ribbon" aria-label="Festival handbook sections">
-        <button type="button" class="nav-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)">Cover</button>
-        <button type="button" class="nav-tab active-tab" data-spread="1" onclick="window.anhadBook.turnToPage(1)">About</button>
+        <button type="button" class="nav-tab active-tab" data-spread="0" onclick="window.anhadBook.turnToPage(0)">Cover</button>
+        <button type="button" class="nav-tab" data-spread="1" onclick="window.anhadBook.turnToPage(1)">About</button>
         <button type="button" class="nav-tab" data-spread="2" onclick="window.anhadBook.turnToPage(3)">Explore</button>
         <button type="button" class="nav-tab" data-spread="3" onclick="window.anhadBook.turnToPage(5)">Schedule</button>
         <button type="button" class="nav-tab" data-spread="4" onclick="window.anhadBook.turnToPage(7)">Passes &amp; Visit</button>
@@ -58,9 +59,10 @@
     </div>
   </header>
 
-  <!-- Main Two-Page Open Hardcover Book Stage -->
+  <!-- Main Hardcover Book Stage with Scholar's Desk Backdrop -->
   <main class="book-stage">
-    <div class="book-wrapper book-open">
+    <div class="desk-art-backdrop" aria-hidden="true"></div>
+    <div class="book-wrapper book-closed-front">
       <!-- Physical Hardcover Boards & Layered Paper-Edge Stack -->
       <div class="book-boards-backdrop" aria-hidden="true"></div>
       <!-- Photorealistic Sewn Center Crease & Silk Headband/Tailband -->
@@ -69,7 +71,7 @@
       <div id="flipbook">
 
         <!-- ═══════════════════════════════════════════════════════════
-             PAGE 0: FRONT COVER (EMERALD LEATHER · OFFICIAL ANHAD LOGO · NO ROYAL SEAL)
+             PAGE 0: FRONT COVER (EMERALD LEATHER · STUDENT COUNCIL CREST · ANHAD LOGO)
              ═══════════════════════════════════════════════════════════ -->
         <div class="page page-cover" data-density="hard">
           <div class="cover-inner">
@@ -87,10 +89,13 @@
               <polygon points="100,32 148,52 168,100 148,148 100,168 52,148 32,100 52,52" stroke="#d4a64a" stroke-width="0.8"/>
             </svg>
 
-            <p class="cover-overline">GCET Student Council Presents</p>
+            <div class="cover-top-brand">
+              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" referrerpolicy="no-referrer">
+              <p class="cover-overline">GCET Student Council Presents</p>
+            </div>
 
             <div class="cover-center">
-              <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26 Official Calligraphic Logo" class="anhad-cover-logo">
+              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26 Official Calligraphic Logo" class="anhad-cover-logo" referrerpolicy="no-referrer">
               <h1 class="cover-subtitle">Galgotias Literature Fest</h1>
               <p class="cover-tagline">Where literature meets imagination and every expression finds its stage.</p>
               <div class="cover-dates-line">26 · 27 · 28 NOVEMBER 2026</div>
@@ -112,13 +117,14 @@
           <div class="page-inner">
             <div class="page-scroll-body">
               <div class="page1-masthead">
+                <img src="assets/student-council-logo.png" alt="GCET Student Council" class="sc-page-logo" referrerpolicy="no-referrer">
                 <p class="page-kicker">GCET Student Council · Greater Noida</p>
-                <img src="/assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-light-only">
-                <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-dark-only">
+                <img src="assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-light-only" referrerpolicy="no-referrer">
+                <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-page-logo logo-dark-only" referrerpolicy="no-referrer">
                 <div class="meta-inline-strip">
-                  <span>26–28 November 2026</span>
+                  <span>26–28 Nov 2026</span>
                   <span>·</span>
-                  <span>10:00 AM – 7:00 PM IST</span>
+                  <span>10 AM – 7 PM IST</span>
                   <span>·</span>
                   <span>Knowledge Park II</span>
                 </div>
@@ -691,10 +697,13 @@
             <div class="cover-corner corner-bl"></div>
             <div class="cover-corner corner-br"></div>
 
-            <p class="cover-overline">Colophon · 2026 Edition</p>
+            <div class="cover-top-brand">
+              <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="sc-cover-logo" style="width:76px;" referrerpolicy="no-referrer">
+              <p class="cover-overline">Colophon · 2026 Edition</p>
+            </div>
 
             <div class="cover-center">
-              <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-back-logo">
+              <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="anhad-back-logo" referrerpolicy="no-referrer">
               <p class="cover-tagline">
                 “Bring your words, unleash your creativity, and be a part of something unforgettable. Let the stories unfold.”
               </p>
@@ -717,80 +726,57 @@
   <!-- Bottom Folio Navigation Dock -->
   <footer class="bottom-dock">
     <div class="dock-inner">
-      <button type="button" class="dock-btn" id="prevPageBtn" onclick="window.anhadBook.turnPrev()">◂ Previous Spread</button>
-      <div class="folio-tracker" id="folioTracker">Pages 1–2 · About ANHAD &amp; Festival Index</div>
+      <button type="button" class="dock-btn" id="prevPageBtn" onclick="window.anhadBook.turnPrev()" disabled>◂ Previous Spread</button>
+      <div class="folio-tracker" id="folioTracker">Front Cover · अनहद ’26</div>
       <button type="button" class="dock-btn" id="nextPageBtn" onclick="window.anhadBook.turnNext()">Next Spread ▸</button>
     </div>
   </footer>
 
-  <!-- Human Printed Letterpress Invitation Modal (No Royal Seal, No AI Scroll Decree) -->
+  <!-- Startup Proclamation Scroll Modal (Council Logo · Event Logo · Registration) -->
   <div class="invitation-overlay" id="scrollModalOverlay" role="dialog" aria-modal="true" aria-labelledby="invitationHeading" aria-hidden="true">
-    <div class="invitation-card">
-      <button type="button" class="invitation-close-btn" onclick="window.closeScrollModal(false)" aria-label="Close invitation">✕</button>
+    <div class="proclamation-scroll-card">
+      <button type="button" class="scroll-close-btn" onclick="window.closeScrollModal(false)" aria-label="Close proclamation scroll">✕</button>
 
-      <div class="invitation-header">
-        <p class="invitation-kicker">An Invitation from GCET Student Council · Greater Noida</p>
-        <img src="/assets/anhad-logo-parchment.png" alt="अनहद — ANHAD '26" class="invitation-logo logo-light-only">
-        <img src="/assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="invitation-logo logo-dark-only">
-        <h2 id="invitationHeading" class="invitation-sub">Galgotias Literature Fest · 2026 Edition</h2>
-      </div>
+      <div class="scroll-velvet-body">
+        <div class="scroll-brand-cluster">
+          <img src="assets/student-council-logo.png" alt="GCET Student Council Logo" class="scroll-sc-logo" referrerpolicy="no-referrer">
+          <p class="scroll-kicker">GCET Student Council Presents</p>
+          <img src="assets/anhad-logo.png" alt="अनहद — ANHAD '26" class="scroll-event-logo" referrerpolicy="no-referrer">
+          <h2 id="invitationHeading" class="scroll-event-sub">Galgotias Literature Fest</h2>
+        </div>
 
-      <div class="invitation-letter">
-        <p>Dear reader, writer, debater, and friend,</p>
-        <p>
-          For three November days on the lawns and auditoriums of Galgotias College of Engineering &amp; Technology,
-          we are setting aside timetables to gather around books, honest arguments, poetry, and music. Whether you
-          arrive with a notebook of unfinished poems, a sharp rebuttal, or simply a love for good stories, there is a
-          seat waiting for you at <strong>ANHAD ’26</strong>.
+        <p class="scroll-invite-copy">
+          Three days of literature, debates, poetry, Dastangoi &amp; Sufi music — Aarambh, Samvaad &amp; Naad.
         </p>
 
-        <blockquote class="invitation-couplet dev-text">
-          “गुलों में रंग भरे बाद-ए-नौ-बहार चले,<br>
-          चले भी आओ कि गुलशन का कारोबार चले।” — Faiz Ahmad Faiz
-        </blockquote>
-
-        <div class="invitation-facts">
-          <div>
-            <span class="fact-label">Dates</span>
-            <span class="fact-val">26, 27 &amp; 28 Nov 2026</span>
+        <div class="scroll-facts-stack">
+          <div class="scroll-fact-pill">
+            <span class="scroll-fact-icon" aria-hidden="true">✦</span>
+            <span>26, 27 &amp; 28 November 2026</span>
           </div>
-          <div>
-            <span class="fact-label">Venue</span>
-            <span class="fact-val">GCET, Knowledge Park II, Greater Noida</span>
+          <div class="scroll-fact-pill">
+            <span class="scroll-fact-icon" aria-hidden="true">◷</span>
+            <span>10:00 AM – 7:00 PM IST</span>
           </div>
-          <div>
-            <span class="fact-label">Hours</span>
-            <span class="fact-val">10:00 AM – 7:00 PM IST</span>
+          <div class="scroll-fact-pill">
+            <span class="scroll-fact-icon" aria-hidden="true">◈</span>
+            <span>GCET Campus, Knowledge Park II, Greater Noida</span>
           </div>
         </div>
 
-        <div class="invitation-days">
-          <div>
-            <strong>Day 1 · Aarambh</strong>
-            Books, Kavi Sammelan, Turncoat &amp; fresh literary voices.
+        <div class="scroll-cta-stack">
+          <a class="scroll-register-cta" data-link="luma">
+            Register Now →
+          </a>
+          <div class="scroll-secondary-row">
+            <button type="button" class="scroll-secondary-btn" onclick="window.downloadFestICS()">
+              Add to Calendar
+            </button>
+            <button type="button" class="scroll-secondary-btn" onclick="window.closeScrollModal(false)">
+              Enter Website
+            </button>
           </div>
-          <div>
-            <strong>Day 2 · Samvaad</strong>
-            Fourth Pillar panel, Bhagat Singh exhibit, Dastangoi &amp; Sufi Night.
-          </div>
-          <div>
-            <strong>Day 3 · Naad</strong>
-            Reading circle, Open Mic, Debate Finals &amp; closing music.
-          </div>
-        </div>
-
-        <p class="invitation-signoff">
-          Warmly,<br>
-          The Student Council &amp; Literary Societies, GCET
-        </p>
-
-        <div class="invitation-actions">
-          <button type="button" class="invitation-primary-btn" onclick="window.closeScrollModal(true)">
-            Open the Book →
-          </button>
-          <button type="button" class="invitation-ics-btn" onclick="window.downloadFestICS()">
-            Add dates to calendar (.ics)
-          </button>
+          <p class="scroll-hint">Press <kbd>Esc</kbd> or click ✕ to enter website</p>
         </div>
       </div>
     </div>

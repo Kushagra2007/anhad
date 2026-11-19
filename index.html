@@ -11,11 +11,11 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
 
   <!-- Modular Stylesheets -->
-  <link rel="stylesheet" href="css/typography.css">
-  <link rel="stylesheet" href="css/book.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/scroll-modal.css">
+  <link rel="stylesheet" href="css/typography.css?v=2.1">
+  <link rel="stylesheet" href="css/book.css?v=2.1">
+  <link rel="stylesheet" href="css/components.css?v=2.1">
+  <link rel="stylesheet" href="css/navbar.css?v=2.1">
+  <link rel="stylesheet" href="css/scroll-modal.css?v=2.1">
 </head>
 <body>
 
@@ -117,14 +117,14 @@
           <span id="soundLabel">Naad</span>
         </button>
 
-        <!-- Brass Diya (Day Parchment vs. Mehfil Night) -->
-        <button class="control-btn" onclick="window.toggleDiyaMode()" title="Toggle Parchment / Midnight Mehfil Mode">
+        <!-- Brass Diya (Day Mode vs. Mehfil Night) -->
+        <button class="control-btn" onclick="window.toggleDiyaMode()" title="Toggle Day Mode / Midnight Mehfil Mode">
           <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;">
             <path class="diya-flame" d="M12 2C12 2 16 6.5 16 9.5C16 11.7 14.2 13.5 12 13.5C9.8 13.5 8 11.7 8 9.5C8 6.5 12 2 12 2Z" fill="#ff9f1c"/>
             <path d="M12 5.5C12 5.5 14 8 14 9.8C14 11 13.1 12 12 12C10.9 12 10 11 10 9.8C10 8 12 5.5 12 5.5Z" fill="#fff3b0"/>
             <path d="M4 14H20L17.5 19.5C16.8 20.8 15.5 21.5 14 21.5H10C8.5 21.5 7.2 20.8 6.5 19.5L4 14Z" fill="#d4a338" stroke="#ecc86f" stroke-width="1.2"/>
           </svg>
-          <span id="diyaLabel">Mehfil</span>
+          <span id="diyaLabel">🌙 Mehfil Night</span>
         </button>
 
         <!-- Register CTA -->
@@ -790,6 +790,9 @@
 
       </div><!-- #flipbook -->
 
+      <!-- 3D Center Spine Valley Crease Overlay (Photorealistic Book Valley) -->
+      <div class="spine-crease-overlay" id="spineCreaseOverlay"></div>
+
     </div><!-- .book-wrapper -->
   </main>
 
@@ -822,76 +825,85 @@
         <div class="roller-knob knob-right"></div>
       </div>
 
-      <!-- Unrolled Royal Parchment Body -->
+      <!-- Unrolled Royal Wasli Parchment Body -->
       <div class="scroll-body">
         <div class="scroll-inner-frame">
-          <!-- Proclamation Badge & Close Button -->
-          <div class="proclamation-badge">
-            <span class="proclamation-tag">
-              <span>✦</span>
-              <span>Royal Event Proclamation · शाही फ़रमान</span>
-            </span>
-            <button class="scroll-close-btn" onclick="window.closeScrollModal(false)" title="Close Proclamation">✕</button>
-          </div>
+          <button class="farman-close-btn" onclick="window.closeScrollModal(false)" title="Close Proclamation">✕</button>
 
-          <!-- Festival Artwork Banner -->
-          <div class="proclamation-artwork">
-            <p style="font-family:var(--font-ui); font-size:0.68rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--gold-bright); margin:0 0 0.2rem; font-weight:700;">
-              GCET Student Council Presents
+          <!-- Auspicious Invocation & Royal Decree Header -->
+          <div class="farman-auspicious">॥ श्री ॥</div>
+          <h2 class="farman-royal-title">शाही फ़रमान</h2>
+          <p class="farman-eng-title">ROYAL PROCLAMATION · ANHAD '26</p>
+          <div class="farman-divider">❦ ═════════ ✤ ═════════ ❦</div>
+
+          <!-- Human Literary Prose & Convocation Statement -->
+          <div class="farman-prose">
+            <p class="farman-opening">
+              समस्त साहित्य-प्रेमियों, कवियों, विचारकों एवं जिज्ञासुओं को सादर सूचित किया जाता है —
             </p>
-            <h2 class="proclamation-title">अनहद '२६</h2>
-            <p class="proclamation-subtitle">ANHAD · Galgotias Literature Fest</p>
-            <p class="proclamation-quote">
-              “Three Days. Three Distinct Moods. A Thousand Stories Waiting to Unfold.”
+            <p class="farman-statement">
+              गलगोटियास कॉलेज ऑफ़ इंजीनियरिंग एंड टेक्नोलॉजी (GCET) की छात्र परिषद द्वारा त्रि-दिवसीय राष्ट्रीय साहित्य एवं विचार कुंभ <b>‘अनहद २०२६’</b> का गरिमामय आयोजन सुनिश्चित हुआ है।
+            </p>
+            <p class="farman-quote">
+              “जहाँ शब्द मौन को चीरकर क्रांति और सुरों में बदल जाते हैं, उस अनहद नाद के आप भी साक्षी बनें।”
             </p>
           </div>
 
-          <!-- Event Details Metadata Pills -->
-          <div class="metadata-pill">
-            <span class="pill-icon">📅</span>
-            <div>
-              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Festival Dates</b>
-              <span style="font-weight:600;">26, 27, 28 November 2026</span>
+          <!-- Traditional Decree Schedule Grid (No Modern AI Emojis!) -->
+          <div class="farman-schedule-grid">
+            <div class="farman-entry">
+              <span class="farman-label">तिथी एवं काल · FESTIVAL DATES</span>
+              <span class="farman-value">२६, २७ एवं २८ नवम्बर २०२६</span>
+              <span class="farman-subval">26th, 27th &amp; 28th November 2026</span>
+            </div>
+
+            <div class="farman-entry">
+              <span class="farman-label">स्थान · ROYAL VENUE</span>
+              <span class="farman-value">मुख्य परिसर, गलगोटियास कॉलेज (GCET)</span>
+              <span class="farman-subval">Knowledge Park II, Greater Noida (Metro Connectivity)</span>
+            </div>
+
+            <div class="farman-entry">
+              <span class="farman-label">प्रहर · TIMINGS</span>
+              <span class="farman-value">प्रातः १०:०० बजे से सायं ७:०० बजे तक</span>
+              <span class="farman-subval">10:00 AM – 7:00 PM IST Daily</span>
             </div>
           </div>
 
-          <div class="metadata-pill">
-            <span class="pill-icon">🕒</span>
-            <div>
-              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Timings</b>
-              <span style="font-weight:600;">10:00 AM – 7:00 PM IST Daily</span>
+          <!-- The 3-Day Saga Summary -->
+          <div class="farman-saga-summary">
+            <span class="saga-step"><b>प्रथम दिवस · Day 1:</b> आरम्भ (Aarambh) — The Genesis &amp; Spoken Word</span>
+            <span class="saga-step"><b>द्वितीय दिवस · Day 2:</b> संवाद (Samvaad) — The Art of Debate &amp; Dastangoi</span>
+            <span class="saga-step"><b>तृतीय दिवस · Day 3:</b> नाद (Naad) — Sufi Mehfil &amp; Unplugged Celebration</span>
+          </div>
+
+          <!-- Official Hand-Pressed Vermilion Wax Seal & Order -->
+          <div class="farman-signoff">
+            <div class="farman-seal" title="राजकीय मुहर · Official GCET Seal">
+              <svg viewBox="0 0 100 100" style="width:100%; height:100%;">
+                <circle cx="50" cy="50" r="45" fill="#a3192f" stroke="#e0aa37" stroke-width="2" stroke-dasharray="3 2"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#fce58c" stroke-width="1.2"/>
+                <text x="50" y="44" font-family="'Tiro Devanagari Hindi', serif" font-size="12" font-weight="700" fill="#fff5ea" text-anchor="middle">राजकीय</text>
+                <text x="50" y="60" font-family="'Tiro Devanagari Hindi', serif" font-size="14" font-weight="700" fill="#fce58c" text-anchor="middle">मुहर</text>
+                <text x="50" y="74" font-family="'Outfit', sans-serif" font-size="6.5" font-weight="700" fill="#fff5ea" text-anchor="middle" letter-spacing="1">GCET 2026</text>
+              </svg>
+            </div>
+            <div class="farman-orders">
+              <span class="farman-order-hindi">आज्ञा से: छात्र परिषद</span>
+              <span class="farman-order-eng">By Order: GCET Student Council</span>
             </div>
           </div>
 
-          <div class="metadata-pill">
-            <span class="pill-icon">📍</span>
-            <div>
-              <b style="display:block; color:#f7e096; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;">Campus Location</b>
-              <span style="font-weight:600;">GCET Campus, Knowledge Park II, Greater Noida</span>
-            </div>
-          </div>
-
-          <!-- Primary CTA Button -->
-          <button class="scroll-cta-btn" onclick="window.closeScrollModal(true)">
-            <span>Enter Festival &amp; Open Granth</span>
-            <span>➔</span>
+          <!-- Primary Royal Acceptance CTA -->
+          <button class="farman-accept-btn" onclick="window.closeScrollModal(true)">
+            <span>फ़रमान स्वीकार करें एवं ग्रंथ खोलें (Accept Decree &amp; Open Granth)</span>
+            <span class="farman-arrow">➔</span>
           </button>
 
-          <!-- Secondary Action Buttons -->
-          <div class="scroll-secondary-actions">
-            <button class="scroll-sub-btn" onclick="window.addToCalendar()">
-              <span>📅</span>
-              <span>Add to Calendar</span>
-            </button>
-            <button class="scroll-sub-btn" onclick="window.closeScrollModal(true)">
-              <span>📖</span>
-              <span>View Three-Day Saga</span>
-            </button>
-          </div>
-
-          <p class="scroll-footer-tip">
-            Tip: Press <kbd style="padding:0.1rem 0.4rem; border-radius:4px; background:rgba(0,0,0,0.5); border:1px solid rgba(247,224,150,0.4);">Esc</kbd> or click ✕ to unfold the book.
-          </p>
+          <!-- Calendar ICS Export Link -->
+          <a href="javascript:void(0)" onclick="window.addToCalendar()" class="farman-cal-link">
+            📅 Add Festival Dates to Calendar (.ics)
+          </a>
         </div>
       </div>
 
@@ -905,11 +917,11 @@
   </div>
 
   <!-- Modular Scripts -->
-  <script src="js/page-flip.min.js"></script>
-  <script src="js/audio.js"></script>
-  <script src="js/glitter.js"></script>
-  <script src="js/book-controller.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/page-flip.min.js?v=2.1"></script>
+  <script src="js/audio.js?v=2.1"></script>
+  <script src="js/glitter.js?v=2.1"></script>
+  <script src="js/book-controller.js?v=2.1"></script>
+  <script src="js/app.js?v=2.1"></script>
 
 </body>
 </html>

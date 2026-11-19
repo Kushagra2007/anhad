@@ -57,19 +57,19 @@ function initScrollModal() {
   const modal = document.getElementById('royalScrollModal');
   if (!modal) return;
 
-  // Auto-open on initial page load with a gentle delay
+  // Physical unrolling after page loads
   setTimeout(() => {
     openScrollModal();
-  }, 650);
+  }, 500);
 
   // Close on Escape Key
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeScrollModal();
+    if (e.key === 'Escape') closeScrollModal(false);
   });
 
   // Close when clicking overlay backdrop
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeScrollModal();
+    if (e.target === modal) closeScrollModal(false);
   });
 }
 
@@ -77,10 +77,14 @@ window.openScrollModal = function() {
   const modal = document.getElementById('royalScrollModal');
   if (modal) {
     modal.classList.add('active');
-    if (window.anhadAudio) window.anhadAudio.playChime(432);
+    // Authentic paper friction rustle as the scroll physically unrolls
+    if (window.anhadAudio) {
+      window.anhadAudio.playPageRustle('forward');
+      setTimeout(() => window.anhadAudio.playChime(432), 400);
+    }
     if (window.anhadGlitter) {
       const rect = modal.getBoundingClientRect();
-      window.anhadGlitter.emitPageTurnGlitter(rect.left + rect.width / 2, rect.top + 100);
+      window.anhadGlitter.emitPageTurnGlitter(rect.left + rect.width / 2, rect.top + 80);
     }
   }
 };
@@ -88,11 +92,13 @@ window.openScrollModal = function() {
 window.closeScrollModal = function(thenOpenBook = false) {
   const modal = document.getElementById('royalScrollModal');
   if (modal) {
+    // Gracefully roll up the scroll
     modal.classList.remove('active');
+    if (window.anhadAudio) window.anhadAudio.playPageRustle('backward');
     if (thenOpenBook && window.anhadBook) {
       setTimeout(() => {
         window.anhadBook.turnToPage(1);
-      }, 350);
+      }, 500);
     }
   }
 };
@@ -355,16 +361,21 @@ window.inspectMapPin = function(id) {
   if (window.anhadAudio) window.anhadAudio.playChime(528);
 };
 
-/* ── BRASS DIYA THEME TOGGLE ── */
+/* ── BRASS DIYA THEME TOGGLE (DAY MODE DEFAULT) ── */
 function initDiyaTheme() {
+  const root = document.documentElement;
+  // Always default to Day Mode (light theme) when starting
+  root.setAttribute('data-theme', 'light');
+
+  const lbl = document.getElementById('diyaLabel');
+  if (lbl) lbl.textContent = '🌙 Mehfil Night';
+
   window.toggleDiyaMode = function() {
-    const root = document.documentElement;
     const current = root.getAttribute('data-theme') || 'light';
     const next = current === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
 
-    const lbl = document.getElementById('diyaLabel');
-    if (lbl) lbl.textContent = next === 'dark' ? 'Day Mode' : 'Mehfil Night';
+    if (lbl) lbl.textContent = next === 'dark' ? '☀️ Day Mode' : '🌙 Mehfil Night';
     if (window.anhadAudio) window.anhadAudio.playChime(next === 'dark' ? 330 : 528);
   };
 }

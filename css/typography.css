@@ -13,12 +13,13 @@
   --font-hindi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif;
   --font-ui: 'Outfit', -apple-system, sans-serif;
 
-  /* Desk Environment */
-  --desk-dark: #120a06;
-  --desk-mid: #1e1209;
-  --desk-grain: #160c07;
+  /* Desk Environment — WARM DAYTIME SCHOLAR'S DESK (DEFAULT) */
+  --desk-dark: #3b2214;
+  --desk-mid: #56331e;
+  --desk-grain: #452817;
+  --desk-light: #6d4228;
 
-  /* Authentic Parchment / Paper Shades (Crisp & High Contrast!) */
+  /* Authentic Parchment / Paper Shades (Crisp & High Contrast Day Mode) */
   --paper-cream: #faf5e8;
   --paper-vellum: #f3e9d2;
   --paper-edge: #dac7aa;
@@ -49,8 +50,10 @@
 }
 
 [data-theme="dark"] {
-  --desk-dark: #070908;
-  --desk-mid: #0f1614;
+  --desk-dark: #080503;
+  --desk-mid: #140b07;
+  --desk-grain: #0e0704;
+  --desk-light: #1c100a;
   --paper-cream: #14231f;
   --paper-vellum: #1a2c27;
   --paper-edge: #233d36;

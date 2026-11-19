@@ -26,24 +26,53 @@ class BookController {
     const bookEl = document.getElementById('flipbook');
     if (!bookEl) return;
 
-    // Calculate dimensions based on viewport
-    const containerWidth = Math.min(window.innerWidth - 30, 1140);
-    const pageWidth = window.innerWidth >= 1024 ? Math.floor(containerWidth / 2) : Math.min(window.innerWidth - 32, 540);
-    const pageHeight = Math.min(Math.floor(pageWidth * 1.38), window.innerHeight - 170);
+    // Calculate dimensions based on viewport & authentic book aspect ratio (1 : 1.4)
+    const isMobile = window.innerWidth < 1024;
+    let pageWidth, pageHeight;
+
+    if (!isMobile) {
+      // Desktop: Available height between top navbar and bottom dock
+      const availHeight = Math.min(window.innerHeight - 140, 740);
+      pageHeight = Math.max(availHeight, 480);
+      pageWidth = Math.floor(pageHeight / 1.38);
+
+      // Verify two-page spread fits viewport width comfortably
+      if (pageWidth * 2 > window.innerWidth - 40) {
+        pageWidth = Math.floor((window.innerWidth - 60) / 2);
+        pageHeight = Math.floor(pageWidth * 1.38);
+      }
+
+      // Constrain wrapper width to exact two-page spread for 100% pixel-perfect centering
+      const wrapper = document.querySelector('.book-wrapper');
+      if (wrapper) {
+        wrapper.style.maxWidth = `${pageWidth * 2}px`;
+      }
+    } else {
+      // Mobile: Single portrait page fitted to phone screen
+      const availHeight = window.innerHeight - 130;
+      const maxW = Math.min(window.innerWidth - 24, 460);
+      pageHeight = Math.min(availHeight, Math.floor(maxW * 1.45));
+      pageWidth = Math.floor(pageHeight / 1.45);
+
+      const wrapper = document.querySelector('.book-wrapper');
+      if (wrapper) {
+        wrapper.style.maxWidth = `${pageWidth}px`;
+      }
+    }
 
     try {
       this.pageFlip = new St.PageFlip(bookEl, {
         width: pageWidth,
         height: pageHeight,
         size: 'fixed',
-        minWidth: 320,
+        minWidth: 260,
         maxWidth: 620,
-        minHeight: 460,
-        maxHeight: 880,
+        minHeight: 380,
+        maxHeight: 820,
         maxShadowOpacity: 0.6,
         showCover: true,
         mobileScrollSupport: false,
-        usePortrait: window.innerWidth < 1024,
+        usePortrait: isMobile,
         startPage: 0,
         drawShadow: true,
         flippingTime: 750,

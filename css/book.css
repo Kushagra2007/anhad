@@ -5,24 +5,35 @@
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
-  background-color: var(--desk-dark);
+  height: 100vh;
+  overflow: hidden;
+  background-color: #8c5d38;
   color: var(--ink-primary);
   font-family: var(--font-serif);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scholar's Mahogany Desk with Ambient Lamp Light */
+/* Scholar's Warm Daytime Library Desk (Default Day Mode) */
 body {
+  background-color: #8c5d38;
   background-image:
-    radial-gradient(ellipse 65% 55% at 50% 40%, rgba(240, 206, 122, 0.12) 0%, transparent 70%),
-    radial-gradient(circle at 85% 15%, rgba(255, 170, 50, 0.15) 0%, transparent 45%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 10px),
-    repeating-linear-gradient(0deg, var(--desk-dark) 0px, var(--desk-mid) 18px, var(--desk-dark) 36px);
+    radial-gradient(ellipse 75% 65% at 50% 30%, rgba(255, 248, 230, 0.35) 0%, rgba(255, 235, 190, 0.15) 50%, transparent 80%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 2px, transparent 2px, transparent 14px),
+    repeating-linear-gradient(0deg, #7c4f2c 0px, #9a683e 18px, #7c4f2c 36px);
   background-attachment: fixed;
   display: flex;
   flex-direction: column;
+}
+
+/* Midnight Mehfil Night Mode (When Toggled) */
+[data-theme="dark"] body {
+  background-color: #0d0805;
+  background-image:
+    radial-gradient(ellipse 65% 55% at 50% 40%, rgba(240, 206, 122, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(255, 170, 50, 0.12) 0%, transparent 45%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 10px),
+    repeating-linear-gradient(0deg, #0a0604 0px, #180e08 18px, #0a0604 36px);
 }
 
 /* Main Book Stage */
@@ -31,10 +42,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 1rem 4.5rem;
+  padding: 4.2rem 1rem 4rem;
   perspective: 2500px;
   position: relative;
-  min-height: calc(100vh - 4rem);
+  height: calc(100vh - 4.2rem);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Container holding the physical book with smooth centering transitions */
@@ -56,31 +69,65 @@ body {
   transition: transform 0.4s ease;
 }
 
-/* ── DESKTOP CENTER-LOCK FOR COVERS ──
+/* ── DESKTOP CENTER-LOCK FOR COVERS & 3D CENTER SPINE CREASE ──
    When on Page 0 (Front Cover), only the front cover is shown and centered horizontally.
-   When open, the two-page spread is centered.
+   When open, the two-page spread is centered with a realistic 3D spine gutter crease down the fold.
    When on Back Cover, the back cover is centered. */
 @media (min-width: 1024px) {
   .book-wrapper.book-closed-front {
     transform: translateX(-25%);
   }
-  .book-wrapper.book-closed-front::before {
-    opacity: 0;
-  }
 
   .book-wrapper.book-open {
     transform: translateX(0);
   }
-  .book-wrapper.book-open::before,
+
+  /* 3D Physical Spine Valley Crease running right down the center fold */
   .book-wrapper.book-open::after {
-    opacity: 1;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 36px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 25;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(20, 10, 4, 0.08) 20%, 
+      rgba(20, 10, 4, 0.35) 42%, 
+      rgba(5, 2, 1, 0.75) 50%, 
+      rgba(20, 10, 4, 0.35) 58%, 
+      rgba(20, 10, 4, 0.08) 80%, 
+      transparent 100%
+    );
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
   }
 
   .book-wrapper.book-closed-back {
     transform: translateX(25%);
   }
-  .book-wrapper.book-closed-back::after {
-    opacity: 0;
+}
+
+/* Mobile & Tablet Optimizations — Natural Folio Look (Zero Bars, Natural Proportions) */
+@media (max-width: 1023px) {
+  .book-stage {
+    padding: 4.2rem 0.5rem 4.5rem;
+    min-height: calc(100vh - 4.2rem);
+    perspective: 1200px;
+  }
+  .book-wrapper {
+    max-width: 100%;
+    width: 100%;
+    transform: none !important;
+  }
+  .page-content {
+    padding: 1.4rem 1.1rem 2rem;
+  }
+  .page-cover {
+    border-radius: 8px !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6) !important;
   }
 }
 
@@ -110,18 +157,57 @@ body {
 
 @media (max-width: 640px) {
   .page-content {
-    padding: 1.5rem 1.25rem 2.2rem;
+    padding: 1.4rem 1.1rem 2.2rem;
   }
 }
 
-/* Left Page vs Right Page Spine Shadow Gradients */
+/* ═══════════════════════════════════════════════════
+   AUTHENTIC PHYSICAL BOOK SPINE VALLEY CREASE
+   Left Page vs Right Page Deep Binding Curvature
+   ═══════════════════════════════════════════════════ */
 .page.-left .page-content {
-  box-shadow: inset -26px 0 35px -15px rgba(22, 14, 7, 0.28);
-  border-right: 1px solid var(--paper-edge);
+  border-right: 1px solid rgba(40, 20, 10, 0.45);
+  box-shadow: 
+    inset 0 0 20px rgba(220, 200, 170, 0.15),
+    inset -50px 0 35px -20px rgba(18, 10, 4, 0.22),
+    inset -25px 0 18px -6px rgba(18, 10, 4, 0.45),
+    inset -8px 0 10px rgba(10, 5, 2, 0.6),
+    inset -2px 0 3px rgba(0, 0, 0, 0.85);
+  position: relative;
+}
+
+/* Hand-bound thread stitch perforation along left gutter */
+.page.-left .page-content::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  right: 5px;
+  width: 1px;
+  border-right: 1px dashed rgba(70, 40, 15, 0.35);
+  pointer-events: none;
 }
 
 .page.-right .page-content {
-  box-shadow: inset 26px 0 35px -15px rgba(22, 14, 7, 0.28);
+  box-shadow: 
+    inset 0 0 20px rgba(220, 200, 170, 0.15),
+    inset 50px 0 35px -20px rgba(18, 10, 4, 0.22),
+    inset 25px 0 18px -6px rgba(18, 10, 4, 0.45),
+    inset 8px 0 10px rgba(10, 5, 2, 0.6),
+    inset 2px 0 3px rgba(0, 0, 0, 0.85);
+  position: relative;
+}
+
+/* Hand-bound thread stitch perforation along right gutter */
+.page.-right .page-content::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 5px;
+  width: 1px;
+  border-left: 1px dashed rgba(70, 40, 15, 0.35);
+  pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -303,47 +389,59 @@ body {
     var(--paper-vellum) !important;
 }
 
-/* Custom Scrollable Area inside Page */
+/* Custom Scrollable Area inside Page — Clean Literary Aesthetic (Zero Ugly Bars) */
 .page-scroll {
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
-  padding-right: 0.35rem;
-  margin-right: -0.35rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-antique) transparent;
+  padding-right: 0.2rem;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 .page-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-.page-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.page-scroll::-webkit-scrollbar-thumb {
-  background: var(--gold-antique);
-  border-radius: 999px;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
-/* ═══════════════════════════════════════════════════
-   PAGE DECK STACKING EDGES (Physical Book Thickness)
-   ═══════════════════════════════════════════════════ */
+/* 3D Physical Center Spine Valley Crease Overlay (Fold Crease) */
+.spine-crease-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 44px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 50;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(15, 8, 3, 0.08) 22%, 
+    rgba(15, 8, 3, 0.45) 44%, 
+    rgba(5, 2, 1, 0.88) 50%, 
+    rgba(15, 8, 3, 0.45) 56%, 
+    rgba(15, 8, 3, 0.08) 78%, 
+    transparent 100%
+  );
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+@media (min-width: 1024px) {
+  .book-wrapper.book-open .spine-crease-overlay {
+    opacity: 1;
+  }
+}
+
+/* Completely Suppress Any Artificial Side Bars Across All Viewports */
 .book-wrapper::before,
 .book-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  width: 10px;
-  z-index: -1;
-  background: repeating-linear-gradient(90deg, #f5ebd0 0px, #e4d3b0 2px, #caa87b 3px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.5s ease;
+  display: none !important;
+  content: none !important;
 }
-.book-wrapper::before {
-  left: -9px;
-  border-radius: 6px 0 0 6px;
-}
-.book-wrapper::after {
-  right: -9px;
-  border-radius: 0 6px 6px 0;
+
+/* Natural Table Contact Drop Shadow for the Real Book Volume */
+.book-wrapper {
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45));
 }

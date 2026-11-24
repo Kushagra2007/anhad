@@ -52,6 +52,18 @@ function startCountdown() {
 
 /* ── Realistic Physical Unrolling / Rolling-Up Proclamation Scroll ─── */
 let scrollCloseTimer = null;
+let scrollOpenTimer = null;
+
+function syncScrollRollerTravel(overlay) {
+  const assembly = overlay.querySelector('.scroll-assembly');
+  const wrap = overlay.querySelector('.scroll-parchment-wrap');
+  if (!assembly || !wrap) return;
+  const h = wrap.offsetHeight;
+  if (h > 40) {
+    // Rollers sit 8px overlapping the parchment edges, so half the parchment height brings them flush at center
+    assembly.style.setProperty('--roller-travel', `${Math.round(h / 2)}px`);
+  }
+}
 
 window.openScrollModal = function (withGlitter = true) {
   const overlay = document.getElementById('scrollModalOverlay');
@@ -60,25 +72,43 @@ window.openScrollModal = function (withGlitter = true) {
     clearTimeout(scrollCloseTimer);
     scrollCloseTimer = null;
   }
+  if (scrollOpenTimer) {
+    clearTimeout(scrollOpenTimer);
+    scrollOpenTimer = null;
+  }
+
   overlay.classList.remove('rolling-up', 'unrolled');
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
 
-  // Force one layout frame with rollers closed together, then physically unroll apart
+  // Measure full parchment height while layout is stable (zero reflow during animation)
+  syncScrollRollerTravel(overlay);
   void overlay.offsetHeight;
-  requestAnimationFrame(() => {
-    overlay.classList.add('unrolled');
-  });
 
-  if (window.anhadAudio) window.anhadAudio.playScrollUnroll?.();
-  if (withGlitter && window.anhadGlitter) {
-    setTimeout(() => window.anhadGlitter.emitScrollUnrollGlitter?.(), 180);
-  }
+  // Give the rolled-shut scroll one clean painted frame before unfurling both rollers in unison
+  scrollOpenTimer = setTimeout(() => {
+    requestAnimationFrame(() => {
+      syncScrollRollerTravel(overlay);
+      overlay.classList.add('unrolled');
+      if (window.anhadAudio) window.anhadAudio.playScrollUnroll?.();
+      if (withGlitter && window.anhadGlitter) {
+        setTimeout(() => window.anhadGlitter.emitScrollUnrollGlitter?.(), 160);
+      }
+    });
+    scrollOpenTimer = null;
+  }, 60);
 };
 
 window.closeScrollModal = function (thenOpenBook = false) {
   const overlay = document.getElementById('scrollModalOverlay');
   if (!overlay || !overlay.classList.contains('open')) return;
+
+  if (scrollOpenTimer) {
+    clearTimeout(scrollOpenTimer);
+    scrollOpenTimer = null;
+  }
+
+  syncScrollRollerTravel(overlay);
 
   // Stage 1: Roll parchment smoothly back inside the converging wood-and-brass rollers
   overlay.classList.remove('unrolled');

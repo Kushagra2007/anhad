@@ -10,6 +10,9 @@ class BookController {
     this.isTurning = false;
     this.twoPageBreakpoint = 680;
     this.isMobile = window.innerWidth < this.twoPageBreakpoint;
+    this.lastViewportWidth = window.innerWidth;
+    this.interactiveSelector =
+      'button, a, input, textarea, select, option, label, form, summary, details, [role="button"], [contenteditable="true"], .no-flip';
 
     this.folioNames = [
       'Front Cover · अनहद ’26',
@@ -25,12 +28,27 @@ class BookController {
     window.addEventListener('DOMContentLoaded', () => this.init());
   }
 
+  isInteractiveElement(el) {
+    if (!el || el.nodeType !== 1) return false;
+    return Boolean(el.closest(this.interactiveSelector));
+  }
+
+  isScrollbarClick(el, clientX) {
+    if (!el || el.nodeType !== 1 || typeof clientX !== 'number') return false;
+    const scroller = el.closest('.page-scroll-body');
+    if (!scroller) return false;
+    if (scroller.scrollHeight <= scroller.clientHeight + 2) return false;
+    const rect = scroller.getBoundingClientRect();
+    return clientX >= rect.right - 16;
+  }
+
   init() {
     const bookEl = document.getElementById('flipbook');
     if (!bookEl) return;
 
     const isMobile = window.innerWidth < this.twoPageBreakpoint;
     this.isMobile = isMobile;
+    this.lastViewportWidth = window.innerWidth;
     let pageWidth;
     let pageHeight;
 
@@ -77,13 +95,17 @@ class BookController {
         maxHeight: 1200,
         maxShadowOpacity: 0.5,
         showCover: true,
-        mobileScrollSupport: false,
+        mobileScrollSupport: true,
+        clickEventForward: true,
+        disableFlipByClick: true,
         usePortrait: isMobile,
         startPage: initialPage,
         drawShadow: true,
         flippingTime: 680,
-        useMouseEvents: true,
-        swipeDistance: 35
+        // On mobile, disable StPageFlip's touch hijacking so native vertical scrolling & buttons work cleanly;
+        // deliberate horizontal swipes are handled separately below.
+        useMouseEvents: !isMobile,
+        swipeDistance: 55
       });
 
       const pages = document.querySelectorAll('.page');
@@ -95,10 +117,79 @@ class BookController {
       }
 
       this.currentPage = initialPage;
+      this.bindInteractiveGuards(pages, bookEl);
       this.setupEvents();
       this.updateUI(initialPage, false);
     } catch (e) {
       console.error('StPageFlip init error:', e);
+    }
+  }
+
+  bindInteractiveGuards(pages, bookEl) {
+    // Bubble-phase listeners on each .page run AFTER inputs/textareas/buttons receive events
+    // and BEFORE StPageFlip's .stf__block parent listener sees mousedown/touchstart.
+    const guardEvent = (e) => {
+      const clientX =
+        typeof e.clientX === 'number'
+          ? e.clientX
+          : e.touches && e.touches[0]
+          ? e.touches[0].clientX
+          : undefined;
+      if (this.isInteractiveElement(e.target) || this.isScrollbarClick(e.target, clientX)) {
+        e.stopPropagation();
+      }
+    };
+
+    pages.forEach((pageEl) => {
+      pageEl.addEventListener('mousedown', guardEvent, false);
+      pageEl.addEventListener('pointerdown', guardEvent, false);
+      pageEl.addEventListener('touchstart', guardEvent, { passive: true });
+    });
+
+    // On mobile, support deliberate horizontal swipes while leaving vertical scrolling & taps 100% native
+    if (this.isMobile && bookEl) {
+      let touchStart = null;
+      bookEl.addEventListener(
+        'touchstart',
+        (e) => {
+          if (e.touches.length !== 1) {
+            touchStart = null;
+            return;
+          }
+          const t = e.touches[0];
+          touchStart = {
+            x: t.clientX,
+            y: t.clientY,
+            time: Date.now(),
+            interactive: this.isInteractiveElement(e.target)
+          };
+        },
+        { passive: true }
+      );
+
+      bookEl.addEventListener(
+        'touchend',
+        (e) => {
+          if (!touchStart || !e.changedTouches.length) return;
+          const t = e.changedTouches[0];
+          const dx = t.clientX - touchStart.x;
+          const dy = t.clientY - touchStart.y;
+          const dt = Date.now() - touchStart.time;
+          const startedInteractive = touchStart.interactive;
+          touchStart = null;
+
+          if (startedInteractive) return;
+          if (dt <= 0 || dt > 480) return;
+          if (Math.abs(dx) < 65 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+
+          if (dx < 0) {
+            this.turnNext();
+          } else {
+            this.turnPrev();
+          }
+        },
+        { passive: true }
+      );
     }
   }
 
@@ -202,7 +293,12 @@ class BookController {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        location.reload();
+        const nextWidth = window.innerWidth;
+        const crossedBreakpoint = this.isMobile !== (nextWidth < this.twoPageBreakpoint);
+        // Ignore vertical-only resizes (e.g. mobile keyboard opening or address bar hiding)
+        if (crossedBreakpoint || Math.abs(nextWidth - this.lastViewportWidth) > 40) {
+          location.reload();
+        }
       }, 350);
     });
   }

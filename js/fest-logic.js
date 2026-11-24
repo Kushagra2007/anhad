@@ -483,3 +483,35 @@ export function validateFeedback({ name = '', email = '', message = '' } = {}) {
   }
   return { valid: true, error: '' };
 }
+
+export const INTERACTIVE_BOOK_SELECTOR =
+  'button, a, input, textarea, select, option, label, form, summary, details, [role="button"], [contenteditable="true"], .no-flip';
+
+const INTERACTIVE_TAGS = new Set([
+  'button',
+  'a',
+  'input',
+  'textarea',
+  'select',
+  'option',
+  'label',
+  'form',
+  'summary',
+  'details'
+]);
+
+export function shouldBlockBookFlip({ tagName = '', hasInteractiveAncestor = false, isScrollbarHit = false } = {}) {
+  if (hasInteractiveAncestor || isScrollbarHit) return true;
+  return INTERACTIVE_TAGS.has(String(tagName || '').toLowerCase());
+}
+
+export function classifyMobileSwipe({ dx = 0, dy = 0, durationMs = 0, startedInteractive = false } = {}) {
+  if (startedInteractive) return 'none';
+  if (durationMs <= 0 || durationMs > 480) return 'none';
+  const absX = Math.abs(dx);
+  const absY = Math.abs(dy);
+  // Require a deliberate, predominantly horizontal swipe so vertical page scrolling never turns pages
+  if (absX < 65 || absX < absY * 1.8) return 'none';
+  return dx < 0 ? 'next' : 'prev';
+}
+

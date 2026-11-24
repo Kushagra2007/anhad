@@ -5,10 +5,12 @@ import { createApp } from './server.js';
 import {
   COMPETITIONS,
   FEST_START_DATE,
+  classifyMobileSwipe,
   filterCompetitions,
   filterSchedule,
   formatCountdown,
   getFaqsByTopic,
+  shouldBlockBookFlip,
   validateFeedback
 } from './js/fest-logic.js';
 
@@ -44,7 +46,7 @@ test('Express static server serves index.html, styles, scripts, ANHAD logo PNGs,
     assert.match(html, /id="anhadLoader"/);
     assert.match(html, /scroll-roller-top/);
     assert.match(html, /scroll-roller-bottom/);
-    assert.match(html, /css\/book\.css\?v=4\.0/);
+    assert.match(html, /css\/book\.css\?v=5\.0/);
     assert.match(html, /src="assets\/anhad-logo\.png"/);
     assert.match(html, /src="assets\/student-council-logo\.png"[^>]*width="/);
     assert.match(html, /desk-art-backdrop/);
@@ -127,3 +129,22 @@ test('validateFeedback enforces name, valid email, and minimum message length', 
   assert.equal(validateFeedback({ name: 'Aarav', email: 'aarav@gcet.edu', message: 'Short' }).valid, false);
   assert.equal(validateFeedback({ name: 'Aarav', email: 'aarav@gcet.edu', message: 'Can external colleges join Day 2?' }).valid, true);
 });
+
+test('shouldBlockBookFlip blocks clicks on textareas, inputs, buttons, interactive ancestors, and scrollbars', () => {
+  assert.equal(shouldBlockBookFlip({ tagName: 'textarea' }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'input' }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'select' }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'button' }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'span', hasInteractiveAncestor: true }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'div', isScrollbarHit: true }), true);
+  assert.equal(shouldBlockBookFlip({ tagName: 'div', hasInteractiveAncestor: false, isScrollbarHit: false }), false);
+});
+
+test('classifyMobileSwipe ignores vertical scrolls and interactive taps while recognizing deliberate horizontal swipes', () => {
+  assert.equal(classifyMobileSwipe({ dx: 22, dy: 140, durationMs: 220 }), 'none');
+  assert.equal(classifyMobileSwipe({ dx: -95, dy: 10, durationMs: 200, startedInteractive: true }), 'none');
+  assert.equal(classifyMobileSwipe({ dx: -40, dy: 5, durationMs: 180 }), 'none');
+  assert.equal(classifyMobileSwipe({ dx: -95, dy: 18, durationMs: 210 }), 'next');
+  assert.equal(classifyMobileSwipe({ dx: 95, dy: 15, durationMs: 210 }), 'prev');
+});
+

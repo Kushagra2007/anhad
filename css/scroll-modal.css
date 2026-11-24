@@ -28,27 +28,27 @@
 }
 
 /* ── Physical Scroll Assembly (Top Roller + Parchment + Bottom Roller) ── */
+/* Uses 100% GPU-composited transform + clip-path from fixed full layout height
+   so both rollers remain pixel-locked to the parchment edges on every frame */
 .scroll-assembly {
+  --roller-travel: 260px;
+  --scroll-open-dur: 0.78s;
+  --scroll-open-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --scroll-close-dur: 0.46s;
+  --scroll-close-ease: cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   width: min(92vw, 520px);
   display: flex;
   flex-direction: column;
   align-items: center;
   filter: drop-shadow(0 26px 46px rgba(0, 0, 0, 0.72));
-  transform: translateY(10px) scale(0.97);
   opacity: 1;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
-}
-
-.invitation-overlay.unrolled .scroll-assembly {
-  transform: translateY(0) scale(1);
-  opacity: 1;
+  transition: opacity 0.22s ease;
 }
 
 .invitation-overlay.rolling-up .scroll-assembly {
-  transform: translateY(6px) scale(0.96);
   opacity: 0;
-  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s ease 0.35s;
+  transition: opacity 0.16s ease 0.38s;
 }
 
 /* Turned Sandalwood & Antique Brass Rollers */
@@ -79,7 +79,8 @@
     0 6px 14px rgba(0, 0, 0, 0.58);
   border: 1px solid rgba(220, 178, 92, 0.45);
   overflow: visible;
-  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  transition: transform var(--scroll-open-dur) var(--scroll-open-ease);
 }
 
 /* Ivory paper wrap peeking cleanly around the center of each cylinder */
@@ -146,33 +147,51 @@
   right: 11%;
 }
 
+/* Rolled-shut resting pose: both rollers meet seamlessly at the exact center */
 .scroll-roller-top {
   margin-bottom: -8px;
+  transform: translate3d(0, var(--roller-travel), 0);
 }
 
 .scroll-roller-bottom {
   margin-top: -8px;
+  transform: translate3d(0, calc(var(--roller-travel) * -1), 0);
 }
 
-/* ── Realistic Expanding/Collapsing Parchment Container ──────────── */
+/* Unrolled pose: both rollers rest at the top & bottom edges of the parchment */
+.invitation-overlay.unrolled .scroll-roller-top,
+.invitation-overlay.unrolled .scroll-roller-bottom {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Roll-up closing pose: synchronized reverse ease back to center */
+.invitation-overlay.rolling-up .scroll-roller {
+  transition: transform var(--scroll-close-dur) var(--scroll-close-ease);
+}
+
+/* ── Synchronized Parchment Unfurl Container (Zero Layout Reflow) ── */
 .scroll-parchment-wrap {
   width: 92%;
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.78s cubic-bezier(0.22, 1, 0.36, 1);
-  overflow: hidden;
   position: relative;
   z-index: 2;
+  overflow: hidden;
+  will-change: clip-path;
+  clip-path: inset(50% 0 50% 0);
+  -webkit-clip-path: inset(50% 0 50% 0);
+  transition: clip-path var(--scroll-open-dur) var(--scroll-open-ease),
+              -webkit-clip-path var(--scroll-open-dur) var(--scroll-open-ease);
 }
 
 .invitation-overlay.unrolled .scroll-parchment-wrap {
-  grid-template-rows: 1fr;
+  clip-path: inset(0% 0 0% 0);
+  -webkit-clip-path: inset(0% 0 0% 0);
 }
 
-/* Closing roll-up uses crisp reverse ease */
 .invitation-overlay.rolling-up .scroll-parchment-wrap {
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.44s cubic-bezier(0.4, 0, 0.2, 1);
+  clip-path: inset(50% 0 50% 0);
+  -webkit-clip-path: inset(50% 0 50% 0);
+  transition: clip-path var(--scroll-close-dur) var(--scroll-close-ease),
+              -webkit-clip-path var(--scroll-close-dur) var(--scroll-close-ease);
 }
 
 .scroll-parchment-inner {
@@ -184,6 +203,9 @@
 .scroll-parchment-sheet {
   position: relative;
   padding: 26px 28px 24px;
+  max-height: calc(100dvh - 104px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background:
     linear-gradient(
       90deg,

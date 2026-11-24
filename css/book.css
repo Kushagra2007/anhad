@@ -353,6 +353,9 @@ body.stage-book-open .desk-art-backdrop {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
   padding-right: 4px;
   scrollbar-width: thin;
   scrollbar-color: var(--paper-rule-strong) transparent;
